@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script> 
+	
+	<!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script> 
+    <!-- 页面主处理js -->	
+	<script type="text/javascript" src=./toccust.js></script>
+	 
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >    
+    	客户名称：
+    	<input id="custname"  type="text"  class="abc input-default"  placeholder="请输入客户名称模糊查询">&nbsp;&nbsp;  
+    	<button id="bt_getcust"  type="button" class="btn btn-primary" onclick="getTocCust()">查询客户</button> 
+	</form>
+	
+	<table id="i_custtable" class="table table-bordered table-hover definewidth m10"> 
+    	<thead>
+    	<tr> 
+	        <th>telA</th>
+	        <th>telX</th>
+	        <th>产品名称</th>
+	        <th>客户名称</th> 
+	        <th>证件号码</th>
+	        <th>证件地址</th>
+	        <th>支付金额</th>
+	        <th>订购编码</th>
+	        <th>订购时间</th>
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	 
+	<div id="wrapper" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  /> 
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div> 
+	</div> 
+	
+</body>
+
+</html> 

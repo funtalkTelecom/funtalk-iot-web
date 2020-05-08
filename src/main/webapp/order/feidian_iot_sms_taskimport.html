@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="../Css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="../Css/style.css" />
+<script type="text/javascript" src="../assets/js/jquery.js"></script>
+<script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../sysjs/signin.js"></script>
+<link type="text/css" rel="stylesheet" href="../css3_dialog/mdialog.css">
+<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+<!-- 分页相关 -->
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/jqpagination.css" />
+<script type="text/javascript" src="../assets/js/jquery.jqpagination.js"></script>
+
+
+</head>
+<body>
+
+	<form id="form_txt" class="form-inline definewidth m20" action="">
+		<table>
+			<tr>
+				<td style="font-size: 14pt;">任务分配：</td>
+			</tr>
+			<tr>
+				<td>下载模版：<a href="../files/iot_sms_txt.txt"
+					download="iot_sms_txt.txt">下载txt导入模板文件</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: red;">txt请从此处上传(B)：<input type="file" id="filename" name="filename">
+				</td>
+				<td><button type="button" class="btn btn-primary" onclick="txtupload()">文件上传</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+		<form id="form_exc" class="form-inline definewidth m20" action="">
+		<table>
+			<tr>
+				<td>下载模版：<a href="../files/iot_sms_xls.xls"
+					download="iot_sms_xls.xls">下载xls导入模板文件</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: red;">xls请从此处上传(B)：<input type="file" id="file" name="file">
+				</td>
+				<td><button type="button" class="btn btn-primary" onclick="xlsupload()">文件上传</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+<!-- 页面主处理js -->
+<script type="text/javascript" src="../assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="feidian_iot_sms_taskimport.js"></script>
+</html>

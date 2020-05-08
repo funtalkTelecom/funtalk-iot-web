@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+	<!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script>
+    
+    <!-- 页面主处理js -->	
+    <script type="text/javascript" src="../assets/js/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="addresslistinfo_ax.js"></script> 
+	 
+</head>
+<body>  
+	<form id="form_ax" class="form-inline definewidth m20"  action=""  >   
+		<table>   
+    		<tr><td style="font-size: 14pt;">1. 通讯录(AX)导入：</td></tr>
+    		<tr><td>下载模版：<a href="../files/ax.xls"  download="企业通讯录(AX)模板.xls" >下载通讯录(AX)模板</a></td></tr>
+        	<tr>
+        		<td>上传文件：<input type="file"  id="filename"  name="filename"></td>  
+        		<td><button type="button" class="btn btn-primary"  onClick="ax_upload()">上传并绑定</button></td>
+        	</tr>   	 
+		</table>
+	</form>
+	<hr/>
+	 
+	<font style="font-size: 14pt;">绑定结果：</font><button type="button" class="btn btn-primary"  onClick="getAXInfo()">查询结果</button><br/>
+	<table id="addressListAXTable" class="table table-bordered table-hover definewidth m10"  style="width:50%;" align="left"> 
+    	<thead>
+    	<tr>  
+	        <th style="width:30px">telA</th>
+	        <th style="width:30px">telX</th> 
+	        <th style="width:50px">绑定结果</th>
+	        <th style="width:100px">subid</th>  
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table> 
+	
+</body>
+
+</html> 

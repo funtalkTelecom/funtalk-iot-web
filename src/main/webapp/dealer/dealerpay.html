@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <script type="text/javascript" src=./dealer.js></script>
+    <script type="text/javascript"> 
+    	window.onload=function(){ 
+    		dealerPayInit();
+    	};
+    </script>
+    
+</head>
+<body> 
+<form action=""  method="post"  class="definewidth m20">
+<input type="hidden" name="id"   /> 
+	<font size="5">代理商资金池管理</font>
+    <table id="dealerpaytable" class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">代理商编码</td>
+            <td><input id="dealerid" type="text"  disabled="disabled"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">代理商名称</td>
+            <td><input id="dealername" type="text"  disabled="disabled" /></td>
+        </tr>
+        <tr>
+            <td class="tableleft">资金池信息</td>
+            <td><input id="dealeracctinfo" type="text"  disabled="disabled"  style="width:700px;" /></td>
+        </tr>
+        <tr>
+            <td class="tableleft">充值类型</td>
+            <td>
+            	<select id="dealeraccttype"  >
+		            <option value='10'>预存款</option>
+		            <option value='11' >保证金</option>
+		            <option value='12' >押金</option>
+				</select>
+			</td>
+        </tr>
+        <tr>
+            <td class="tableleft">充值金额(元)</td>
+            <td><input id="amount"  type="number"  min="1"  max="100000"/></td> 
+        </tr> 
+
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="button" class="btn btn-primary"  onClick="dealerCharge()">充 值</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-success"  onClick="javascript :history.back(-1);">返回代理商列表</button>
+            </td>  
+        </tr>
+    </table>
+</form>
+</body>
+</html>

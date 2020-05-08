@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css">
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <script type="text/javascript" src=./custadd.js></script>
+  
+</head>
+<body>
+<form action=""  method="post" class="definewidth m20">
+<table class="table table-bordered table-hover definewidth m10">
+    <tr>
+        <td width="15%" class="tableleft">公司名称</td>
+        <td><input  id="cust_name"  type="text" style="width:400px;"/>&nbsp;&nbsp;*必填</td>
+    </tr>
+    <tr>
+        <td width="15%" class="tableleft">营业执照</td>
+        <td><input id="id_code"  type="text" style="width:400px;"></input>&nbsp;&nbsp;*必填</td>
+    </tr>
+
+    <tr>
+        <td width="15%" class="tableleft">地址</td>
+        <td><input  id="address"  type="text" style="width:400px;"/>&nbsp;&nbsp;*必填</td>
+    </tr>
+    <tr>
+        <td width="15%" class="tableleft">联系人</td>
+        <td><input id="contacts" type="text" style="width:300px;"></input>&nbsp;&nbsp;*必填</td>
+    </tr>
+    <tr>
+        <td width="15%" class="tableleft">联系人电话</td>
+        <td><input id="contacts_num" type="text" style="width:300px;" ></input>&nbsp;&nbsp;*必填</td>
+    </tr>
+
+    <tr>
+		<td class="tableleft">是否有效</td>
+		<td><input id="status"  type="checkbox"   checked="checked" /></td>
+	</tr> 
+    <tr>
+        <td class="tableleft"></td>
+        <td>
+            <button type="button" class="btn btn-primary"  onClick="addCust()">保  存</button> &nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-success"  onClick="javascript:history.back(-1);">返回列表</button>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

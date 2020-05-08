@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.funtalk.mapper.TaskMapper" >
+    <resultMap id="BaseResultMap" type="com.funtalk.pojo.Task" >
+      <id column="task_id" property="taskId" jdbcType="INTEGER" />
+      <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+      <result column="task_type" property="taskType" jdbcType="VARCHAR" />
+      <result column="task_count" property="taskCount" jdbcType="INTEGER" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="state_time" property="stateTime" jdbcType="TIMESTAMP" />
+      <result column="suc_count" property="sucCount" jdbcType="INTEGER" />
+      <result column="fail_count" property="failCount" jdbcType="INTEGER" />
+      <result column="success_msg" property="successMsg" jdbcType="VARCHAR" />
+      <result column="fail_msg" property="failMsg" jdbcType="VARCHAR" />
+      <result column="req_seq" property="reqSeq" jdbcType="VARCHAR" />
+      <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="if_send" property="ifSend" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+  <insert id="insert" parameterType="com.funtalk.pojo.Task" useGeneratedKeys="true" keyProperty="taskId" >
+    insert into tb_s_task (task_id, cust_id, task_type,
+      task_count, state, state_time,
+       req_seq, notify_url)
+    values (#{taskId,jdbcType=INTEGER}, #{custId,jdbcType=VARCHAR}, #{taskType,jdbcType=VARCHAR},
+      #{taskCount,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, #{stateTime,jdbcType=TIMESTAMP},
+       #{reqSeq,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR})
+  </insert>
+
+
+  <update id="updateTaskCount">
+
+    update tb_s_task
+    set task_count=#{taskCount,jdbcType=INTEGER}
+    where task_id =#{taskId,jdbcType=INTEGER};
+
+  </update>
+
+
+</mapper>

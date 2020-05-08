@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="../Css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="../Css/style.css" />
+<script type="text/javascript" src="../assets/js/jquery.js"></script>
+<script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../sysjs/signin.js"></script>
+<link type="text/css" rel="stylesheet" href="../css3_dialog/mdialog.css">
+<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+<!-- 分页相关 -->
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/jqpagination.css" />
+<script type="text/javascript" src="../assets/js/jquery.jqpagination.js"></script>
+
+
+</head>
+<body>
+<div style="font-size: 14pt;padding-top:20px;padding-left:20px">发送短信次数统计</div>
+	<hr />
+
+	<table id="addressListTable"
+		class="table table-bordered table-hover definewidth m10">
+		<thead>
+			<tr>
+				<th>发送号码</th>
+				<th>发送短信总次数</th>
+				<th>发送短信成功次数</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<div id="wrapper" style="text-align:center" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  /> 
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div> 
+	</div> 
+
+</body>
+<!-- 页面主处理js -->
+<script type="text/javascript" src="../assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="iot_sms_total.js"></script>
+</html>

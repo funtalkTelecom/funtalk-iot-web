@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbLChargeMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbLCharge" >
+    <result column="charge_id" property="chargeId" jdbcType="INTEGER" />
+    <result column="charge_type" property="chargeType" jdbcType="INTEGER" />
+    <result column="acct_id" property="acctId" jdbcType="INTEGER" />
+    <result column="de_code" property="deCode" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="cancel_time" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="charge_status" property="chargeStatus" jdbcType="INTEGER" />
+    <result column="dealer_id" property="dealerId" jdbcType="INTEGER" />
+    <result column="charge_for" property="chargeFor" jdbcType="INTEGER" />
+    <result column="for_id" property="forId" jdbcType="VARCHAR" />
+    <result column="work_no" property="workNo" jdbcType="VARCHAR" />
+    <result column="trans_id" property="transId" jdbcType="VARCHAR" />
+    <result column="ser_num" property="serNum" jdbcType="VARCHAR" />
+    <result column="qr_code" property="qrCode" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.funtalk.pojo.TbLCharge" extends="BaseResultMap" >
+    <result column="trans_res" property="transRes" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    charge_id, charge_type, acct_id, de_code, phone_num, pay_amount, amount, create_time, 
+    modify_time, cancel_time, pay_status, pay_time, charge_status, dealer_id, charge_for,
+    for_id, work_no, trans_id, ser_num, qr_code, open_id, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    trans_res
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.funtalk.pojo.TbLChargeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_l_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbLChargeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_l_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbLChargeExample" >
+    delete from tb_l_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbLCharge"  useGeneratedKeys="true" keyProperty="chargeId">
+    insert into tb_l_charge (charge_id, charge_type, acct_id, 
+      de_code, phone_num, pay_amount, 
+      amount, create_time, modify_time, 
+      cancel_time, pay_status, pay_time,
+      charge_status, dealer_id, charge_for,
+      for_id, work_no, trans_id,
+      ser_num, qr_code, open_id,
+      remark, trans_res)
+    values (#{chargeId,jdbcType=INTEGER}, #{chargeType,jdbcType=INTEGER}, #{acctId,jdbcType=INTEGER}, 
+      #{deCode,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{payAmount,jdbcType=INTEGER},
+      #{amount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{cancelTime,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=INTEGER}, #{payTime,jdbcType=TIMESTAMP},
+      #{chargeStatus,jdbcType=INTEGER}, #{dealerId,jdbcType=INTEGER}, #{chargeFor,jdbcType=INTEGER},
+      #{forId,jdbcType=VARCHAR}, #{workNo,jdbcType=VARCHAR}, #{transId,jdbcType=VARCHAR},
+      #{serNum,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR}, #{transRes,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbLCharge" >
+    insert into tb_l_charge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chargeId != null" >
+        charge_id,
+      </if>
+      <if test="chargeType != null" >
+        charge_type,
+      </if>
+      <if test="acctId != null" >
+        acct_id,
+      </if>
+      <if test="deCode != null" >
+        de_code,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="chargeStatus != null" >
+        charge_status,
+      </if>
+      <if test="dealerId != null" >
+        dealer_id,
+      </if>
+      <if test="chargeFor != null" >
+        charge_for,
+      </if>
+      <if test="forId != null" >
+        for_id,
+      </if>
+      <if test="workNo != null" >
+        work_no,
+      </if>
+      <if test="transId != null" >
+        trans_id,
+      </if>
+      <if test="serNum != null" >
+        ser_num,
+      </if>
+      <if test="qrCode != null" >
+        qr_code,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="transRes != null" >
+        trans_res,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chargeId != null" >
+        #{chargeId,jdbcType=INTEGER},
+      </if>
+      <if test="chargeType != null" >
+        #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="acctId != null" >
+        #{acctId,jdbcType=INTEGER},
+      </if>
+      <if test="deCode != null" >
+        #{deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeStatus != null" >
+        #{chargeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dealerId != null" >
+        #{dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="chargeFor != null" >
+        #{chargeFor,jdbcType=INTEGER},
+      </if>
+      <if test="forId != null" >
+        #{forId,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transId != null" >
+        #{transId,jdbcType=VARCHAR},
+      </if>
+      <if test="serNum != null" >
+        #{serNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null" >
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="transRes != null" >
+        #{transRes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbLChargeExample" resultType="java.lang.Integer" >
+    select count(*) from tb_l_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_l_charge
+    <set >
+      <if test="record.chargeId != null" >
+        charge_id = #{record.chargeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chargeType != null" >
+        charge_type = #{record.chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.acctId != null" >
+        acct_id = #{record.acctId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deCode != null" >
+        de_code = #{record.deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNum != null" >
+        phone_num = #{record.phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAmount != null" >
+        pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cancelTime != null" >
+        cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payStatus != null" >
+        pay_status = #{record.payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chargeStatus != null" >
+        charge_status = #{record.chargeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dealerId != null" >
+        dealer_id = #{record.dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chargeFor != null" >
+        charge_for = #{record.chargeFor,jdbcType=INTEGER},
+      </if>
+      <if test="record.forId != null" >
+        for_id = #{record.forId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workNo != null" >
+        work_no = #{record.workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transId != null" >
+        trans_id = #{record.transId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serNum != null" >
+        ser_num = #{record.serNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrCode != null" >
+        qr_code = #{record.qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transRes != null" >
+        trans_res = #{record.transRes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tb_l_charge
+    set charge_id = #{record.chargeId,jdbcType=INTEGER},
+      charge_type = #{record.chargeType,jdbcType=INTEGER},
+      acct_id = #{record.acctId,jdbcType=INTEGER},
+      de_code = #{record.deCode,jdbcType=VARCHAR},
+      phone_num = #{record.phoneNum,jdbcType=VARCHAR},
+      pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
+      pay_status = #{record.payStatus,jdbcType=INTEGER},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      charge_status = #{record.chargeStatus,jdbcType=INTEGER},
+      dealer_id = #{record.dealerId,jdbcType=INTEGER},
+      charge_for = #{record.chargeFor,jdbcType=INTEGER},
+      for_id = #{record.forId,jdbcType=VARCHAR},
+      work_no = #{record.workNo,jdbcType=VARCHAR},
+      trans_id = #{record.transId,jdbcType=VARCHAR},
+      ser_num = #{record.serNum,jdbcType=VARCHAR},
+      qr_code = #{record.qrCode,jdbcType=VARCHAR},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      trans_res = #{record.transRes,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_l_charge
+    set charge_id = #{record.chargeId,jdbcType=INTEGER},
+      charge_type = #{record.chargeType,jdbcType=INTEGER},
+      acct_id = #{record.acctId,jdbcType=INTEGER},
+      de_code = #{record.deCode,jdbcType=VARCHAR},
+      phone_num = #{record.phoneNum,jdbcType=VARCHAR},
+      pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      cancel_time = #{record.cancelTime,jdbcType=TIMESTAMP},
+      pay_status = #{record.payStatus,jdbcType=INTEGER},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      charge_status = #{record.chargeStatus,jdbcType=INTEGER},
+      dealer_id = #{record.dealerId,jdbcType=INTEGER},
+      charge_for = #{record.chargeFor,jdbcType=INTEGER},
+      for_id = #{record.forId,jdbcType=VARCHAR},
+      work_no = #{record.workNo,jdbcType=VARCHAR},
+      trans_id = #{record.transId,jdbcType=VARCHAR},
+      ser_num = #{record.serNum,jdbcType=VARCHAR},
+      qr_code = #{record.qrCode,jdbcType=VARCHAR},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <select id="getTransId" resultType="java.lang.Integer">
+
+    SELECT NEXTVAL(#{transType,jdbcType=VARCHAR});
+
+  </select>
+
+
+  <update id="updateByKey">
+
+    update tb_l_charge t set
+
+    <set>
+      <if test="field != null and field ='pay'" >
+        t.pay_state= #{state,jdbcType=INTEGER}
+      </if>
+      <if test="field != null and field ='charge'" >
+        t.charge_state= #{state,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null" >
+        t.remark= #{remark,jdbcType=VARCHAR}
+      </if>
+    </set>
+
+    where t.charge_id=#{chargeId,jdbcType=INTEGER}
+
+  </update>
+
+  <update id="updateYstPayCallback">
+
+    update tb_l_charge t set
+    t.pay_state= #{chargeId,jdbcType=INTEGER},
+    t.pay_time= CURRENT_TIMESTAMP
+    where t.ser_num=#{serNum,jdbcType=VARCHAR}
+
+  </update>
+
+
+  <select id="getChargelogByWorkno" resultMap="BaseResultMap">
+
+    SELECT de_code,amount/100 'amount',charge_type,create_time
+    FROM tb_l_charge t WHERE t.work_no =#{workno} AND t.charge_status='2'
+    AND t.create_time BETWEEN  DATE_SUB(NOW(),INTERVAL 6 MONTH)  AND NOW()
+    ORDER BY t.create_time DESC  limit #{offset}, #{limit}
+
+  </select>
+
+  <select id="getChargelogByWorknoCount" resultType="int">
+
+    SELECT COUNT(*) FROM tb_l_charge t WHERE t.work_no =#{workno} AND t.charge_status='2'
+    AND t.create_time BETWEEN  DATE_SUB(NOW(),INTERVAL 6 MONTH)  AND NOW()
+
+  </select>
+
+
+  <update id="updateState">
+    update tb_l_charge
+    <set>
+
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeStatus != null" >
+        charge_status = #{chargeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark= #{remark,jdbcType=VARCHAR}
+      </if>
+    </set>
+
+    where charge_id = #{chargeId}
+
+  </update>
+
+</mapper>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSSmstemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSSmstemplate" >
+    <id column="tem_id" property="temId" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="tem_type" property="temType" jdbcType="VARCHAR" />
+    <result column="tem_content" property="temContent" jdbcType="VARCHAR" />
+    <result column="if_valid" property="ifValid" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tem_id, cust_id, tem_type, tem_content, if_valid, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSSmstemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_smstemplate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_smstemplate
+    where tem_id = #{temId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_smstemplate
+    where tem_id = #{temId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSSmstemplateExample" >
+    delete from tb_s_smstemplate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSSmstemplate" >
+    insert into tb_s_smstemplate (tem_id, cust_id, tem_type, 
+      tem_content, if_valid, create_date
+      )
+    values (#{temId,jdbcType=INTEGER}, #{custId,jdbcType=VARCHAR}, #{temType,jdbcType=VARCHAR}, 
+      #{temContent,jdbcType=VARCHAR}, #{ifValid,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSSmstemplate" >
+    insert into tb_s_smstemplate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="temId != null" >
+        tem_id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="temType != null" >
+        tem_type,
+      </if>
+      <if test="temContent != null" >
+        tem_content,
+      </if>
+      <if test="ifValid != null" >
+        if_valid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="temId != null" >
+        #{temId,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="temType != null" >
+        #{temType,jdbcType=VARCHAR},
+      </if>
+      <if test="temContent != null" >
+        #{temContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSSmstemplateExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_smstemplate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_smstemplate
+    <set >
+      <if test="record.temId != null" >
+        tem_id = #{record.temId,jdbcType=INTEGER},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.temType != null" >
+        tem_type = #{record.temType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.temContent != null" >
+        tem_content = #{record.temContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifValid != null" >
+        if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_smstemplate
+    set tem_id = #{record.temId,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      tem_type = #{record.temType,jdbcType=VARCHAR},
+      tem_content = #{record.temContent,jdbcType=VARCHAR},
+      if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSSmstemplate" >
+    update tb_s_smstemplate
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="temType != null" >
+        tem_type = #{temType,jdbcType=VARCHAR},
+      </if>
+      <if test="temContent != null" >
+        tem_content = #{temContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ifValid != null" >
+        if_valid = #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tem_id = #{temId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSSmstemplate" >
+    update tb_s_smstemplate
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      tem_type = #{temType,jdbcType=VARCHAR},
+      tem_content = #{temContent,jdbcType=VARCHAR},
+      if_valid = #{ifValid,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where tem_id = #{temId,jdbcType=INTEGER}
+  </update>
+
+
+<select id="getpageQueryByCust" resultMap="BaseResultMap">
+
+    SELECT  a.tem_content,
+    (SELECT key_value FROM tb_p_system WHERE NAME='sms_template' AND key_id=a.tem_type) tem_type
+    FROM tb_s_smstemplate A INNER JOIN tb_s_employee B
+    ON A.`cust_id`=B.`cust_id` AND B.`work_no`=#{workno,jdbcType=VARCHAR} and a.if_valid='1'
+  <where>
+    <if test="search!= null and search !=''"> tem_content like concat('%', #{search}, '%') </if>
+  </where>
+  limit #{offset}, #{limit}
+
+</select>
+
+  <select id="queryCount" resultType="int" >
+
+    SELECT  COUNT(*) FROM tb_s_smstemplate A INNER JOIN tb_s_employee B
+    ON A.`cust_id`=B.`cust_id` AND B.`work_no`=#{workno,jdbcType=VARCHAR} and a.if_valid='1'
+    <where>
+      <if test="search!= null and search !=''"> tem_content like concat('%', #{search}, '%') </if>
+    </where>
+  </select>
+</mapper>

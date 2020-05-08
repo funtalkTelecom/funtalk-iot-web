@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <script type="text/javascript" src="../sysjs/signin.js"></script> 
+    <script type="text/javascript" src="../assets/js/DatePicker.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>  
+	
+    <!-- 页面主处理js -->	 
+	<script type="text/javascript"  src="trafficbilled.js"></script>
+	 
+	  
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >  
+	<font size="4">话单统计查询</font><br/>
+		查询日期：
+		<input id="stat_month"  onclick="setday(this)" /> 
+		隐私号码：
+		<input id="telX"  placeholder="输入隐私号码" /> 
+		<button type="button" class="btn btn-primary" onclick="getReport()">查 询</button>
+	</form>
+	
+	<table id="reportTable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr>
+	        <th>月份</th>
+	        <th>日期</th>
+	        <th>类型</th>
+	        <th>代理商名称</th>
+	        <th>客户名称</th>
+	        <th>呼叫类型</th>
+	        <th>telA</th>
+	        <th>telX</th>
+	        <th>telB</th>
+	        <th>开始时间</th>
+	        <th>通话时长(分)</th> 
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	  
+	
+</body>
+
+</html> 

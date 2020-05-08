@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>  
+	
+    <!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script> 
+    <!-- 页面主处理js -->	
+	<script type="text/javascript" src=./productadd.js></script>  
+</head>
+<body>
+<form action="" method="post" class="definewidth m20">
+<input type="hidden" name="id" value="{$user.id}" />
+    <table class="table table-bordered table-hover definewidth m10"> 
+        <tr><td class="tableleft">产品名称</td><td><input id="productName" /></td></tr> 
+        <tr><td class="tableleft">产品月租(元)</td><td><input id="monthFee" /></td></tr>
+        <tr><td class="tableleft">使用量(分钟)</td><td><input id="voiceCnt" /></td></tr>
+        <tr><td class="tableleft">超出计费(元)</td><td><input id="overdueFee" /></td></tr>
+        <tr><td class="tableleft">号码月租(元)</td><td><input id="phone_monthfee" /></td></tr> 
+        <tr><td class="tableleft">自动续订</td><td><input id="autoOrder"  type="checkbox" /></td></tr>
+        <tr><td class="tableleft">通话录音</td><td><input id="recording"   type="checkbox" /></td></tr>
+        <tr><td class="tableleft">AX(号码显示)</td><td><select id="ax_display" >
+ 																							<option value='0'>显示真实号码</option>
+																			            	<option value='1'>显示X号码</option>
+																			            	<option value='2'>显示Z号码池中的号码</option>
+ 																						</select></td></tr>
+        <tr><td class="tableleft">AXB(号码显示)</td><td>A显示真实号码&nbsp;<input id="axb_a_display"  type="checkbox" />&nbsp;&nbsp;,
+        																				 B显示真实号码&nbsp;<input id="axb_b_display"  type="checkbox" /></td></tr> 
+	        
+        <tr><td class="tableleft">产品描述</td>
+            <td><textarea id="productDesc"  style="height: 200px;width: 500px;resize: none;" ></textarea></td></tr> 
+		<tr><td class="tableleft">是否启用</td><td><input id="if_valid"  type="checkbox" /></td></tr>
+            
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="button" class="btn btn-primary"  onClick="productAdd();">新 增</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-success" onClick="javascript :history.back(-1);">返回列表</button>                
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

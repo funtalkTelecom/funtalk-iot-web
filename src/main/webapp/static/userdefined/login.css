@@ -1,0 +1,97 @@
+
+body{ text-align:center;
+    font-family: "MicrosoftJhengHei";
+    background:url(../img/login-b.jpg) no-repeat 0px 0px;
+    background-size:cover;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+}
+
+.gcs-login{
+
+    height: 500px;
+    margin: 100px auto;
+    width: 500px;
+    background-color: #E6E6E6;
+}
+
+.gcs-login .login-title {
+    margin-top: 100px;
+    padding-top:30px;
+    color: #62a8ea;
+    letter-spacing: 10px;
+}
+
+
+
+.gcs-login-container {
+
+    position:relative;
+    width: 100%;
+    padding-top:30px;
+}
+
+.gcs-login .input {
+
+    position: relative;
+    border: 1px solid white;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 80%;
+    height: 46px;
+    padding-left: 10px;
+    margin: 0 auto;
+    font-size: 14px;
+    color:  #76838f;
+}
+
+.gcs-login .gcs-login-validation{
+
+    width:80%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.gcs-login .validation-input{
+
+    position: absolute;
+    width: 250px;
+    left: 0px;
+}
+
+.gcs-login img.validation-img{
+
+    position: absolute;
+    cursor:pointer;
+    width: 125px;
+    height: 45px;
+    right: 0px;
+}
+
+.gcs-login .input:focus {
+
+    outline: none;
+    border: 1px solid #62a8ea;
+
+}
+
+.gcs-login .btn-login {
+
+    background-color: #62a8ea;
+    border: none;
+    width: 80%;
+    height: 45px;
+    line-height: 45px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.gcs-login .btn-login:hover{
+
+    opacity: 0.9;
+
+}

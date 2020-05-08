@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../assets/js/DatePicker.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css">
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+	<!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script>
+
+	<!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script>
+    <!-- 页面主处理js -->
+	<script type="text/javascript" src=telecomsettle.js></script>
+	 
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >    
+    	结算账期：
+		<input id="indb_date"  onclick="setday(this,'yyyyMM')" />&nbsp;&nbsp;
+    	<button id="bt_getcust"  type="button" class="btn btn-primary" onclick="getSettle()">查询</button>&nbsp;&nbsp;
+
+	</form>
+	
+	<table id="i_settletable" class="table table-bordered table-hover definewidth m10">
+    	<thead align="center">
+		<tr>
+			<th colspan="6"  style="text-align:center;">乐语通信电信结算报表</th>
+		</tr>
+    	<tr>
+	        <th>账期</th>
+			<th>基础业务</th>
+	        <th>基础业务(税)</th>
+	        <th>增值业务</th>
+	        <th>增值业务(税)</th>
+			<th>合计</th>
+    	</tr>
+    	</thead>
+    	<tbody></tbody>
+	</table>
+
+	<div id="wrapper">
+		<div class="gigantic pagination">
+			<a href="#" class="first" data-action="first"  >&laquo;</a>
+			<a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+			<input id="pageinfo"  type="text"  readonly="readonly" disabled  />
+			<a href="#" class="next" data-action="next"  >&rsaquo;</a>
+			<a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div>
+	</div>
+	
+</body>
+
+</html> 

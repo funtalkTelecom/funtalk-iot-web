@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+    
+    <!-- 页面主处理js -->	
+	<script type="text/javascript" src=./axorder.js></script>
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script> 
+	
+	<script type="text/javascript">
+		window.onload = OrderInit(); 
+	</script>
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >    
+    	手机号码： <input id="serviceid"  type="text"  class="abc input-default"  placeholder="请输入手机号码查询">&nbsp;&nbsp;   
+    	客户姓名： <input id="custname"  type="text"  class="abc input-default"  placeholder="请输入客户姓名查询">&nbsp;&nbsp; 
+    	<button id="bt_getorder"  type="button" class="btn btn-primary"  onclick="getOrder()">查询订单</button>&nbsp;&nbsp;   
+	</form>
+	
+	<table id="ordertable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr>
+	        <th>订单编码</th>
+	        <th>代理商名称</th> 
+	        <th>归属地市</th> 
+	        <th>订单类型</th>
+	        <th>手机号码</th>  
+	        <th>套餐名称</th>
+	        <th>客户名称</th>
+	        <th>客户证件</th>
+	        <th>证件地址</th> 
+	        <th>创建时间</th> 
+	        <th>订单状态</th>   
+	        <th>本人持证照片</th>
+	        <th>订单签字照片</th>
+	        <th>身份证正面</th>
+	        <th>身份证反面</th>
+	        <th>操作</th>
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	 
+	<div id="wrapper" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  /> 
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div> 
+	</div> 
+	
+</body>
+
+</html> 

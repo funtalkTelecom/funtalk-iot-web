@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <script type="text/javascript" src="../sysjs/signin.js"></script> 
+    <script type="text/javascript" src="../assets/js/DatePicker.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+    <!--  日期控件 
+    <link rel="stylesheet" type="text/css" href="../DateTimePicker/css/styles.css" media="all">
+    <script type="text/javascript" src="../DateTimePicker/js/moment.js"></script>
+	<script type="text/javascript" src="../DateTimePicker/js/bootstrap-datetimepicker.js"></script>
+	-->
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script> 
+	
+    <!-- 页面主处理js -->	 
+	<script type="text/javascript" src="gatherInfo.js"></script>
+	 
+	  
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >   
+		<font size="4">账单查询</font> 
+    	<table id="dealerpaytable" class="table table-bordered table-hover definewidth m10">
+    		<tr>
+    			<td>查询月份：</td><td><input id="stat_month"  onclick="setmonth(this)" /></td>
+    			<!-- 
+    			<td>账单类型：</td><td><select id="gathertype"  >
+													      	<option value='AX'>AX</option>
+													        <option value='AXB' >AXB</option> 
+														  </select></td>
+				-->
+				<td><button type="button" class="btn btn-primary" onclick="getGatherInfo()">查 询</button></td>
+    		</tr>
+    	</table> 
+	</form> 
+	
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3">账单明细</font>
+	<table id="callInfoSumtable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr>
+    		<th>查询月份</th>
+    		<th>账单类型</th>
+	        <th>本月使用量合计(分钟)</th> 
+	        <th>本月金额合计(元)</th> 
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>  
+	 
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3">剩余使用量</font>
+	<table id="accBooktable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr>
+    		<th>查询月份</th>
+	        <th>账户id</th> 
+	        <th>账本id</th>
+	        <th>账本类型</th>
+	        <th>账本余额</th>
+	        <th>开始时间</th> 
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table> 
+	  
+	
+</body>
+
+</html> 

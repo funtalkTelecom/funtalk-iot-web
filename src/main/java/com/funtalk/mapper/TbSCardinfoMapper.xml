@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSCardinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSCardinfo" >
+    <id column="card_id" property="cardId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="service_kind" property="serviceKind" jdbcType="VARCHAR" />
+    <result column="iccid_master" property="iccidMaster" jdbcType="VARCHAR" />
+    <result column="iccid_assistant" property="iccidAssistant" jdbcType="VARCHAR" />
+    <result column="if_seed" property="ifSeed" jdbcType="VARCHAR" />
+    <result column="seed_iccid" property="seedIccid" jdbcType="VARCHAR" />
+    <result column="seed_data" property="seedData" jdbcType="VARCHAR" />
+    <result column="data1" property="data1" jdbcType="VARCHAR" />
+    <result column="data2" property="data2" jdbcType="VARCHAR" />
+    <result column="data3" property="data3" jdbcType="VARCHAR" />
+    <result column="data4" property="data4" jdbcType="VARCHAR" />
+    <result column="data5" property="data5" jdbcType="VARCHAR" />
+    <result column="data6" property="data6" jdbcType="VARCHAR" />
+    <result column="data7" property="data7" jdbcType="VARCHAR" />
+    <result column="data8" property="data8" jdbcType="VARCHAR" />
+    <result column="data9" property="data9" jdbcType="VARCHAR" />
+    <result column="data10" property="data10" jdbcType="VARCHAR" />
+    <result column="change_data" property="changeData" jdbcType="VARCHAR" />
+    <result column="delete_data" property="deleteData" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="city_a" property="cityA" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="if_valid" property="ifValid" jdbcType="VARCHAR" />
+    <result column="if_use" property="ifUse" jdbcType="VARCHAR" />
+    <result column="day_use" property="dayUse" jdbcType="INTEGER" />
+    <result column="day_total" property="dayTotal" jdbcType="INTEGER" />
+    <result column="month_use" property="monthUse" jdbcType="INTEGER" />
+    <result column="month_total" property="monthTotal" jdbcType="INTEGER" />
+    <result column="belong_seed" property="belongSeed" jdbcType="VARCHAR" />
+    <result column="signal_level" property="signalLevel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    card_id, service_id, service_kind, iccid_master, iccid_assistant, if_seed, seed_iccid, 
+    seed_data, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, 
+    change_data, delete_data, create_time, city_a, state, if_valid, if_use, day_use, 
+    day_total, month_use, month_total, belong_seed, signal_level
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSCardinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_cardinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_cardinfo
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_cardinfo
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSCardinfoExample" >
+    delete from tb_s_cardinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSCardinfo" >
+    insert into tb_s_cardinfo (card_id, service_id, service_kind, 
+      iccid_master, iccid_assistant, if_seed, 
+      seed_iccid, seed_data, data1, 
+      data2, data3, data4, 
+      data5, data6, data7, 
+      data8, data9, data10, 
+      change_data, delete_data, create_time, 
+      city_a, state, if_valid, 
+      if_use, day_use, day_total, 
+      month_use, month_total, belong_seed, 
+      signal_level)
+    values (#{cardId,jdbcType=INTEGER}, #{serviceId,jdbcType=VARCHAR}, #{serviceKind,jdbcType=VARCHAR}, 
+      #{iccidMaster,jdbcType=VARCHAR}, #{iccidAssistant,jdbcType=VARCHAR}, #{ifSeed,jdbcType=VARCHAR}, 
+      #{seedIccid,jdbcType=VARCHAR}, #{seedData,jdbcType=VARCHAR}, #{data1,jdbcType=VARCHAR}, 
+      #{data2,jdbcType=VARCHAR}, #{data3,jdbcType=VARCHAR}, #{data4,jdbcType=VARCHAR}, 
+      #{data5,jdbcType=VARCHAR}, #{data6,jdbcType=VARCHAR}, #{data7,jdbcType=VARCHAR}, 
+      #{data8,jdbcType=VARCHAR}, #{data9,jdbcType=VARCHAR}, #{data10,jdbcType=VARCHAR}, 
+      #{changeData,jdbcType=VARCHAR}, #{deleteData,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{cityA,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{ifValid,jdbcType=VARCHAR}, 
+      #{ifUse,jdbcType=VARCHAR}, #{dayUse,jdbcType=INTEGER}, #{dayTotal,jdbcType=INTEGER}, 
+      #{monthUse,jdbcType=INTEGER}, #{monthTotal,jdbcType=INTEGER}, #{belongSeed,jdbcType=VARCHAR}, 
+      #{signalLevel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSCardinfo" >
+    insert into tb_s_cardinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="serviceKind != null" >
+        service_kind,
+      </if>
+      <if test="iccidMaster != null" >
+        iccid_master,
+      </if>
+      <if test="iccidAssistant != null" >
+        iccid_assistant,
+      </if>
+      <if test="ifSeed != null" >
+        if_seed,
+      </if>
+      <if test="seedIccid != null" >
+        seed_iccid,
+      </if>
+      <if test="seedData != null" >
+        seed_data,
+      </if>
+      <if test="data1 != null" >
+        data1,
+      </if>
+      <if test="data2 != null" >
+        data2,
+      </if>
+      <if test="data3 != null" >
+        data3,
+      </if>
+      <if test="data4 != null" >
+        data4,
+      </if>
+      <if test="data5 != null" >
+        data5,
+      </if>
+      <if test="data6 != null" >
+        data6,
+      </if>
+      <if test="data7 != null" >
+        data7,
+      </if>
+      <if test="data8 != null" >
+        data8,
+      </if>
+      <if test="data9 != null" >
+        data9,
+      </if>
+      <if test="data10 != null" >
+        data10,
+      </if>
+      <if test="changeData != null" >
+        change_data,
+      </if>
+      <if test="deleteData != null" >
+        delete_data,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="cityA != null" >
+        city_a,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="ifValid != null" >
+        if_valid,
+      </if>
+      <if test="ifUse != null" >
+        if_use,
+      </if>
+      <if test="dayUse != null" >
+        day_use,
+      </if>
+      <if test="dayTotal != null" >
+        day_total,
+      </if>
+      <if test="monthUse != null" >
+        month_use,
+      </if>
+      <if test="monthTotal != null" >
+        month_total,
+      </if>
+      <if test="belongSeed != null" >
+        belong_seed,
+      </if>
+      <if test="signalLevel != null" >
+        signal_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardId != null" >
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidMaster != null" >
+        #{iccidMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidAssistant != null" >
+        #{iccidAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="ifSeed != null" >
+        #{ifSeed,jdbcType=VARCHAR},
+      </if>
+      <if test="seedIccid != null" >
+        #{seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="seedData != null" >
+        #{seedData,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null" >
+        #{data1,jdbcType=VARCHAR},
+      </if>
+      <if test="data2 != null" >
+        #{data2,jdbcType=VARCHAR},
+      </if>
+      <if test="data3 != null" >
+        #{data3,jdbcType=VARCHAR},
+      </if>
+      <if test="data4 != null" >
+        #{data4,jdbcType=VARCHAR},
+      </if>
+      <if test="data5 != null" >
+        #{data5,jdbcType=VARCHAR},
+      </if>
+      <if test="data6 != null" >
+        #{data6,jdbcType=VARCHAR},
+      </if>
+      <if test="data7 != null" >
+        #{data7,jdbcType=VARCHAR},
+      </if>
+      <if test="data8 != null" >
+        #{data8,jdbcType=VARCHAR},
+      </if>
+      <if test="data9 != null" >
+        #{data9,jdbcType=VARCHAR},
+      </if>
+      <if test="data10 != null" >
+        #{data10,jdbcType=VARCHAR},
+      </if>
+      <if test="changeData != null" >
+        #{changeData,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteData != null" >
+        #{deleteData,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cityA != null" >
+        #{cityA,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifUse != null" >
+        #{ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="dayUse != null" >
+        #{dayUse,jdbcType=INTEGER},
+      </if>
+      <if test="dayTotal != null" >
+        #{dayTotal,jdbcType=INTEGER},
+      </if>
+      <if test="monthUse != null" >
+        #{monthUse,jdbcType=INTEGER},
+      </if>
+      <if test="monthTotal != null" >
+        #{monthTotal,jdbcType=INTEGER},
+      </if>
+      <if test="belongSeed != null" >
+        #{belongSeed,jdbcType=VARCHAR},
+      </if>
+      <if test="signalLevel != null" >
+        #{signalLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSCardinfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_cardinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_cardinfo
+    <set >
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceId != null" >
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceKind != null" >
+        service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccidMaster != null" >
+        iccid_master = #{record.iccidMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccidAssistant != null" >
+        iccid_assistant = #{record.iccidAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifSeed != null" >
+        if_seed = #{record.ifSeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seedIccid != null" >
+        seed_iccid = #{record.seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seedData != null" >
+        seed_data = #{record.seedData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data1 != null" >
+        data1 = #{record.data1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data2 != null" >
+        data2 = #{record.data2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data3 != null" >
+        data3 = #{record.data3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data4 != null" >
+        data4 = #{record.data4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data5 != null" >
+        data5 = #{record.data5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data6 != null" >
+        data6 = #{record.data6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data7 != null" >
+        data7 = #{record.data7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data8 != null" >
+        data8 = #{record.data8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data9 != null" >
+        data9 = #{record.data9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data10 != null" >
+        data10 = #{record.data10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeData != null" >
+        change_data = #{record.changeData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteData != null" >
+        delete_data = #{record.deleteData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cityA != null" >
+        city_a = #{record.cityA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifValid != null" >
+        if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifUse != null" >
+        if_use = #{record.ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dayUse != null" >
+        day_use = #{record.dayUse,jdbcType=INTEGER},
+      </if>
+      <if test="record.dayTotal != null" >
+        day_total = #{record.dayTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthUse != null" >
+        month_use = #{record.monthUse,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthTotal != null" >
+        month_total = #{record.monthTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongSeed != null" >
+        belong_seed = #{record.belongSeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signalLevel != null" >
+        signal_level = #{record.signalLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_cardinfo
+    set card_id = #{record.cardId,jdbcType=INTEGER},
+      service_id = #{record.serviceId,jdbcType=VARCHAR},
+      service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      iccid_master = #{record.iccidMaster,jdbcType=VARCHAR},
+      iccid_assistant = #{record.iccidAssistant,jdbcType=VARCHAR},
+      if_seed = #{record.ifSeed,jdbcType=VARCHAR},
+      seed_iccid = #{record.seedIccid,jdbcType=VARCHAR},
+      seed_data = #{record.seedData,jdbcType=VARCHAR},
+      data1 = #{record.data1,jdbcType=VARCHAR},
+      data2 = #{record.data2,jdbcType=VARCHAR},
+      data3 = #{record.data3,jdbcType=VARCHAR},
+      data4 = #{record.data4,jdbcType=VARCHAR},
+      data5 = #{record.data5,jdbcType=VARCHAR},
+      data6 = #{record.data6,jdbcType=VARCHAR},
+      data7 = #{record.data7,jdbcType=VARCHAR},
+      data8 = #{record.data8,jdbcType=VARCHAR},
+      data9 = #{record.data9,jdbcType=VARCHAR},
+      data10 = #{record.data10,jdbcType=VARCHAR},
+      change_data = #{record.changeData,jdbcType=VARCHAR},
+      delete_data = #{record.deleteData,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      city_a = #{record.cityA,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      if_use = #{record.ifUse,jdbcType=VARCHAR},
+      day_use = #{record.dayUse,jdbcType=INTEGER},
+      day_total = #{record.dayTotal,jdbcType=INTEGER},
+      month_use = #{record.monthUse,jdbcType=INTEGER},
+      month_total = #{record.monthTotal,jdbcType=INTEGER},
+      belong_seed = #{record.belongSeed,jdbcType=VARCHAR},
+      signal_level = #{record.signalLevel,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSCardinfo" >
+    update tb_s_cardinfo
+    <set >
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        service_kind = #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidMaster != null" >
+        iccid_master = #{iccidMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidAssistant != null" >
+        iccid_assistant = #{iccidAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="ifSeed != null" >
+        if_seed = #{ifSeed,jdbcType=VARCHAR},
+      </if>
+      <if test="seedIccid != null" >
+        seed_iccid = #{seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="seedData != null" >
+        seed_data = #{seedData,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null" >
+        data1 = #{data1,jdbcType=VARCHAR},
+      </if>
+      <if test="data2 != null" >
+        data2 = #{data2,jdbcType=VARCHAR},
+      </if>
+      <if test="data3 != null" >
+        data3 = #{data3,jdbcType=VARCHAR},
+      </if>
+      <if test="data4 != null" >
+        data4 = #{data4,jdbcType=VARCHAR},
+      </if>
+      <if test="data5 != null" >
+        data5 = #{data5,jdbcType=VARCHAR},
+      </if>
+      <if test="data6 != null" >
+        data6 = #{data6,jdbcType=VARCHAR},
+      </if>
+      <if test="data7 != null" >
+        data7 = #{data7,jdbcType=VARCHAR},
+      </if>
+      <if test="data8 != null" >
+        data8 = #{data8,jdbcType=VARCHAR},
+      </if>
+      <if test="data9 != null" >
+        data9 = #{data9,jdbcType=VARCHAR},
+      </if>
+      <if test="data10 != null" >
+        data10 = #{data10,jdbcType=VARCHAR},
+      </if>
+      <if test="changeData != null" >
+        change_data = #{changeData,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteData != null" >
+        delete_data = #{deleteData,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cityA != null" >
+        city_a = #{cityA,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="ifValid != null" >
+        if_valid = #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifUse != null" >
+        if_use = #{ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="dayUse != null" >
+        day_use = #{dayUse,jdbcType=INTEGER},
+      </if>
+      <if test="dayTotal != null" >
+        day_total = #{dayTotal,jdbcType=INTEGER},
+      </if>
+      <if test="monthUse != null" >
+        month_use = #{monthUse,jdbcType=INTEGER},
+      </if>
+      <if test="monthTotal != null" >
+        month_total = #{monthTotal,jdbcType=INTEGER},
+      </if>
+      <if test="belongSeed != null" >
+        belong_seed = #{belongSeed,jdbcType=VARCHAR},
+      </if>
+      <if test="signalLevel != null" >
+        signal_level = #{signalLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSCardinfo" >
+    update tb_s_cardinfo
+    set service_id = #{serviceId,jdbcType=VARCHAR},
+      service_kind = #{serviceKind,jdbcType=VARCHAR},
+      iccid_master = #{iccidMaster,jdbcType=VARCHAR},
+      iccid_assistant = #{iccidAssistant,jdbcType=VARCHAR},
+      if_seed = #{ifSeed,jdbcType=VARCHAR},
+      seed_iccid = #{seedIccid,jdbcType=VARCHAR},
+      seed_data = #{seedData,jdbcType=VARCHAR},
+      data1 = #{data1,jdbcType=VARCHAR},
+      data2 = #{data2,jdbcType=VARCHAR},
+      data3 = #{data3,jdbcType=VARCHAR},
+      data4 = #{data4,jdbcType=VARCHAR},
+      data5 = #{data5,jdbcType=VARCHAR},
+      data6 = #{data6,jdbcType=VARCHAR},
+      data7 = #{data7,jdbcType=VARCHAR},
+      data8 = #{data8,jdbcType=VARCHAR},
+      data9 = #{data9,jdbcType=VARCHAR},
+      data10 = #{data10,jdbcType=VARCHAR},
+      change_data = #{changeData,jdbcType=VARCHAR},
+      delete_data = #{deleteData,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      city_a = #{cityA,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      if_valid = #{ifValid,jdbcType=VARCHAR},
+      if_use = #{ifUse,jdbcType=VARCHAR},
+      day_use = #{dayUse,jdbcType=INTEGER},
+      day_total = #{dayTotal,jdbcType=INTEGER},
+      month_use = #{monthUse,jdbcType=INTEGER},
+      month_total = #{monthTotal,jdbcType=INTEGER},
+      belong_seed = #{belongSeed,jdbcType=VARCHAR},
+      signal_level = #{signalLevel,jdbcType=VARCHAR}
+    where card_id = #{cardId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectByIccidList" resultMap="BaseResultMap">
+    select * from  tb_s_cardinfo  WHERE iccid_master  in
+    <foreach collection="iccidList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+
+  </select>
+
+  <update id="updateByIccid" parameterType="com.funtalk.pojo.TbSCardinfo">
+
+    UPDATE  tb_s_cardinfo
+    <set>
+      <if test="tbSCardinfo.ifUse != null and  tbSCardinfo.ifUse != '' " >
+          if_use = #{tbSCardinfo.ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="tbSCardinfo.cardId != null and tbSCardinfo.cardId !='' " >
+        card_id = #{tbSCardinfo.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="tbSCardinfo.belongSeed != null and tbSCardinfo.belongSeed != '' " >
+        belong_seed = #{tbSCardinfo.belongSeed,jdbcType=VARCHAR},
+      </if>
+
+      <if test="tbSCardinfo.seedData != null and  tbSCardinfo.seedData != '' " >
+        seed_data = #{tbSCardinfo.seedData,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where iccid_master = #{tbSCardinfo.iccidMaster,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectIdleBusinessIccid" resultMap="BaseResultMap">
+
+    SELECT *  FROM tb_s_cardinfo
+    WHERE if_seed='0' AND  if_use='0'
+       AND day_use  &lt; day_total
+       AND month_use &lt; month_total   limit 1
+  </select>
+
+
+  <select id="selectRelevantCardInfo" resultMap="BaseResultMap">
+
+    SELECT *  FROM tb_s_cardinfo
+    WHERE iccid_master in(#{iccId,jdbcType=VARCHAR}, #{seedIccId,jdbcType=VARCHAR})
+    or (if_seed='0' AND  belong_seed = #{seedIccId,jdbcType=VARCHAR})
+
+  </select>
+
+
+  <update id="recoverToInit">
+
+    UPDATE  tb_s_cardinfo
+    set
+        if_use ='0',
+        belong_seed =''
+    where  iccid_master in
+        <foreach collection="iccidList" item="item" index="index" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+
+  </update>
+
+  <select id="selectBylimit"  resultType="com.funtalk.pojo.SimpleServ">
+    SELECT service_id accNbr,state  oldState FROM tb_s_cardinfo where service_id is not null ORDER BY create_time LIMIT #{offset},#{limit}
+  </select>
+
+    <update id="updateByAccnbrForBatch" parameterType="java.util.List">
+      update tb_s_cardinfo
+      <trim prefix="set" suffixOverrides=",">
+        <trim prefix="state = case" suffix="end,">
+          <foreach collection="simpleServList" item="item" index="index">
+            when service_id=#{item.accNbr} then #{item.newState}
+          </foreach>
+        </trim>
+        state_time=CURRENT_TIME()
+      </trim>
+      where service_id in
+      <foreach collection="simpleServList" index="index" item="item" separator="," open="(" close=")">
+        #{item.accNbr,jdbcType=VARCHAR}
+      </foreach>
+    </update>
+
+</mapper>

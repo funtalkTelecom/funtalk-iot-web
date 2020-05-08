@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    
+    <!-- 页面主处理js -->	
+	<script type="text/javascript" src=./dealer.js></script>
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script> 
+	
+	<script type="text/javascript">
+		window.onload = DealerInit();
+	</script>
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >    
+    代理商名称：
+    <input id="dealername"  type="text"  class="abc input-default"  placeholder="请输入代理商名称进行查询">&nbsp;&nbsp;  
+    <button id="bt_getdealer"  type="button" class="btn btn-primary"  onclick="getDealer()">查询代理商</button>&nbsp;&nbsp; 
+    <a href='dealeradd.html'><button id="bt_adddealer"  type="button" class="btn btn-success" >新增代理商</button></a>
+	</form>
+	
+	<table id="dealertable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr>
+	        <th>代理商编码</th>
+	        <th>代理商名称</th> 
+	        <th>归属地市</th>
+	        <th>代理商类型</th>
+	        <th>创建时间</th> 
+	        <th>创建工号</th> 
+	        <th>证件号码</th>
+	        <th>证件地址</th>
+	        <th>联系电话</th> 
+	        <th>是否有效</th>  
+	        <th>操作</th>
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	 
+	<div id="wrapper" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  /> 
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div> 
+	</div> 
+	
+</body>
+
+</html> 

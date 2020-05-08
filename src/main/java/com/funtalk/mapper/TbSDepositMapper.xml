@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSDepositMapper" >
+   <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSDeposit" >
+    <id column="deposit_id" property="depositId" jdbcType="INTEGER" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="belong_id" property="belongId" jdbcType="VARCHAR" />
+    <result column="acct_id" property="acctId" jdbcType="INTEGER" />
+    <result column="de_code" property="deCode" jdbcType="VARCHAR" />
+    <result column="limit_money" property="limitMoney" jdbcType="INTEGER" />
+    <result column="avail_money" property="availMoney" jdbcType="INTEGER" />
+    <result column="re_info1" property="reInfo1" jdbcType="VARCHAR" />
+    <result column="re_info2" property="reInfo2" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    deposit_id, belong_type, belong_id, acct_id, de_code, limit_money, avail_money, re_info1,
+    re_info2, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSDepositExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_deposit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_s_deposit
+    where deposit_id = #{depositId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_deposit
+    where deposit_id = #{depositId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSDepositExample" >
+    delete from tb_s_deposit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSDeposit" >
+    insert into tb_s_deposit (deposit_id, belong_type, belong_id,
+      acct_id, de_code, limit_money,
+      avail_money, re_info1, re_info2,
+      create_time, update_time)
+    values (#{depositId,jdbcType=INTEGER}, #{belongType,jdbcType=VARCHAR}, #{belongId,jdbcType=VARCHAR},
+      #{acctId,jdbcType=INTEGER}, #{deCode,jdbcType=VARCHAR}, #{limitMoney,jdbcType=INTEGER},
+      #{availMoney,jdbcType=INTEGER}, #{reInfo1,jdbcType=VARCHAR}, #{reInfo2,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSDeposit" >
+    insert into tb_s_deposit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depositId != null" >
+        deposit_id,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="belongId != null" >
+        belong_id,
+      </if>
+      <if test="acctId != null" >
+        acct_id,
+      </if>
+      <if test="deCode != null" >
+        de_code,
+      </if>
+      <if test="limitMoney != null" >
+        limit_money,
+      </if>
+      <if test="availMoney != null" >
+        avail_money,
+      </if>
+      <if test="reInfo1 != null" >
+        re_info1,
+      </if>
+      <if test="reInfo2 != null" >
+        re_info2,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depositId != null" >
+        #{depositId,jdbcType=INTEGER},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="acctId != null" >
+        #{acctId,jdbcType=INTEGER},
+      </if>
+      <if test="deCode != null" >
+        #{deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="limitMoney != null" >
+        #{limitMoney,jdbcType=INTEGER},
+      </if>
+      <if test="availMoney != null" >
+        #{availMoney,jdbcType=INTEGER},
+      </if>
+      <if test="reInfo1 != null" >
+        #{reInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="reInfo2 != null" >
+        #{reInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSDepositExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_deposit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_deposit
+    <set >
+      <if test="record.depositId != null" >
+        deposit_id = #{record.depositId,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongId != null" >
+        belong_id = #{record.belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctId != null" >
+        acct_id = #{record.acctId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deCode != null" >
+        de_code = #{record.deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitMoney != null" >
+        limit_money = #{record.limitMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.availMoney != null" >
+        avail_money = #{record.availMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.reInfo1 != null" >
+        re_info1 = #{record.reInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reInfo2 != null" >
+        re_info2 = #{record.reInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_deposit
+    set deposit_id = #{record.depositId,jdbcType=INTEGER},
+    belong_type = #{record.belongType,jdbcType=VARCHAR},
+    belong_id = #{record.belongId,jdbcType=VARCHAR},
+    acct_id = #{record.acctId,jdbcType=INTEGER},
+    de_code = #{record.deCode,jdbcType=VARCHAR},
+    limit_money = #{record.limitMoney,jdbcType=INTEGER},
+    avail_money = #{record.availMoney,jdbcType=INTEGER},
+    re_info1 = #{record.reInfo1,jdbcType=VARCHAR},
+    re_info2 = #{record.reInfo2,jdbcType=VARCHAR},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSDeposit" >
+    update tb_s_deposit
+    <set >
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        belong_id = #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="acctId != null" >
+        acct_id = #{acctId,jdbcType=INTEGER},
+      </if>
+      <if test="deCode != null" >
+        de_code = #{deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="limitMoney != null" >
+        limit_money = #{limitMoney,jdbcType=INTEGER},
+      </if>
+      <if test="availMoney != null" >
+        avail_money = #{availMoney,jdbcType=INTEGER},
+      </if>
+      <if test="reInfo1 != null" >
+        re_info1 = #{reInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="reInfo2 != null" >
+        re_info2 = #{reInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where deposit_id = #{depositId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSDeposit" >
+    update tb_s_deposit
+    set belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_id = #{belongId,jdbcType=VARCHAR},
+      acct_id = #{acctId,jdbcType=INTEGER},
+      de_code = #{deCode,jdbcType=VARCHAR},
+      limit_money = #{limitMoney,jdbcType=INTEGER},
+      avail_money = #{availMoney,jdbcType=INTEGER},
+      re_info1 = #{reInfo1,jdbcType=VARCHAR},
+      re_info2 = #{reInfo2,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where deposit_id = #{depositId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateDeposit">
+      insert into tb_s_deposit(belong_type,belong_id,acct_id,de_code,avail_money,create_time,update_time)
+      values (#{belongType,jdbcType=VARCHAR}, #{belongId,jdbcType=VARCHAR},
+      #{acctId,jdbcType=INTEGER}, #{deCode,jdbcType=VARCHAR},#{availMoney,jdbcType=INTEGER},now(), #{updateTime,jdbcType=TIMESTAMP})
+       ON DUPLICATE KEY UPDATE
+        avail_money = avail_money + #{availMoney,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

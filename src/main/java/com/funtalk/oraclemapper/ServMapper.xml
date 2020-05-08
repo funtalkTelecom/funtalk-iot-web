@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.oraclemapper.ServMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.Serv" >
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="SERV_ID" property="servId" jdbcType="DECIMAL" />
+    <result column="AGREEMENT_ID" property="agreementId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="BILLING_CYCLE_TYPE_ID" property="billingCycleTypeId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_FAMILY_ID" property="productFamilyId" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="RENT_DATE" property="rentDate" jdbcType="DATE" />
+    <result column="COMPLETED_DATE" property="completedDate" jdbcType="DATE" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="STATE_DATE" property="stateDate" jdbcType="DATE" />
+    <result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
+    <result column="BELONG_CODE" property="belongCode" jdbcType="VARCHAR" />
+    <result column="ACC_NBR" property="accNbr" jdbcType="VARCHAR" />
+    <result column="IF_VALID" property="ifValid" jdbcType="DECIMAL" />
+    <result column="SERVICE_KIND" property="serviceKind" jdbcType="DECIMAL" />
+    <result column="INNET_METHOD" property="innetMethod" jdbcType="DECIMAL" />
+    <result column="BILLING_MODE" property="billingMode" jdbcType="VARCHAR" />
+    <result column="BILLING_TYPE_ID" property="billingTypeId" jdbcType="DECIMAL" />
+    <result column="CREDIT_CONTROL" property="creditControl" jdbcType="DECIMAL" />
+    <result column="CREDIT_SOLUTION" property="creditSolution" jdbcType="DECIMAL" />
+    <result column="IF_SELF_CONTROL" property="ifSelfControl" jdbcType="DECIMAL" />
+    <result column="SOURCE_ID" property="sourceId" jdbcType="VARCHAR" />
+    <result column="DEVELOPER_DEALER" property="developerDealer" jdbcType="VARCHAR" />
+    <result column="BUS_FAVOUR_ID" property="busFavourId" jdbcType="DECIMAL" />
+    <result column="SERVICE_FAVOUR_ID" property="serviceFavourId" jdbcType="DECIMAL" />
+    <result column="SERVICE_GROUP_ID" property="serviceGroupId" jdbcType="DECIMAL" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="BUNDLE_KIND" property="bundleKind" jdbcType="DECIMAL" />
+    <result column="BEG_REG" property="begReg" jdbcType="VARCHAR" />
+    <result column="END_REG" property="endReg" jdbcType="VARCHAR" />
+    <result column="CALL_FLAG" property="callFlag" jdbcType="DECIMAL" />
+    <result column="FIRST_CALL_DATE" property="firstCallDate" jdbcType="DATE" />
+    <result column="APPLY_START_DATE" property="applyStartDate" jdbcType="DATE" />
+    <result column="SERVICE_START_DATE" property="serviceStartDate" jdbcType="DATE" />
+    <result column="SERVICE_STOP_DATE" property="serviceStopDate" jdbcType="DATE" />
+    <result column="SERVICE_INVALID_DATE" property="serviceInvalidDate" jdbcType="DATE" />
+    <result column="MONTH_FEE" property="monthFee" jdbcType="DECIMAL" />
+    <result column="PRESERVE03" property="preserve03" jdbcType="DECIMAL" />
+    <result column="PRESERVE12" property="preserve12" jdbcType="DECIMAL" />
+    <result column="PRESERVE18" property="preserve18" jdbcType="DECIMAL" />
+    <result column="PRESERVE04" property="preserve04" jdbcType="DECIMAL" />
+    <result column="PRESENT_FEE" property="presentFee" jdbcType="DECIMAL" />
+    <result column="DEALER_INNET_METHOD" property="dealerInnetMethod" jdbcType="DECIMAL" />
+    <result column="ACCEPT_ADDRESS_ID" property="acceptAddressId" jdbcType="VARCHAR" />
+    <result column="DEVELOPER" property="developer" jdbcType="VARCHAR" />
+    <result column="DEALER_RETURN_DATE" property="dealerReturnDate" jdbcType="DATE" />
+    <result column="DATA_CREATE_WAY" property="dataCreateWay" jdbcType="DECIMAL" />
+    <result column="PRESERVE07" property="preserve07" jdbcType="VARCHAR" />
+    <result column="PRESERVE15" property="preserve15" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CITY_CODE, SERV_ID, AGREEMENT_ID, CUST_ID, PRODUCT_ID, BILLING_CYCLE_TYPE_ID, PRODUCT_FAMILY_ID, 
+    CREATE_DATE, RENT_DATE, COMPLETED_DATE, STATE, STATE_DATE, REGION_CODE, BELONG_CODE, 
+    ACC_NBR, IF_VALID, SERVICE_KIND, INNET_METHOD, BILLING_MODE, BILLING_TYPE_ID, CREDIT_CONTROL, 
+    CREDIT_SOLUTION, IF_SELF_CONTROL, SOURCE_ID, DEVELOPER_DEALER, BUS_FAVOUR_ID, SERVICE_FAVOUR_ID, 
+    SERVICE_GROUP_ID, PASSWORD, BUNDLE_KIND, BEG_REG, END_REG, CALL_FLAG, FIRST_CALL_DATE, 
+    APPLY_START_DATE, SERVICE_START_DATE, SERVICE_STOP_DATE, SERVICE_INVALID_DATE, MONTH_FEE, 
+    PRESERVE03, PRESERVE12, PRESERVE18, PRESERVE04, PRESENT_FEE, DEALER_INNET_METHOD, 
+    ACCEPT_ADDRESS_ID, DEVELOPER, DEALER_RETURN_DATE, DATA_CREATE_WAY, PRESERVE07, PRESERVE15
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.ServExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SERV
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.ServExample" >
+    delete from SERV
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.Serv" >
+    insert into SERV (CITY_CODE, SERV_ID, AGREEMENT_ID, 
+      CUST_ID, PRODUCT_ID, BILLING_CYCLE_TYPE_ID, 
+      PRODUCT_FAMILY_ID, CREATE_DATE, RENT_DATE, 
+      COMPLETED_DATE, STATE, STATE_DATE, 
+      REGION_CODE, BELONG_CODE, ACC_NBR, 
+      IF_VALID, SERVICE_KIND, INNET_METHOD, 
+      BILLING_MODE, BILLING_TYPE_ID, CREDIT_CONTROL, 
+      CREDIT_SOLUTION, IF_SELF_CONTROL, SOURCE_ID, 
+      DEVELOPER_DEALER, BUS_FAVOUR_ID, SERVICE_FAVOUR_ID, 
+      SERVICE_GROUP_ID, PASSWORD, BUNDLE_KIND, 
+      BEG_REG, END_REG, CALL_FLAG, 
+      FIRST_CALL_DATE, APPLY_START_DATE, SERVICE_START_DATE, 
+      SERVICE_STOP_DATE, SERVICE_INVALID_DATE, MONTH_FEE, 
+      PRESERVE03, PRESERVE12, PRESERVE18, 
+      PRESERVE04, PRESENT_FEE, DEALER_INNET_METHOD, 
+      ACCEPT_ADDRESS_ID, DEVELOPER, DEALER_RETURN_DATE, 
+      DATA_CREATE_WAY, PRESERVE07, PRESERVE15
+      )
+    values (#{cityCode,jdbcType=VARCHAR}, #{servId,jdbcType=DECIMAL}, #{agreementId,jdbcType=DECIMAL}, 
+      #{custId,jdbcType=DECIMAL}, #{productId,jdbcType=DECIMAL}, #{billingCycleTypeId,jdbcType=DECIMAL}, 
+      #{productFamilyId,jdbcType=DECIMAL}, #{createDate,jdbcType=DATE}, #{rentDate,jdbcType=DATE}, 
+      #{completedDate,jdbcType=DATE}, #{state,jdbcType=VARCHAR}, #{stateDate,jdbcType=DATE}, 
+      #{regionCode,jdbcType=VARCHAR}, #{belongCode,jdbcType=VARCHAR}, #{accNbr,jdbcType=VARCHAR}, 
+      #{ifValid,jdbcType=DECIMAL}, #{serviceKind,jdbcType=DECIMAL}, #{innetMethod,jdbcType=DECIMAL}, 
+      #{billingMode,jdbcType=VARCHAR}, #{billingTypeId,jdbcType=DECIMAL}, #{creditControl,jdbcType=DECIMAL}, 
+      #{creditSolution,jdbcType=DECIMAL}, #{ifSelfControl,jdbcType=DECIMAL}, #{sourceId,jdbcType=VARCHAR}, 
+      #{developerDealer,jdbcType=VARCHAR}, #{busFavourId,jdbcType=DECIMAL}, #{serviceFavourId,jdbcType=DECIMAL}, 
+      #{serviceGroupId,jdbcType=DECIMAL}, #{password,jdbcType=VARCHAR}, #{bundleKind,jdbcType=DECIMAL}, 
+      #{begReg,jdbcType=VARCHAR}, #{endReg,jdbcType=VARCHAR}, #{callFlag,jdbcType=DECIMAL}, 
+      #{firstCallDate,jdbcType=DATE}, #{applyStartDate,jdbcType=DATE}, #{serviceStartDate,jdbcType=DATE}, 
+      #{serviceStopDate,jdbcType=DATE}, #{serviceInvalidDate,jdbcType=DATE}, #{monthFee,jdbcType=DECIMAL}, 
+      #{preserve03,jdbcType=DECIMAL}, #{preserve12,jdbcType=DECIMAL}, #{preserve18,jdbcType=DECIMAL}, 
+      #{preserve04,jdbcType=DECIMAL}, #{presentFee,jdbcType=DECIMAL}, #{dealerInnetMethod,jdbcType=DECIMAL}, 
+      #{acceptAddressId,jdbcType=VARCHAR}, #{developer,jdbcType=VARCHAR}, #{dealerReturnDate,jdbcType=DATE}, 
+      #{dataCreateWay,jdbcType=DECIMAL}, #{preserve07,jdbcType=VARCHAR}, #{preserve15,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.Serv" >
+    insert into SERV
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="servId != null" >
+        SERV_ID,
+      </if>
+      <if test="agreementId != null" >
+        AGREEMENT_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="billingCycleTypeId != null" >
+        BILLING_CYCLE_TYPE_ID,
+      </if>
+      <if test="productFamilyId != null" >
+        PRODUCT_FAMILY_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="rentDate != null" >
+        RENT_DATE,
+      </if>
+      <if test="completedDate != null" >
+        COMPLETED_DATE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="stateDate != null" >
+        STATE_DATE,
+      </if>
+      <if test="regionCode != null" >
+        REGION_CODE,
+      </if>
+      <if test="belongCode != null" >
+        BELONG_CODE,
+      </if>
+      <if test="accNbr != null" >
+        ACC_NBR,
+      </if>
+      <if test="ifValid != null" >
+        IF_VALID,
+      </if>
+      <if test="serviceKind != null" >
+        SERVICE_KIND,
+      </if>
+      <if test="innetMethod != null" >
+        INNET_METHOD,
+      </if>
+      <if test="billingMode != null" >
+        BILLING_MODE,
+      </if>
+      <if test="billingTypeId != null" >
+        BILLING_TYPE_ID,
+      </if>
+      <if test="creditControl != null" >
+        CREDIT_CONTROL,
+      </if>
+      <if test="creditSolution != null" >
+        CREDIT_SOLUTION,
+      </if>
+      <if test="ifSelfControl != null" >
+        IF_SELF_CONTROL,
+      </if>
+      <if test="sourceId != null" >
+        SOURCE_ID,
+      </if>
+      <if test="developerDealer != null" >
+        DEVELOPER_DEALER,
+      </if>
+      <if test="busFavourId != null" >
+        BUS_FAVOUR_ID,
+      </if>
+      <if test="serviceFavourId != null" >
+        SERVICE_FAVOUR_ID,
+      </if>
+      <if test="serviceGroupId != null" >
+        SERVICE_GROUP_ID,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="bundleKind != null" >
+        BUNDLE_KIND,
+      </if>
+      <if test="begReg != null" >
+        BEG_REG,
+      </if>
+      <if test="endReg != null" >
+        END_REG,
+      </if>
+      <if test="callFlag != null" >
+        CALL_FLAG,
+      </if>
+      <if test="firstCallDate != null" >
+        FIRST_CALL_DATE,
+      </if>
+      <if test="applyStartDate != null" >
+        APPLY_START_DATE,
+      </if>
+      <if test="serviceStartDate != null" >
+        SERVICE_START_DATE,
+      </if>
+      <if test="serviceStopDate != null" >
+        SERVICE_STOP_DATE,
+      </if>
+      <if test="serviceInvalidDate != null" >
+        SERVICE_INVALID_DATE,
+      </if>
+      <if test="monthFee != null" >
+        MONTH_FEE,
+      </if>
+      <if test="preserve03 != null" >
+        PRESERVE03,
+      </if>
+      <if test="preserve12 != null" >
+        PRESERVE12,
+      </if>
+      <if test="preserve18 != null" >
+        PRESERVE18,
+      </if>
+      <if test="preserve04 != null" >
+        PRESERVE04,
+      </if>
+      <if test="presentFee != null" >
+        PRESENT_FEE,
+      </if>
+      <if test="dealerInnetMethod != null" >
+        DEALER_INNET_METHOD,
+      </if>
+      <if test="acceptAddressId != null" >
+        ACCEPT_ADDRESS_ID,
+      </if>
+      <if test="developer != null" >
+        DEVELOPER,
+      </if>
+      <if test="dealerReturnDate != null" >
+        DEALER_RETURN_DATE,
+      </if>
+      <if test="dataCreateWay != null" >
+        DATA_CREATE_WAY,
+      </if>
+      <if test="preserve07 != null" >
+        PRESERVE07,
+      </if>
+      <if test="preserve15 != null" >
+        PRESERVE15,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="servId != null" >
+        #{servId,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementId != null" >
+        #{agreementId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="billingCycleTypeId != null" >
+        #{billingCycleTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="productFamilyId != null" >
+        #{productFamilyId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="rentDate != null" >
+        #{rentDate,jdbcType=DATE},
+      </if>
+      <if test="completedDate != null" >
+        #{completedDate,jdbcType=DATE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateDate != null" >
+        #{stateDate,jdbcType=DATE},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belongCode != null" >
+        #{belongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accNbr != null" >
+        #{accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceKind != null" >
+        #{serviceKind,jdbcType=DECIMAL},
+      </if>
+      <if test="innetMethod != null" >
+        #{innetMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="billingMode != null" >
+        #{billingMode,jdbcType=VARCHAR},
+      </if>
+      <if test="billingTypeId != null" >
+        #{billingTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="creditControl != null" >
+        #{creditControl,jdbcType=DECIMAL},
+      </if>
+      <if test="creditSolution != null" >
+        #{creditSolution,jdbcType=DECIMAL},
+      </if>
+      <if test="ifSelfControl != null" >
+        #{ifSelfControl,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="developerDealer != null" >
+        #{developerDealer,jdbcType=VARCHAR},
+      </if>
+      <if test="busFavourId != null" >
+        #{busFavourId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFavourId != null" >
+        #{serviceFavourId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceGroupId != null" >
+        #{serviceGroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="bundleKind != null" >
+        #{bundleKind,jdbcType=DECIMAL},
+      </if>
+      <if test="begReg != null" >
+        #{begReg,jdbcType=VARCHAR},
+      </if>
+      <if test="endReg != null" >
+        #{endReg,jdbcType=VARCHAR},
+      </if>
+      <if test="callFlag != null" >
+        #{callFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="firstCallDate != null" >
+        #{firstCallDate,jdbcType=DATE},
+      </if>
+      <if test="applyStartDate != null" >
+        #{applyStartDate,jdbcType=DATE},
+      </if>
+      <if test="serviceStartDate != null" >
+        #{serviceStartDate,jdbcType=DATE},
+      </if>
+      <if test="serviceStopDate != null" >
+        #{serviceStopDate,jdbcType=DATE},
+      </if>
+      <if test="serviceInvalidDate != null" >
+        #{serviceInvalidDate,jdbcType=DATE},
+      </if>
+      <if test="monthFee != null" >
+        #{monthFee,jdbcType=DECIMAL},
+      </if>
+      <if test="preserve03 != null" >
+        #{preserve03,jdbcType=DECIMAL},
+      </if>
+      <if test="preserve12 != null" >
+        #{preserve12,jdbcType=DECIMAL},
+      </if>
+      <if test="preserve18 != null" >
+        #{preserve18,jdbcType=DECIMAL},
+      </if>
+      <if test="preserve04 != null" >
+        #{preserve04,jdbcType=DECIMAL},
+      </if>
+      <if test="presentFee != null" >
+        #{presentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="dealerInnetMethod != null" >
+        #{dealerInnetMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptAddressId != null" >
+        #{acceptAddressId,jdbcType=VARCHAR},
+      </if>
+      <if test="developer != null" >
+        #{developer,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerReturnDate != null" >
+        #{dealerReturnDate,jdbcType=DATE},
+      </if>
+      <if test="dataCreateWay != null" >
+        #{dataCreateWay,jdbcType=DECIMAL},
+      </if>
+      <if test="preserve07 != null" >
+        #{preserve07,jdbcType=VARCHAR},
+      </if>
+      <if test="preserve15 != null" >
+        #{preserve15,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.ServExample" resultType="java.lang.Integer" >
+    select count(*) from SERV
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SERV
+    <set >
+      <if test="record.cityCode != null" >
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servId != null" >
+        SERV_ID = #{record.servId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.agreementId != null" >
+        AGREEMENT_ID = #{record.agreementId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.custId != null" >
+        CUST_ID = #{record.custId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productId != null" >
+        PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billingCycleTypeId != null" >
+        BILLING_CYCLE_TYPE_ID = #{record.billingCycleTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productFamilyId != null" >
+        PRODUCT_FAMILY_ID = #{record.productFamilyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      </if>
+      <if test="record.rentDate != null" >
+        RENT_DATE = #{record.rentDate,jdbcType=DATE},
+      </if>
+      <if test="record.completedDate != null" >
+        COMPLETED_DATE = #{record.completedDate,jdbcType=DATE},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateDate != null" >
+        STATE_DATE = #{record.stateDate,jdbcType=DATE},
+      </if>
+      <if test="record.regionCode != null" >
+        REGION_CODE = #{record.regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongCode != null" >
+        BELONG_CODE = #{record.belongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accNbr != null" >
+        ACC_NBR = #{record.accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifValid != null" >
+        IF_VALID = #{record.ifValid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceKind != null" >
+        SERVICE_KIND = #{record.serviceKind,jdbcType=DECIMAL},
+      </if>
+      <if test="record.innetMethod != null" >
+        INNET_METHOD = #{record.innetMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billingMode != null" >
+        BILLING_MODE = #{record.billingMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billingTypeId != null" >
+        BILLING_TYPE_ID = #{record.billingTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.creditControl != null" >
+        CREDIT_CONTROL = #{record.creditControl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.creditSolution != null" >
+        CREDIT_SOLUTION = #{record.creditSolution,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ifSelfControl != null" >
+        IF_SELF_CONTROL = #{record.ifSelfControl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sourceId != null" >
+        SOURCE_ID = #{record.sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developerDealer != null" >
+        DEVELOPER_DEALER = #{record.developerDealer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busFavourId != null" >
+        BUS_FAVOUR_ID = #{record.busFavourId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceFavourId != null" >
+        SERVICE_FAVOUR_ID = #{record.serviceFavourId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceGroupId != null" >
+        SERVICE_GROUP_ID = #{record.serviceGroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bundleKind != null" >
+        BUNDLE_KIND = #{record.bundleKind,jdbcType=DECIMAL},
+      </if>
+      <if test="record.begReg != null" >
+        BEG_REG = #{record.begReg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endReg != null" >
+        END_REG = #{record.endReg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callFlag != null" >
+        CALL_FLAG = #{record.callFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstCallDate != null" >
+        FIRST_CALL_DATE = #{record.firstCallDate,jdbcType=DATE},
+      </if>
+      <if test="record.applyStartDate != null" >
+        APPLY_START_DATE = #{record.applyStartDate,jdbcType=DATE},
+      </if>
+      <if test="record.serviceStartDate != null" >
+        SERVICE_START_DATE = #{record.serviceStartDate,jdbcType=DATE},
+      </if>
+      <if test="record.serviceStopDate != null" >
+        SERVICE_STOP_DATE = #{record.serviceStopDate,jdbcType=DATE},
+      </if>
+      <if test="record.serviceInvalidDate != null" >
+        SERVICE_INVALID_DATE = #{record.serviceInvalidDate,jdbcType=DATE},
+      </if>
+      <if test="record.monthFee != null" >
+        MONTH_FEE = #{record.monthFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preserve03 != null" >
+        PRESERVE03 = #{record.preserve03,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preserve12 != null" >
+        PRESERVE12 = #{record.preserve12,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preserve18 != null" >
+        PRESERVE18 = #{record.preserve18,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preserve04 != null" >
+        PRESERVE04 = #{record.preserve04,jdbcType=DECIMAL},
+      </if>
+      <if test="record.presentFee != null" >
+        PRESENT_FEE = #{record.presentFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dealerInnetMethod != null" >
+        DEALER_INNET_METHOD = #{record.dealerInnetMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acceptAddressId != null" >
+        ACCEPT_ADDRESS_ID = #{record.acceptAddressId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developer != null" >
+        DEVELOPER = #{record.developer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerReturnDate != null" >
+        DEALER_RETURN_DATE = #{record.dealerReturnDate,jdbcType=DATE},
+      </if>
+      <if test="record.dataCreateWay != null" >
+        DATA_CREATE_WAY = #{record.dataCreateWay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preserve07 != null" >
+        PRESERVE07 = #{record.preserve07,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preserve15 != null" >
+        PRESERVE15 = #{record.preserve15,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SERV
+    set CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      SERV_ID = #{record.servId,jdbcType=DECIMAL},
+      AGREEMENT_ID = #{record.agreementId,jdbcType=DECIMAL},
+      CUST_ID = #{record.custId,jdbcType=DECIMAL},
+      PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      BILLING_CYCLE_TYPE_ID = #{record.billingCycleTypeId,jdbcType=DECIMAL},
+      PRODUCT_FAMILY_ID = #{record.productFamilyId,jdbcType=DECIMAL},
+      CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      RENT_DATE = #{record.rentDate,jdbcType=DATE},
+      COMPLETED_DATE = #{record.completedDate,jdbcType=DATE},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      STATE_DATE = #{record.stateDate,jdbcType=DATE},
+      REGION_CODE = #{record.regionCode,jdbcType=VARCHAR},
+      BELONG_CODE = #{record.belongCode,jdbcType=VARCHAR},
+      ACC_NBR = #{record.accNbr,jdbcType=VARCHAR},
+      IF_VALID = #{record.ifValid,jdbcType=DECIMAL},
+      SERVICE_KIND = #{record.serviceKind,jdbcType=DECIMAL},
+      INNET_METHOD = #{record.innetMethod,jdbcType=DECIMAL},
+      BILLING_MODE = #{record.billingMode,jdbcType=VARCHAR},
+      BILLING_TYPE_ID = #{record.billingTypeId,jdbcType=DECIMAL},
+      CREDIT_CONTROL = #{record.creditControl,jdbcType=DECIMAL},
+      CREDIT_SOLUTION = #{record.creditSolution,jdbcType=DECIMAL},
+      IF_SELF_CONTROL = #{record.ifSelfControl,jdbcType=DECIMAL},
+      SOURCE_ID = #{record.sourceId,jdbcType=VARCHAR},
+      DEVELOPER_DEALER = #{record.developerDealer,jdbcType=VARCHAR},
+      BUS_FAVOUR_ID = #{record.busFavourId,jdbcType=DECIMAL},
+      SERVICE_FAVOUR_ID = #{record.serviceFavourId,jdbcType=DECIMAL},
+      SERVICE_GROUP_ID = #{record.serviceGroupId,jdbcType=DECIMAL},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      BUNDLE_KIND = #{record.bundleKind,jdbcType=DECIMAL},
+      BEG_REG = #{record.begReg,jdbcType=VARCHAR},
+      END_REG = #{record.endReg,jdbcType=VARCHAR},
+      CALL_FLAG = #{record.callFlag,jdbcType=DECIMAL},
+      FIRST_CALL_DATE = #{record.firstCallDate,jdbcType=DATE},
+      APPLY_START_DATE = #{record.applyStartDate,jdbcType=DATE},
+      SERVICE_START_DATE = #{record.serviceStartDate,jdbcType=DATE},
+      SERVICE_STOP_DATE = #{record.serviceStopDate,jdbcType=DATE},
+      SERVICE_INVALID_DATE = #{record.serviceInvalidDate,jdbcType=DATE},
+      MONTH_FEE = #{record.monthFee,jdbcType=DECIMAL},
+      PRESERVE03 = #{record.preserve03,jdbcType=DECIMAL},
+      PRESERVE12 = #{record.preserve12,jdbcType=DECIMAL},
+      PRESERVE18 = #{record.preserve18,jdbcType=DECIMAL},
+      PRESERVE04 = #{record.preserve04,jdbcType=DECIMAL},
+      PRESENT_FEE = #{record.presentFee,jdbcType=DECIMAL},
+      DEALER_INNET_METHOD = #{record.dealerInnetMethod,jdbcType=DECIMAL},
+      ACCEPT_ADDRESS_ID = #{record.acceptAddressId,jdbcType=VARCHAR},
+      DEVELOPER = #{record.developer,jdbcType=VARCHAR},
+      DEALER_RETURN_DATE = #{record.dealerReturnDate,jdbcType=DATE},
+      DATA_CREATE_WAY = #{record.dataCreateWay,jdbcType=DECIMAL},
+      PRESERVE07 = #{record.preserve07,jdbcType=VARCHAR},
+      PRESERVE15 = #{record.preserve15,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+
+  <update id="cancelLimit">
+
+    begin
+
+    UPDATE PROD_INST@bill2crm SET STATUS_CD='149999' WHERE PROD_INST_ID IN
+    (select serv_id  from serv
+     where acc_nbr in
+      <foreach collection="tbOBatchsubList" item="tbOBatchsub"  open="(" separator="," close=")" >
+        #{tbOBatchsub.accNbr}
+      </foreach>
+     and if_valid='1' and state not in('2HK','2HB')
+    ) and STATUS_CD='949999';
+
+    UPDATE BB_SERVICE_RELATION_T@bill2crm SET SERVING_STATUS='149999'
+    WHERE SERVICE_ID IN
+    <foreach collection="tbOBatchsubList" item="tbOBatchsub"  open="(" separator="," close=")" >
+      #{tbOBatchsub.accNbr}
+    </foreach>
+    AND IF_VALID=1 and SERVING_STATUS='949999';
+
+    end;
+
+  </update>
+
+  <select id="getLimitServ"  resultType="java.lang.String">
+
+    select acc_nbr from serv
+    where acc_nbr in
+              <foreach collection="tbOBatchsubList" item="tbOBatchsub"  open="(" separator="," close=")" >
+                #{tbOBatchsub.accNbr}
+              </foreach>
+          and  if_valid='1'
+          and state  in('2HI')
+
+  </select>
+
+
+  <select id="forcedToActivate" statementType="CALLABLE" parameterType="java.util.Map">
+
+	   {call my_qzkl_p(#{accNbr,mode=IN,jdbcType=VARCHAR},
+	                   #{operation,mode=IN,jdbcType=INTEGER},
+	                   #{operator,mode=IN,jdbcType=VARCHAR})
+	     }
+
+  </select>
+
+  <select id="selectStateByAccnbrForBatch" resultType="com.funtalk.pojo.SimpleServ">
+
+    select acc_nbr accNbr,state newState from serv
+    where acc_nbr in
+    <foreach collection="accnbrList" item="item"  open="(" separator="," close=")" >
+      #{item.accNbr, jdbcType=VARCHAR}
+    </foreach>
+    and  if_valid='1' order by state
+  </select>
+
+
+
+</mapper>

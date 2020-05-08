@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="../Css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="../Css/style.css" />
+<script type="text/javascript" src="../assets/js/jquery.js"></script>
+<script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../sysjs/signin.js"></script>
+<script type="text/javascript" src="../assets/js/DatePicker.js"></script>
+<link type="text/css" rel="stylesheet" href="../css3_dialog/mdialog.css">
+<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+<!-- 分页相关 -->
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/jqpagination.css" />
+<script type="text/javascript" src="../assets/js/jquery.jqpagination.js"></script>
+
+
+
+</head>
+<body>
+
+	<form id="form_axb_b" class="form-inline definewidth m20" action="">
+		<table>
+			<tr>
+				<td style="font-size: 14pt;">号码切换：</td>
+			</tr>
+			<tr id="operators">
+				<td class="now_use">当前生效卡：</td>
+				<td><input type="button"  name="8" value="切换电信618" class="btn btn-success change" ></td>
+				<td><input type="button"  name="9" value="切换联通040" class="btn btn-success change" ></td>
+				<td><input type="button"  name="7" value="切换移动399" class="btn btn-warning change" ></td>
+				<td><input type="button"  value="清除生效卡" class="btn btn-danger del_now_use" ></td>
+			</tr>
+			<tr>
+				<td style="font-size: 14pt;padding-top:15px">任务分配：</td>
+			</tr>
+			<tr>
+				<td>输入发送号码： <input id="iot_phone_a_bak" type="text"
+					class="abc input-default" placeholder="输入发送号码(A)">&nbsp;&nbsp;</td>
+				<td>发送号码地市： <select id="iot_city_a"></select>&nbsp;&nbsp;</td>
+				<td>发送号码列表： <select id="iot_phone_a"></select>&nbsp;&nbsp;</td>
+				<td>发送时间： <input id="send_time" type="datetime-local" step="01" name="user_date" /></td>
+			</tr>
+			<tr>
+			<td>接收号码地市： <select id="iot_city_b"></select>&nbsp;&nbsp;</td>
+			<td><button type="button" class="btn btn-primary task_commit">提交</button>
+			</tr>
+		</table>
+	</form>
+	<hr />
+
+	<table id="addressListTable"
+		class="table table-bordered table-hover definewidth m10">
+		<thead>
+			<tr>
+				<th>多选</th>
+				<th>接收短信号码</th>
+				<th>号码所在城市编码</th>
+				<th>发送内容</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	<div id="wrapper" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  /> 
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div> 
+	</div> 
+
+</body>
+<!-- 页面主处理js -->
+<script type="text/javascript" src="../assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="feidian_iot_sms.js"></script>
+</html>

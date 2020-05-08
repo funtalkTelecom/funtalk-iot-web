@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+	<script type="text/javascript" src="../sysjs/signin.js"></script>
+	
+    <script type="text/javascript" src=./order.js></script> 
+    
+    <script type="text/javascript">
+		window.onload=function(){   
+			var reqObj = GetRequest();     
+			photoDisplayInit(reqObj.reg_num, reqObj.kind);
+		};
+	</script>
+	
+</head>
+<body>
+<form action=""  method="post"  class="definewidth m20">
+	<input type="hidden" name="id"   /> 
+	<font size="5">照片查看</font>
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">照片信息</td> 
+            <td><img id="photodisplay"  width="400px" ></img></td> 
+        </tr> 
+        <tr>
+            <td class="tableleft"></td>
+            <td> 
+                <button type="button" class="btn btn-success"  onClick="javascript :history.back(-1);">返回列表</button>
+            </td>  
+        </tr>
+    </table>
+</form>
+</body>
+</html>

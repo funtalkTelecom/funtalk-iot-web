@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbOErrorMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbOError" >
+    <id column="err_id" property="errId" jdbcType="INTEGER" />
+    <result column="err_type" property="errType" jdbcType="VARCHAR" />
+    <result column="topic" property="topic" jdbcType="VARCHAR" />
+    <result column="err_messae" property="errMessae" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="mark" property="mark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    err_id, err_type, topic, err_messae, create_time, mark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbOErrorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_o_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_o_error
+    where err_id = #{errId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_o_error
+    where err_id = #{errId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbOErrorExample" >
+    delete from tb_o_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbOError" >
+    insert into tb_o_error (err_id, err_type, topic, 
+      err_messae, create_time, mark
+      )
+    values (#{errId,jdbcType=INTEGER}, #{errType,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, 
+      #{errMessae,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{mark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbOError" >
+    insert into tb_o_error
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="errId != null" >
+        err_id,
+      </if>
+      <if test="errType != null" >
+        err_type,
+      </if>
+      <if test="topic != null" >
+        topic,
+      </if>
+      <if test="errMessae != null" >
+        err_messae,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="errId != null" >
+        #{errId,jdbcType=INTEGER},
+      </if>
+      <if test="errType != null" >
+        #{errType,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null" >
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="errMessae != null" >
+        #{errMessae,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbOErrorExample" resultType="java.lang.Integer" >
+    select count(*) from tb_o_error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_o_error
+    <set >
+      <if test="record.errId != null" >
+        err_id = #{record.errId,jdbcType=INTEGER},
+      </if>
+      <if test="record.errType != null" >
+        err_type = #{record.errType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topic != null" >
+        topic = #{record.topic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errMessae != null" >
+        err_messae = #{record.errMessae,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_o_error
+    set err_id = #{record.errId,jdbcType=INTEGER},
+      err_type = #{record.errType,jdbcType=VARCHAR},
+      topic = #{record.topic,jdbcType=VARCHAR},
+      err_messae = #{record.errMessae,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      mark = #{record.mark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbOError" >
+    update tb_o_error
+    <set >
+      <if test="errType != null" >
+        err_type = #{errType,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null" >
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="errMessae != null" >
+        err_messae = #{errMessae,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where err_id = #{errId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbOError" >
+    update tb_o_error
+    set err_type = #{errType,jdbcType=VARCHAR},
+      topic = #{topic,jdbcType=VARCHAR},
+      err_messae = #{errMessae,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      mark = #{mark,jdbcType=VARCHAR}
+    where err_id = #{errId,jdbcType=INTEGER}
+  </update>
+
+<insert id="insertForBatch" >
+  insert into tb_o_error (err_type,topic,err_messae)
+  values
+  <foreach collection="accnbrList" item="item" index="index" separator=",">
+    ('3', #{item ,jdbcType=VARCHAR},CONCAT('状态同步:号码', #{item ,jdbcType=VARCHAR},'在boss测存在多个有效状态.'))
+  </foreach>
+
+</insert>
+
+
+</mapper>

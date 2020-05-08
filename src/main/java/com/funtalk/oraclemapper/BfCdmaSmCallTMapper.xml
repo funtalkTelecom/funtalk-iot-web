@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.oraclemapper.BfCdmaSmCallTMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.BfCdmaSmCallT" >
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="MONTH" property="month" jdbcType="VARCHAR" />
+    <result column="DAY" property="day" jdbcType="DECIMAL" />
+    <result column="SERVICE_ID" property="serviceId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="FEE_KIND" property="feeKind" jdbcType="DECIMAL" />
+    <result column="CALL_TYPE" property="callType" jdbcType="CHAR" />
+    <result column="CALL_PHONE" property="callPhone" jdbcType="VARCHAR" />
+    <result column="BEGIN_DATE" property="beginDate" jdbcType="DATE" />
+    <result column="END_DATE" property="endDate" jdbcType="DATE" />
+
+  </resultMap>
+
+
+  <select id="selectSmsDispatch" resultMap="BaseResultMap">
+    Select *  From  bf_cdma_sm_call_t a
+    where a.begin_date &gt; #{bfCdmaSmCallT.beginDate}  and a.begin_date &lt; #{bfCdmaSmCallT.endDate}
+    and a.service_id=#{bfCdmaSmCallT.serviceId } and a.call_phone = #{ bfCdmaSmCallT.callPhone }
+
+  </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+    
+    <!-- 页面主处理js -->	
+	<script type="text/javascript" src=./addresslist.js></script>
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script> 
+	
+	<script type="text/javascript">
+		window.onload = OrderInit(); 
+	</script>
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >    
+    	查找通讯录 : <input id="i_address_name"  type="text"  class="abc input-default"  placeholder="输入客户姓名">&nbsp;&nbsp;   
+    	<button id="bt_getorder"  type="button" class="btn btn-primary"  onclick="getAddressList()">查 询</button>&nbsp;&nbsp;   
+	</form>
+	
+	<table id="i_al_ordertable" class="table table-bordered table-hover definewidth m10"  style="width:50%" >
+    	<thead>
+    	<tr> 
+    		<th style="width:150px">本机号码(A)</th>
+    		<th style="width:150px">虚拟号码(X)</th>
+	        <th style="width:150px">被叫号码(B)</th>  
+	        <th style="width:150px">操作</th>
+	        <th style="width:150px">操作结果</th> 
+    	</tr> 
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	
+</body>
+
+</html> 

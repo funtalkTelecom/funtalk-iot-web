@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script>
+	
+	<!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script>
+    <!-- 页面主处理js -->
+	<script type="text/javascript" src=./cust.js></script>
+	 
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >
+    	客户名称：
+    	<input id="custname"  type="text"  class="abc input-default"  placeholder="请输入客户名称模糊查询">&nbsp;&nbsp;  
+    	<button id="bt_getcust"  type="button" class="btn btn-primary" onclick="getCust()">查询客户</button>&nbsp;&nbsp; 
+    	<a href='custadd.html'><button id="bt_addcust"  type="button" class="btn btn-success"  >新增客户</button></a>
+	</form>
+	
+	<table id="i_custtable" class="table table-bordered table-hover definewidth m10"> 
+    	<thead>
+    	<tr>
+	        <th>公司名称</th>
+	        <th>营业执照</th>
+	        <th>地址</th>
+	        <th>联系人</th>
+	        <th>联系人电话</th>
+	        <th>创建时间</th>
+			<th>是否有效</th>
+	        <th>操作</th>
+    	</tr>
+    	</thead>
+    	<tbody></tbody>
+	</table>
+	 
+	<div id="wrapper">
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly" disabled  />
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div>
+	</div>
+	
+</body>
+
+</html>

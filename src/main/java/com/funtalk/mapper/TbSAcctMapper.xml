@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSAcctMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSAcct" >
+    <id column="acct_id" property="acctId" jdbcType="INTEGER" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="belong_id" property="belongId" jdbcType="VARCHAR" />
+    <result column="own_money" property="ownMoney" jdbcType="INTEGER" />
+    <result column="if_valid" property="ifValid" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="invalid_date" property="invalidDate" jdbcType="TIMESTAMP" />
+    <result column="create_workno" property="createWorkno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    acct_id, belong_type, belong_id, own_money, if_valid, create_date, invalid_date, 
+    create_workno
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSAcctExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_acct
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_acct
+    where acct_id = #{acctId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_acct
+    where acct_id = #{acctId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSAcctExample" >
+    delete from tb_s_acct
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSAcct" >
+    insert into tb_s_acct (acct_id, belong_type, belong_id, 
+      own_money, if_valid, create_date, 
+      invalid_date, create_workno)
+    values (#{acctId,jdbcType=INTEGER}, #{belongType,jdbcType=VARCHAR}, #{belongId,jdbcType=VARCHAR}, 
+      #{ownMoney,jdbcType=INTEGER}, #{ifValid,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{invalidDate,jdbcType=TIMESTAMP}, #{createWorkno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSAcct" >
+    insert into tb_s_acct
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acctId != null" >
+        acct_id,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="belongId != null" >
+        belong_id,
+      </if>
+      <if test="ownMoney != null" >
+        own_money,
+      </if>
+      <if test="ifValid != null" >
+        if_valid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="invalidDate != null" >
+        invalid_date,
+      </if>
+      <if test="createWorkno != null" >
+        create_workno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acctId != null" >
+        #{acctId,jdbcType=INTEGER},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownMoney != null" >
+        #{ownMoney,jdbcType=INTEGER},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalidDate != null" >
+        #{invalidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createWorkno != null" >
+        #{createWorkno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSAcctExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_acct
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_acct
+    <set >
+      <if test="record.acctId != null" >
+        acct_id = #{record.acctId,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongId != null" >
+        belong_id = #{record.belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownMoney != null" >
+        own_money = #{record.ownMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.ifValid != null" >
+        if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invalidDate != null" >
+        invalid_date = #{record.invalidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createWorkno != null" >
+        create_workno = #{record.createWorkno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_acct
+    set acct_id = #{record.acctId,jdbcType=INTEGER},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      belong_id = #{record.belongId,jdbcType=VARCHAR},
+      own_money = #{record.ownMoney,jdbcType=INTEGER},
+      if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      invalid_date = #{record.invalidDate,jdbcType=TIMESTAMP},
+      create_workno = #{record.createWorkno,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSAcct" >
+    update tb_s_acct
+    <set >
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        belong_id = #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownMoney != null" >
+        own_money = #{ownMoney,jdbcType=INTEGER},
+      </if>
+      <if test="ifValid != null" >
+        if_valid = #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalidDate != null" >
+        invalid_date = #{invalidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createWorkno != null" >
+        create_workno = #{createWorkno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where acct_id = #{acctId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSAcct" >
+    update tb_s_acct
+    set belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_id = #{belongId,jdbcType=VARCHAR},
+      own_money = #{ownMoney,jdbcType=INTEGER},
+      if_valid = #{ifValid,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      invalid_date = #{invalidDate,jdbcType=TIMESTAMP},
+      create_workno = #{createWorkno,jdbcType=VARCHAR}
+    where acct_id = #{acctId,jdbcType=INTEGER}
+  </update>
+</mapper>

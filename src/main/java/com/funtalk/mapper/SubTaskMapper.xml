@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.SubTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.SubTask" >
+    <id     column="task_type" property="taskType" jdbcType="VARCHAR" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="sub_id"  property="subId" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="phone_a" property="phoneA" jdbcType="VARCHAR" />
+    <result column="phone_b" property="phoneB" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="req_seq" property="reqSeq" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="work_no" property="workNo" jdbcType="VARCHAR" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="send_date" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="notice_url" property="noticeUrl" jdbcType="VARCHAR" />
+    <result column="notice_seq" property="noticeSeq" jdbcType="VARCHAR" />
+    <result column="notice_state" property="noticeState" jdbcType="VARCHAR" />
+    <result column="notice_time" property="noticeTime" jdbcType="TIMESTAMP" />
+    <result column="notice_back" property="noticeBack" jdbcType="VARCHAR" />
+    <result column="nid" property="nId" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  <select id="getNoassignByTaskid"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+    select * from tb_s_subtask a where a.task_id =#{taskid,jdbcType=INTEGER}  and a.if_send='0'
+
+  </select>
+
+  <update id="upadtePhoneA">
+
+    update tb_s_subtask_test
+    <set> phone_a=#{phoneNumber},
+          iccid =#{iccid},
+          state='1'
+    where task_id=#{taskId}
+    order by task_id
+
+    <if test="recordNum &gt; 0" >
+      limit #{recordNum}
+    </if>
+
+    </set>
+
+  </update>
+
+  <select id="getNeadDealTasks" resultType="com.funtalk.pojo.SubTask">
+
+    SELECT  * from tb_s_subtask_test
+    where iccid_a=#{iccid} and state in('1')
+           and iccid_a in(SELECT iccid from tb_s_phone where state in('2','3'))
+    order by state,create_date  limit #{limitNum}
+
+  </select>
+
+  <update id="updateBeforeSend">
+
+    update tb_s_subtask_test
+    set state='2',
+        send_order_id=#{sendOrderId,jdbcType=VARCHAR}
+    and task_id in(${taskids});
+
+    UPDATE  tb_s_phone
+    set state ='3'
+    where iccid=#{iccId}
+
+  </update>
+
+  <update id="updateSendResult">
+
+    update tb_s_subtask_test
+    set state=#{state,jdbcType=INTEGER}
+    where send_order_id=#{sendOrderId,jdbcType=VARCHAR}
+    and phone_b in(${phones});
+
+    UPDATE  tb_s_phone
+    set state ='0'
+    where iccid=#{iccId}
+    and not exists(select * from tb_s_subtask_test a where a.state in('1','2') and a.phone_a=service_id)
+
+  </update>
+
+  <insert id="insertFromPC" parameterType="com.funtalk.pojo.SubTask" >
+    INSERT into tb_s_subtask(task_type,sub_id,cust_id,phone_b,msg,state,work_no,req_seq)
+    values (#{subtask.taskType},#{subtask.subId},#{subtask.custId},#{subtask.phoneB},
+     #{subtask.msg},#{subtask.state},#{subtask.workNo},#{subtask.reqSeq})
+  </insert>
+
+  <insert id="addTaskBatch">
+    INSERT INTO tb_s_subtask(task_type,sub_id,cust_id,phone_b,msg,req_seq,notice_url)
+    VALUES
+    <foreach collection="subtasks" item="subtask" separator=",">
+      (#{subtask.taskType},#{subtask.subId},#{subtask.custId},#{subtask.phoneB},
+       #{subtask.msg},#{subtask.reqSeq},#{subtask.noticeUrl})
+    </foreach>
+  </insert>
+
+
+  <select id="getNeedAuditSms" resultMap="BaseResultMap">
+
+    SELECT  * from tb_s_subtask
+    where  state in('-1')
+      <if test="tempcontent!= null and tempcontent !=''"> AND msg like concat('%', #{tempcontent}, '%') </if>
+
+      <if test="submitter!= null and submitter !=''"> AND UPPER(work_no) like  concat('%', UPPER(#{submitter}), '%') </if>
+
+    limit #{offset}, #{limit}
+
+  </select>
+
+  <select id="getNeedAuditSmsCount" resultType="int">
+
+    SELECT  COUNT(*) from tb_s_subtask
+    where  state in('-1')
+      <if test="tempcontent!= null and tempcontent !=''"> AND msg like concat('%', #{tempcontent}, '%') </if>
+
+      <if test="submitter!= null and submitter !=''"> AND UPPER(work_no) like  concat('%', UPPER(#{submitter}), '%') </if>
+
+  </select>
+
+  <update id="updateCheckStatus">
+
+    update tb_s_subtask
+    set state=#{status,jdbcType=INTEGER}
+    <if test="tasklist in (-2,-3)"> , auditor=#{workno} </if>
+    where task_id in
+    <foreach item="item" index="index" collection="tasklist" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+
+  <select id="getSmsByWorkNo" resultMap="BaseResultMap">
+
+    SELECT   a.task_id,b.phone_a,a.phone_b,a.msg,a.work_no,
+    CASE WHEN b.if_send  IS NOT NULL  THEN  b.if_send    ELSE  a.state  END  state,b.send_date
+    FROM tb_s_subtask a LEFT JOIN  tb_s_subtask_result b ON a.task_id=b.task_id
+    WHERE  UPPER(a.work_no) = UPPER(#{workno})
+    <if test="tempcontent!= null and tempcontent !=''"> AND a.msg like concat('%', #{tempcontent}, '%') </if>
+    <if test="taskstatus!= null and taskstatus !='all'">
+      <choose>
+        <when test="taskstatus == 0">
+          and a.state IN(-3,-2,-1)
+        </when>
+        <when test="taskstatus == 1">
+          and (a.state = 0  OR b.if_send='1')
+        </when>
+        <when test="taskstatus == 2">
+          and b.if_send = '2'
+        </when>
+        <when test="taskstatus == 3">
+          and b.if_send = '3'
+        </when>
+        <otherwise></otherwise>
+      </choose>
+    </if>
+    order by state desc
+    limit #{offset}, #{limit}
+
+  </select>
+
+  <select id="getSmsByWorkNoCount" resultType="int">
+
+    SELECT  COUNT(*) FROM tb_s_subtask  a LEFT JOIN  tb_s_subtask_result  b  ON   a.task_id=b.task_id
+    WHERE  UPPER(a.work_no) = UPPER(#{workno})
+
+    <if test="tempcontent!= null and tempcontent !=''"> AND a.msg like concat('%', #{tempcontent}, '%') </if>
+    <if test="taskstatus!= null and taskstatus !='all'">
+      <choose>
+        <when test="taskstatus == 0">
+          and a.state IN(-3,-2,-1)
+        </when>
+        <when test="taskstatus == 1">
+          and (a.state = 0  OR b.if_send='1')
+        </when>
+        <when test="taskstatus == 2">
+          and b.if_send = '2'
+        </when>
+        <when test="taskstatus == 3">
+          and b.if_send = '3'
+        </when>
+        <otherwise></otherwise>
+      </choose>
+
+    </if>
+  </select>
+
+<select id="queryrecordcount"  resultType="int">
+    SELECT COUNT(*)  FROM tb_s_subtask WHERE phone_b =#{receiver}
+    and  create_time > DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')
+</select>
+
+  <select id="getSmsAndDeposit" resultType="string">
+
+    SELECT  IFNULL(CONCAT( SUM(CASE WHEN    DAY(b.send_date) = DAY(NOW())  THEN 1    ELSE  0  END),'-',COUNT(*) ,'-',
+      ROUND(IFNULL((SELECT  t.avail_money FROM tb_s_deposit t WHERE t.belong_id=#{employeeid} LIMIT 1),0)/100,2)),'0-0-0')  str
+    FROM tb_s_subtask a LEFT JOIN  tb_s_subtask_result b ON a.task_id=b.task_id
+    WHERE b.employee_id=#{employeeid} AND  DATE_FORMAT(b.send_date, '%Y%m' )= DATE_FORMAT(CURDATE(), '%Y%m' );
+
+  </select>
+
+
+  <select id="getSmsNoticeSeq" resultType="java.lang.String">
+    SELECT NEXTVAL(#{transType,jdbcType=VARCHAR});
+  </select>
+
+  <select id="getNeedNoticeSms"  resultMap="BaseResultMap" >
+    SELECT   a.task_id, a.req_seq,a.phone_b,a.notice_url,
+    CASE WHEN b.if_send IN('4','11')  THEN  '1'    ELSE  b.if_send  END  state
+    FROM tb_s_subtask a , tb_s_subtask_result b
+    WHERE    a.task_id=b.task_id AND a.notice_state='0' and  a.notice_url !=''
+    AND b.if_send IN('4','5','6','11')  order by a.create_time desc limit 0,100
+  </select>
+
+  <update id="updateNoticeStatus"   parameterType="com.funtalk.pojo.SubTask">
+
+    update tb_s_subtask
+    set notice_state=#{subtask.noticeState},notice_seq=#{subtask.noticeSeq},
+        notice_time=#{subtask.noticeTime},notice_back=#{subtask.noticeBack}
+    where task_id =#{subtask.taskId}
+  </update>
+
+
+</mapper>

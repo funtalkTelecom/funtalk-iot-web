@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbPDealerMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbPDealer" >
+    <result column="DEALER_ID" property="dealerId" jdbcType="INTEGER" />
+    <result column="DEALER_NAME" property="dealerName" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="DEALER_TYPE" property="dealerType" jdbcType="VARCHAR" />
+    <result column="ID_CODE" property="idCode" jdbcType="VARCHAR" />
+    <result column="ID_ADDRESS" property="idAddress" jdbcType="VARCHAR" />
+    <result column="CREATE_WORKNO" property="createWorkno" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="IF_VALID" property="ifValid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DEALER_ID, DEALER_NAME, CITY_CODE, DEALER_TYPE, ID_CODE, ID_ADDRESS, CREATE_WORKNO, 
+    CONTACT_PHONE, CREATE_DATE, IF_VALID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbPDealerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_p_dealer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbPDealerExample" >
+    delete from tb_p_dealer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbPDealer" >
+    insert into tb_p_dealer (DEALER_ID, DEALER_NAME, CITY_CODE, 
+      DEALER_TYPE, ID_CODE, ID_ADDRESS, 
+      CREATE_WORKNO, CONTACT_PHONE, CREATE_DATE, 
+      IF_VALID)
+    values (#{dealerId,jdbcType=INTEGER}, #{dealerName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{dealerType,jdbcType=VARCHAR}, #{idCode,jdbcType=VARCHAR}, #{idAddress,jdbcType=VARCHAR}, 
+      #{createWorkno,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{ifValid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbPDealer" >
+    insert into tb_p_dealer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dealerId != null" >
+        DEALER_ID,
+      </if>
+      <if test="dealerName != null" >
+        DEALER_NAME,
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="dealerType != null" >
+        DEALER_TYPE,
+      </if>
+      <if test="idCode != null" >
+        ID_CODE,
+      </if>
+      <if test="idAddress != null" >
+        ID_ADDRESS,
+      </if>
+      <if test="createWorkno != null" >
+        CREATE_WORKNO,
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="ifValid != null" >
+        IF_VALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dealerId != null" >
+        #{dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="dealerName != null" >
+        #{dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerType != null" >
+        #{dealerType,jdbcType=VARCHAR},
+      </if>
+      <if test="idCode != null" >
+        #{idCode,jdbcType=VARCHAR},
+      </if>
+      <if test="idAddress != null" >
+        #{idAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createWorkno != null" >
+        #{createWorkno,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbPDealerExample" resultType="java.lang.Integer" >
+    select count(*) from tb_p_dealer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_p_dealer
+    <set >
+      <if test="record.dealerId != null" >
+        DEALER_ID = #{record.dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dealerName != null" >
+        DEALER_NAME = #{record.dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerType != null" >
+        DEALER_TYPE = #{record.dealerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCode != null" >
+        ID_CODE = #{record.idCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idAddress != null" >
+        ID_ADDRESS = #{record.idAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createWorkno != null" >
+        CREATE_WORKNO = #{record.createWorkno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        CONTACT_PHONE = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ifValid != null" >
+        IF_VALID = #{record.ifValid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_p_dealer
+    set DEALER_ID = #{record.dealerId,jdbcType=INTEGER},
+      DEALER_NAME = #{record.dealerName,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      DEALER_TYPE = #{record.dealerType,jdbcType=VARCHAR},
+      ID_CODE = #{record.idCode,jdbcType=VARCHAR},
+      ID_ADDRESS = #{record.idAddress,jdbcType=VARCHAR},
+      CREATE_WORKNO = #{record.createWorkno,jdbcType=VARCHAR},
+      CONTACT_PHONE = #{record.contactPhone,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      IF_VALID = #{record.ifValid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

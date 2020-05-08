@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbOBatchsubMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbOBatchsub" >
+    <id column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="batch_id" property="batchId" jdbcType="INTEGER" />
+    <result column="acc_nbr" property="accNbr" jdbcType="VARCHAR" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="recharge_state" property="rechargeState" jdbcType="VARCHAR" />
+    <result column="recharge_trans_id" property="rechargeTransId" jdbcType="VARCHAR" />
+    <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
+    <result column="recharge_mark" property="rechargeMark" jdbcType="VARCHAR" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="belong_id" property="belongId" jdbcType="VARCHAR" />
+    <result column="activate_state" property="activateState" jdbcType="VARCHAR" />
+    <result column="limit_state" property="limitState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sub_id, batch_id, acc_nbr, recharge_amount, recharge_state, recharge_trans_id, recharge_time, 
+    recharge_mark, belong_type, belong_id, activate_state, limit_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbOBatchsubExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_o_batchsub
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_o_batchsub
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_o_batchsub
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbOBatchsubExample" >
+    delete from tb_o_batchsub
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbOBatchsub" >
+    insert into tb_o_batchsub (sub_id, batch_id, acc_nbr, 
+      recharge_amount, recharge_state, recharge_trans_id, 
+      recharge_time, recharge_mark, belong_type,
+      belong_id, activate_state, limit_state
+      )
+    values (#{subId,jdbcType=INTEGER}, #{batchId,jdbcType=INTEGER}, #{accNbr,jdbcType=VARCHAR}, 
+      #{rechargeAmount,jdbcType=DECIMAL}, #{rechargeState,jdbcType=VARCHAR}, #{rechargeTransId,jdbcType=VARCHAR}, 
+      #{rechargeTime,jdbcType=TIMESTAMP}, #{rechargeMark,jdbcType=VARCHAR}, #{belongType,jdbcType=VARCHAR},
+      #{belongId,jdbcType=VARCHAR}, #{activateState,jdbcType=VARCHAR}, #{limitState,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbOBatchsub" >
+    insert into tb_o_batchsub
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subId != null" >
+        sub_id,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="accNbr != null" >
+        acc_nbr,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="rechargeState != null" >
+        recharge_state,
+      </if>
+      <if test="rechargeTransId != null" >
+        recharge_trans_id,
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time,
+      </if>
+      <if test="rechargeMark != null" >
+        recharge_mark,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="belongId != null" >
+        belong_id,
+      </if>
+      <if test="activateState != null" >
+        activate_state,
+      </if>
+      <if test="limitState != null" >
+        limit_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subId != null" >
+        #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="accNbr != null" >
+        #{accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeState != null" >
+        #{rechargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTransId != null" >
+        #{rechargeTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTime != null" >
+        #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rechargeMark != null" >
+        #{rechargeMark,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="activateState != null" >
+        #{activateState,jdbcType=VARCHAR},
+      </if>
+      <if test="limitState != null" >
+        #{limitState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbOBatchsubExample" resultType="java.lang.Integer" >
+    select count(*) from tb_o_batchsub
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_o_batchsub
+    <set >
+      <if test="record.subId != null" >
+        sub_id = #{record.subId,jdbcType=INTEGER},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accNbr != null" >
+        acc_nbr = #{record.accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeAmount != null" >
+        recharge_amount = #{record.rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rechargeState != null" >
+        recharge_state = #{record.rechargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeTransId != null" >
+        recharge_trans_id = #{record.rechargeTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeTime != null" >
+        recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rechargeMark != null" >
+        recharge_mark = #{record.rechargeMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongId != null" >
+        belong_id = #{record.belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activateState != null" >
+        activate_state = #{record.activateState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitState != null" >
+        limit_state = #{record.limitState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_o_batchsub
+    set sub_id = #{record.subId,jdbcType=INTEGER},
+      batch_id = #{record.batchId,jdbcType=INTEGER},
+      acc_nbr = #{record.accNbr,jdbcType=VARCHAR},
+      recharge_amount = #{record.rechargeAmount,jdbcType=DECIMAL},
+      recharge_state = #{record.rechargeState,jdbcType=VARCHAR},
+      recharge_trans_id = #{record.rechargeTransId,jdbcType=VARCHAR},
+      recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
+      recharge_mark = #{record.rechargeMark,jdbcType=VARCHAR},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      belong_id = #{record.belongId,jdbcType=VARCHAR},
+      activate_state = #{record.activateState,jdbcType=VARCHAR},
+      limit_state = #{record.limitState,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbOBatchsub" >
+    update tb_o_batchsub
+    <set >
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="accNbr != null" >
+        acc_nbr = #{accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeState != null" >
+        recharge_state = #{rechargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTransId != null" >
+        recharge_trans_id = #{rechargeTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rechargeMark != null" >
+        recharge_mark = #{rechargeMark,jdbcType=VARCHAR},
+      </if>
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        belong_id = #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="activateState != null" >
+        activate_state = #{activateState,jdbcType=VARCHAR},
+      </if>
+      <if test="limitState != null" >
+        limit_state = #{limitState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbOBatchsub" >
+    update tb_o_batchsub
+    set batch_id = #{batchId,jdbcType=INTEGER},
+      acc_nbr = #{accNbr,jdbcType=VARCHAR},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      recharge_state = #{rechargeState,jdbcType=VARCHAR},
+      recharge_trans_id = #{rechargeTransId,jdbcType=VARCHAR},
+      recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      recharge_mark = #{rechargeMark,jdbcType=VARCHAR},
+      belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_id = #{belongId,jdbcType=VARCHAR},
+      activate_state = #{activateState,jdbcType=VARCHAR},
+      limit_state = #{limitState,jdbcType=VARCHAR}
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </update>
+
+  <insert id="addBatchSub">
+
+    INSERT INTO tb_o_batchsub(batch_id,acc_nbr,recharge_amount,belong_type,belong_id)
+    VALUES
+    <foreach collection="tbOBatchsubList" item="sub" separator=",">
+      (#{sub.batchId},#{sub.accNbr},#{sub.rechargeAmount},#{sub.belongType},#{sub.belongId})
+    </foreach>
+
+  </insert>
+
+
+  <select id="checkAccnbrValid" resultType="java.lang.String">
+  SELECT a.acc_nbr FROM tb_o_batchsub a WHERE a.batch_id=#{batchId,jdbcType=INTEGER}
+  AND  NOT EXISTS (SELECT * FROM tb_o_accnbr b WHERE b.belong_id= a.belong_id  AND b.acc_nbr=a.acc_nbr)
+  </select>
+
+  <delete id="deleteByBatchId" parameterType="java.lang.Integer" >
+    delete from tb_o_batchrecharge
+    where batch_id = #{batchId,jdbcType=INTEGER};
+    delete from tb_o_batchsub
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </delete>
+
+
+  <update id="updateBatchResult" parameterType="java.util.List" >
+    <foreach collection="tbOBatchsubList" item="item" index="index" open="" close="" separator=";">
+      update tb_o_batchsub
+      <set >
+        <if test="item.activateState != null " >
+          activate_state = #{item.activateState,jdbcType=VARCHAR},
+        </if>
+        <if test="item.limitState != null " >
+          limit_state = #{item.limitState,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where sub_id = #{item.subId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+</mapper>

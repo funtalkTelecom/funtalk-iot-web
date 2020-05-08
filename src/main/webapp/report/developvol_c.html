@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <script type="text/javascript" src="../sysjs/signin.js"></script> 
+    <script type="text/javascript" src="../assets/js/DatePicker.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>  
+	
+    <!-- 页面主处理js -->	 
+	<script type="text/javascript"  src="developvol_c.js"></script>
+	 
+	  
+</head>
+<body>
+	
+	<form class="form-inline definewidth m20"  action=""  >  
+	<font size="4">个人业务发展情况统计</font><br/>
+		查询日期：
+		<input id="stat_month"  onclick="setday(this)" />  
+		<button type="button" class="btn btn-primary" onclick="getReport()">查 询</button>
+	</form>
+	
+	<table id="reportTable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr> 
+	        <th>日期</th>
+	        <th>发送短信验证码条数</th>
+	        <th>发送短信验证码人数</th>
+	        <th>进行实名制</th>
+	        <th>通过实名制</th>
+	        <th>支付成功</th>
+	        <th>订购成功</th> 
+	        <th>通话时长(分钟)</th> 
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	  
+	
+</body>
+
+</html> 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <script type="text/javascript" src=./dealer.js></script>
+   	<script type="text/javascript">
+   		window.onload=function(){  dealerAddInit(); }; 
+	</script>
+</head>
+<body>
+<form action=""  method="post"  class="definewidth m20">
+	<input type="hidden" name="id"   /> 
+	<font size="5">代理商信息新建</font>
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">代理商名称</td>
+            <td><input id="dealername"  type="text"  value=""/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">归属地市</td>
+            <td>
+            	<select id="citycode" > 
+				</select></td>
+        </tr>
+        <tr>
+            <td class="tableleft">代理商类型</td>
+            <td><select id="dealertype" > 
+				</select></td>
+        </tr>
+        <tr>
+            <td class="tableleft">证件号码</td>
+            <td><input id="d_idcard"  type="text"  value=""/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">证件地址</td>
+            <td><input id="d_idaddr"  type="text"  value=""/></td> 
+        </tr> 
+        <tr>
+            <td class="tableleft">联系电话</td>
+            <td><input id="contact_phone"  type="tel"  value=""/></td> 
+        </tr> 
+        <tr>
+        	<td class="tableleft">是否启用</td>
+        	<td><input id="status"  type="checkbox"   checked="checked" /></td>
+        </tr>
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="button" class="btn btn-primary"  onClick="addDealer()">保  存</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-success"  onClick="javascript :history.back(-1);">返回列表</button>
+            </td>  
+        </tr>
+    </table>
+</form>
+</body>
+</html>

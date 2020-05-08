@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbOAccnbrMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbOAccnbr" >
+    <id column="acc_order_id" property="accOrderId" jdbcType="INTEGER" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="belong_id" property="belongId" jdbcType="VARCHAR" />
+    <result column="acc_nbr" property="accNbr" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="state_time" property="stateTime" jdbcType="TIMESTAMP" />
+    <result column="if_valid" property="ifValid" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="valid_time" property="validTime" jdbcType="TIMESTAMP" />
+    <result column="invalid_time" property="invalidTime" jdbcType="TIMESTAMP" />
+    <result column="pak_id" property="pakId" jdbcType="VARCHAR" />
+    <result column="pak_price" property="pakPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    acc_order_id, belong_type, belong_id, acc_nbr, state, state_time, if_valid, create_time, 
+    valid_time, invalid_time, pak_id, pak_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbOAccnbrExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_o_accnbr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_o_accnbr
+    where acc_order_id = #{accOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_o_accnbr
+    where acc_order_id = #{accOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbOAccnbrExample" >
+    delete from tb_o_accnbr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbOAccnbr" >
+    insert into tb_o_accnbr (acc_order_id, belong_type, belong_id, 
+      acc_nbr, state, state_time, 
+      if_valid, create_time, valid_time, 
+      invalid_time, pak_id, pak_price
+      )
+    values (#{accOrderId,jdbcType=INTEGER}, #{belongType,jdbcType=VARCHAR}, #{belongId,jdbcType=VARCHAR}, 
+      #{accNbr,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{stateTime,jdbcType=TIMESTAMP}, 
+      #{ifValid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{validTime,jdbcType=TIMESTAMP}, 
+      #{invalidTime,jdbcType=TIMESTAMP}, #{pakId,jdbcType=VARCHAR}, #{pakPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbOAccnbr" >
+    insert into tb_o_accnbr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accOrderId != null" >
+        acc_order_id,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="belongId != null" >
+        belong_id,
+      </if>
+      <if test="accNbr != null" >
+        acc_nbr,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="stateTime != null" >
+        state_time,
+      </if>
+      <if test="ifValid != null" >
+        if_valid,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="validTime != null" >
+        valid_time,
+      </if>
+      <if test="invalidTime != null" >
+        invalid_time,
+      </if>
+      <if test="pakId != null" >
+        pak_id,
+      </if>
+      <if test="pakPrice != null" >
+        pak_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accOrderId != null" >
+        #{accOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="accNbr != null" >
+        #{accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null" >
+        #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validTime != null" >
+        #{validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalidTime != null" >
+        #{invalidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pakId != null" >
+        #{pakId,jdbcType=VARCHAR},
+      </if>
+      <if test="pakPrice != null" >
+        #{pakPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbOAccnbrExample" resultType="java.lang.Integer" >
+    select count(*) from tb_o_accnbr
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_o_accnbr
+    <set >
+      <if test="record.accOrderId != null" >
+        acc_order_id = #{record.accOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongId != null" >
+        belong_id = #{record.belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accNbr != null" >
+        acc_nbr = #{record.accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateTime != null" >
+        state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ifValid != null" >
+        if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.validTime != null" >
+        valid_time = #{record.validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invalidTime != null" >
+        invalid_time = #{record.invalidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pakId != null" >
+        pak_id = #{record.pakId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pakPrice != null" >
+        pak_price = #{record.pakPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_o_accnbr
+    set acc_order_id = #{record.accOrderId,jdbcType=INTEGER},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      belong_id = #{record.belongId,jdbcType=VARCHAR},
+      acc_nbr = #{record.accNbr,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      if_valid = #{record.ifValid,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      valid_time = #{record.validTime,jdbcType=TIMESTAMP},
+      invalid_time = #{record.invalidTime,jdbcType=TIMESTAMP},
+      pak_id = #{record.pakId,jdbcType=VARCHAR},
+      pak_price = #{record.pakPrice,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbOAccnbr" >
+    update tb_o_accnbr
+    <set >
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        belong_id = #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="accNbr != null" >
+        acc_nbr = #{accNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null" >
+        state_time = #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifValid != null" >
+        if_valid = #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validTime != null" >
+        valid_time = #{validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalidTime != null" >
+        invalid_time = #{invalidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pakId != null" >
+        pak_id = #{pakId,jdbcType=VARCHAR},
+      </if>
+      <if test="pakPrice != null" >
+        pak_price = #{pakPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where acc_order_id = #{accOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbOAccnbr" >
+    update tb_o_accnbr
+    set belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_id = #{belongId,jdbcType=VARCHAR},
+      acc_nbr = #{accNbr,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      state_time = #{stateTime,jdbcType=TIMESTAMP},
+      if_valid = #{ifValid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      valid_time = #{validTime,jdbcType=TIMESTAMP},
+      invalid_time = #{invalidTime,jdbcType=TIMESTAMP},
+      pak_id = #{pakId,jdbcType=VARCHAR},
+      pak_price = #{pakPrice,jdbcType=DECIMAL}
+    where acc_order_id = #{accOrderId,jdbcType=INTEGER}
+  </update>
+
+  <insert id="addBatchOrder">
+
+    DELETE  FROM tb_o_accnbr  WHERE acc_nbr IN
+    <foreach collection="tbOAccnbrList" item="tbOAccnbr"  open="(" separator="," close=")" >
+      #{tbOAccnbr.accNbr}
+    </foreach>
+    ;
+    INSERT INTO tb_o_accnbr(belong_type,belong_id,acc_nbr,state,if_valid,pak_id,pak_price)
+    VALUES
+    <foreach collection="tbOAccnbrList" item="tbOAccnbr" separator=",">
+      (#{tbOAccnbr.belongType},#{tbOAccnbr.belongId},#{tbOAccnbr.accNbr},
+      #{tbOAccnbr.state},#{tbOAccnbr.ifValid},#{tbOAccnbr.pakId},#{tbOAccnbr.pakPrice})
+    </foreach>
+  </insert>
+
+  <select id="getPackageList" resultType="com.funtalk.pojo.ParamData">
+    SELECT     CONCAT(key_id,'-',temp_key_value)  pkey , key_value pvalue FROM tb_p_system t WHERE t.name='package_id'
+  </select>
+
+
+  <update id="updateRechargeState">
+
+    UPDATE  tb_l_charge t
+      SET    t.pay_status='4',
+              t.pay_time =NULL
+     WHERE t.charge_id =#{chargeId};
+
+    UPDATE tb_o_batchrecharge t
+     SET t.pay_state='0',
+         t.pay_time=NULL
+    WHERE t.batch_id=#{batchId}
+
+  </update>
+
+</mapper>

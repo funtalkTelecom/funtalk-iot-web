@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script> 
+	 
+	<!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script>   
+	
+	<!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script>
+	
+</head>
+<body>
+
+	<form class="form-inline definewidth m20"  action=""  > 
+		<table>  
+			<tr>  
+        		<td >使用范围: </td><td><select id="use_type" onchange="useTypeChange()">
+					     								<option value="X"  selected="selected" >请选择范围</option>
+										  				<option value="0" >企业客户</option>
+										  				<option value="1" >个人客户</option></select></td> 
+        	</tr>   
+			<tr id="dealertr" >
+		        <td >归属代理商*</td>
+		        <td><select id="dealerid"  onchange="getCustInfo()"></select></td>
+		        <td><input id="search_dealer"  type="text"  value=""/></td>
+		        <td><input id="search_btn"  class="btn btn-primary"  type="button"  value="查找代理商"  onclick="filtDealer()"/></td>
+		    </tr>
+		    <tr id="custtr" >
+		        <td >归属客户</td>
+		        <td><select id="custid" ></select></td>
+		        <td><input id="search_cust"  type="text"  value=""/></td>
+		        <td><input id="search_btn"  class="btn btn-primary"  type="button"  value="查找客户"  onclick="filtCust()"/></td>
+		    </tr>
+			<tr>  
+        		<td >号码类型: </td><td><select id="phone_type" >
+					     								<option value="0"  selected="selected">请选择类型</option>
+										  				<option value="AX" >AX</option>
+										  				<option value="AXB" >AXB</option></select></td><td></td>  
+        	</tr> 
+        	<tr>
+				<td >地市: </td><td><select id="cityList" ></select></td><td></td>  
+		    </tr>
+			<tr>  
+        		<td >号码状态: </td><td><select id="phone_status" >
+					     								<option value="X"  selected="selected">请选择状态</option>
+										  				<option value="0" >可用</option>
+										  				<option value="1" >已用</option>
+										  				<option value="2" >已订购</option>
+										  				<option value="-1" >临时占用</option></select></td> 
+				<td><button type="button" class="btn btn-primary"  onClick="phoneinfo()">查 询</button></td> 
+        	</tr> 
+        	
+		</table>
+	</form> 
+	
+	<table id="i_totaltable" class="table table-bordered table-hover definewidth m10"> 
+		<thead><tr><th width="5%">合计:</th><th id="total_cnt"></th></tr></thead>
+	</table> 
+	 
+	<table id="i_phonetable" class="table table-bordered table-hover definewidth m10"> 
+    	<thead>
+    	<tr> 
+	        <th>地市</th>
+	        <th>使用范围</th>
+	        <th>号码类型</th> 
+	        <th>号码</th>
+	        <th>归属客户</th> 
+	        <th>状态</th>
+	        <th>是否有效</th>
+	        <th>订购编码</th> 
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	
+	<div id="wrapper" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  /> 
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div> 
+	</div> 
+	
+</body> 
+
+<script type="text/javascript" src="phoneinfo.js"></script>
+</html> 

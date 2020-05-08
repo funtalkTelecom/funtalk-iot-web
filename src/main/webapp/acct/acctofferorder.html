@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+    <script type="text/javascript" src="../sysjs/signin.js"></script>  
+    <script type="text/javascript" src="./acct.js"></script>  
+    <script type="text/javascript">
+    	window.onload=function(){  
+    		acctChargeInit();
+    		acctBookInit(); };
+    </script>
+    
+</head>
+<body> 
+<form action=""  method="post"  class="definewidth m20">
+<input type="hidden" name="id"   /> 
+	<font size="5">客户资金池管理</font>
+    <table id="acctpaytable" class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">客户编码</td>
+            <td><input id="custid" type="text"  disabled="disabled"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">账户编码</td>
+            <td><input id="accountid" type="text"  disabled="disabled"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">客户名称</td>
+            <td><input id="custname" type="text"  disabled="disabled" /></td>
+        </tr>
+        <tr>
+            <td class="tableleft">资金池信息</td>
+            <td><input id="acctinfo" type="text"  disabled="disabled"  style="width:700px;" /></td>
+        </tr>
+        <tr>
+            <td class="tableleft">账本信息</td>
+            <td><input id="acctbookinfo" type="text"  disabled="disabled"  style="width:700px;" /></td>
+        </tr>
+        <tr>
+            <td class="tableleft">订购产品</td>
+            <td>
+            	<select id=product  onchange="prodselect()"></select>
+			</td>
+        </tr>
+        <tr>
+            <td class="tableleft">产品金额(元)</td>
+            <td><input id="fee"  disabled="disabled" /></td> 
+        </tr> 
+		<tr>
+            <td class="tableleft">产品使用量(分钟)</td>
+            <td><input id="balance"  disabled="disabled" /></td> 
+        </tr> 
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="button" class="btn btn-primary"  onClick="acctOfferOrder()">订 购</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-success"  onClick="javascript :history.back(-1);">返回账户列表</button>
+            </td>  
+        </tr>
+    </table>
+</form>
+</body>
+</html>

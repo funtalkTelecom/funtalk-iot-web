@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css">
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+    <!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script>
+    <!-- 页面主处理js -->	
+	<script type="text/javascript" src=./cust.js></script>
+	
+	<script type="text/javascript">
+		window.onload=function(){
+			var reqObj = GetRequest();  
+			document.getElementById("i_custid").value = reqObj.cust_id;
+			document.getElementById("i_custname").value = reqObj.cust_name;
+			document.getElementById("i_idcode").value = reqObj.id_code;
+			document.getElementById("i_address").value = reqObj.address;
+            document.getElementById("i_contacts").value = reqObj.contacts;
+            document.getElementById("i_contactsnum").value = reqObj.contacts_num;
+			if(reqObj.status==1){ document.getElementById("if_valid").checked = true;}
+			else{ document.getElementById("if_valid").checked = false; }
+		};
+	</script>
+	
+</head>
+<body>
+<form action="" method="post" class="definewidth m20"> 
+	<font size="5">客户信息维护</font>
+    <table class="table table-bordered table-hover definewidth m10">
+        <input id="i_custid"  type="hidden"  name="i_custid" />
+
+        <tr>
+            <td class="tableleft">客户名称</td>
+            <td><input id="i_custname" type="text" disabled style="width:400px;" /></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">证件号码</td>
+            <td><input id="i_idcode" type="text" disabled  style="width:400px;"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">地址</td>
+            <td><input id="i_address"  type="text"  style="width:400px;"/></td>
+        </tr>
+        <tr>
+        <td class="tableleft">联系人</td>
+        <td><input id="i_contacts"  type="text"  style="width:300px;"/></td>
+    </tr>
+        <tr>
+            <td class="tableleft">联系电话</td>
+            <td><input id="i_contactsnum"  type="text"  style="width:300px;"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft"></td> 
+            <td>
+                <input id="if_valid"  type="checkbox"  name="status"  />是否有效
+            </td>
+        </tr>
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="button" class="btn btn-primary"  onClick="custUpdate();">保存</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-success" onClick="javascript:history.back(-1);">返回列表</button>                
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

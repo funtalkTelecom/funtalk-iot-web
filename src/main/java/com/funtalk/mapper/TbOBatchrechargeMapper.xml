@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbOBatchrechargeMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbOBatchrecharge" >
+    <id column="batch_id" property="batchId" jdbcType="INTEGER" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="belong_id" property="belongId" jdbcType="VARCHAR" />
+    <result column="work_no" property="workNo" jdbcType="VARCHAR" />
+    <result column="file_db_name" property="fileDbName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_server_name" property="fileServerName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_state" property="payState" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="ser_num" property="serNum" jdbcType="VARCHAR" />
+    <result column="recharge_state" property="rechargeState" jdbcType="VARCHAR" />
+    <result column="recharge_trans_id" property="rechargeTransId" jdbcType="VARCHAR" />
+    <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
+    <result column="check_state" property="checkState" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="check_mark" property="checkMark" jdbcType="VARCHAR" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="recharge_num" property="rechargeNum" jdbcType="INTEGER" />
+    <result column="alter_boss" property="alterBoss" jdbcType="VARCHAR" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    batch_id, belong_type, belong_id, work_no, file_db_name, file_path, file_server_name, 
+    create_time, pay_state, pay_time, ser_num, recharge_state, recharge_trans_id, recharge_time, 
+    check_state, check_time, check_mark, recharge_amount, recharge_num, alter_boss
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbOBatchrechargeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_o_batchrecharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_o_batchrecharge
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_o_batchrecharge
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbOBatchrechargeExample" >
+    delete from tb_o_batchrecharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbOBatchrecharge" >
+    insert into tb_o_batchrecharge (batch_id, belong_type, belong_id, 
+      work_no, file_db_name, file_path, 
+      file_server_name, create_time, pay_state, 
+      pay_time, ser_num, recharge_state, 
+      recharge_trans_id, recharge_time, check_state, 
+      check_time, check_mark, recharge_amount, 
+      recharge_num, alter_boss)
+    values (#{batchId,jdbcType=INTEGER}, #{belongType,jdbcType=VARCHAR}, #{belongId,jdbcType=VARCHAR}, 
+      #{workNo,jdbcType=VARCHAR}, #{fileDbName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{fileServerName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{payState,jdbcType=VARCHAR}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{serNum,jdbcType=VARCHAR}, #{rechargeState,jdbcType=VARCHAR}, 
+      #{rechargeTransId,jdbcType=VARCHAR}, #{rechargeTime,jdbcType=TIMESTAMP}, #{checkState,jdbcType=VARCHAR}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{checkMark,jdbcType=VARCHAR}, #{rechargeAmount,jdbcType=DECIMAL}, 
+      #{rechargeNum,jdbcType=INTEGER}, #{alterBoss,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbOBatchrecharge"  useGeneratedKeys="true" keyProperty="batchId">
+    insert into tb_o_batchrecharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="belongId != null" >
+        belong_id,
+      </if>
+      <if test="workNo != null" >
+        work_no,
+      </if>
+      <if test="fileDbName != null" >
+        file_db_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileServerName != null" >
+        file_server_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="payState != null" >
+        pay_state,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="serNum != null" >
+        ser_num,
+      </if>
+      <if test="rechargeState != null" >
+        recharge_state,
+      </if>
+      <if test="rechargeTransId != null" >
+        recharge_trans_id,
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time,
+      </if>
+      <if test="checkState != null" >
+        check_state,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="checkMark != null" >
+        check_mark,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="rechargeNum != null" >
+        recharge_num,
+      </if>
+      <if test="alterBoss != null" >
+        alter_boss,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDbName != null" >
+        #{fileDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileServerName != null" >
+        #{fileServerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payState != null" >
+        #{payState,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serNum != null" >
+        #{serNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeState != null" >
+        #{rechargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTransId != null" >
+        #{rechargeTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTime != null" >
+        #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkState != null" >
+        #{checkState,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkMark != null" >
+        #{checkMark,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeNum != null" >
+        #{rechargeNum,jdbcType=INTEGER},
+      </if>
+      <if test="alterBoss != null" >
+        #{alterBoss,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbOBatchrechargeExample" resultType="java.lang.Integer" >
+    select count(*) from tb_o_batchrecharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_o_batchrecharge
+    <set >
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongId != null" >
+        belong_id = #{record.belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workNo != null" >
+        work_no = #{record.workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileDbName != null" >
+        file_db_name = #{record.fileDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null" >
+        file_path = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileServerName != null" >
+        file_server_name = #{record.fileServerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payState != null" >
+        pay_state = #{record.payState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serNum != null" >
+        ser_num = #{record.serNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeState != null" >
+        recharge_state = #{record.rechargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeTransId != null" >
+        recharge_trans_id = #{record.rechargeTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeTime != null" >
+        recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkState != null" >
+        check_state = #{record.checkState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null" >
+        check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkMark != null" >
+        check_mark = #{record.checkMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeAmount != null" >
+        recharge_amount = #{record.rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rechargeNum != null" >
+        recharge_num = #{record.rechargeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alterBoss != null" >
+        alter_boss = #{record.alterBoss,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_o_batchrecharge
+    set batch_id = #{record.batchId,jdbcType=INTEGER},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      belong_id = #{record.belongId,jdbcType=VARCHAR},
+      work_no = #{record.workNo,jdbcType=VARCHAR},
+      file_db_name = #{record.fileDbName,jdbcType=VARCHAR},
+      file_path = #{record.filePath,jdbcType=VARCHAR},
+      file_server_name = #{record.fileServerName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      pay_state = #{record.payState,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      ser_num = #{record.serNum,jdbcType=VARCHAR},
+      recharge_state = #{record.rechargeState,jdbcType=VARCHAR},
+      recharge_trans_id = #{record.rechargeTransId,jdbcType=VARCHAR},
+      recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
+      check_state = #{record.checkState,jdbcType=VARCHAR},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      check_mark = #{record.checkMark,jdbcType=VARCHAR},
+      recharge_amount = #{record.rechargeAmount,jdbcType=DECIMAL},
+      recharge_num = #{record.rechargeNum,jdbcType=INTEGER},
+      alter_boss = #{record.alterBoss,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbOBatchrecharge" >
+    update tb_o_batchrecharge
+    <set >
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        belong_id = #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        work_no = #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDbName != null" >
+        file_db_name = #{fileDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileServerName != null" >
+        file_server_name = #{fileServerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payState != null" >
+        pay_state = #{payState,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serNum != null" >
+        ser_num = #{serNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeState != null" >
+        recharge_state = #{rechargeState,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTransId != null" >
+        recharge_trans_id = #{rechargeTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkState != null" >
+        check_state = #{checkState,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkMark != null" >
+        check_mark = #{checkMark,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeNum != null" >
+        recharge_num = #{rechargeNum,jdbcType=INTEGER},
+      </if>
+      <if test="alterBoss != null" >
+        alter_boss = #{alterBoss,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbOBatchrecharge" >
+    update tb_o_batchrecharge
+    set belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_id = #{belongId,jdbcType=VARCHAR},
+      work_no = #{workNo,jdbcType=VARCHAR},
+      file_db_name = #{fileDbName,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_server_name = #{fileServerName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_state = #{payState,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      ser_num = #{serNum,jdbcType=VARCHAR},
+      recharge_state = #{rechargeState,jdbcType=VARCHAR},
+      recharge_trans_id = #{rechargeTransId,jdbcType=VARCHAR},
+      recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      check_state = #{checkState,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      check_mark = #{checkMark,jdbcType=VARCHAR},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      recharge_num = #{rechargeNum,jdbcType=INTEGER},
+      alter_boss = #{alterBoss,jdbcType=VARCHAR}
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getTransId" resultType="java.lang.String">
+
+    SELECT NEXTVAL(#{transType,jdbcType=VARCHAR});
+
+  </select>
+
+
+  <select id="getDealerRechargeList" resultMap="BaseResultMap">
+
+    SELECT b.batch_id, (SELECT a.employee_name FROM tb_s_employee  a  WHERE a.work_no=b.work_no LIMIT 0,1)  employee_name,
+            b.create_time,b.pay_state,b.pay_time,b.recharge_state,b.check_state,b.check_mark,b.file_db_name,b.file_path,
+            b.file_server_name,b.recharge_amount,b.recharge_num,b.alter_boss
+    FROM tb_o_batchrecharge b
+    <if test="check == null " >
+      WHERE  UPPER(work_no) = UPPER(#{workno})
+    </if>
+    ORDER BY  create_time DESC
+    limit #{offset}, #{limit}
+  </select>
+
+  <select id="getDealerRechargeListCount" resultType="int">
+        SELECT COUNT(*) FROM tb_o_batchrecharge a
+
+    <if test="check == null " >
+      WHERE  UPPER(a.work_no) = UPPER(#{workno})
+    </if>
+  </select>
+
+  <update id="updateAmount">
+
+    update tb_o_batchrecharge
+    set
+      recharge_amount= #{rechargeAmount,jdbcType=DECIMAL},
+      recharge_num=#{rechargeNum,jdbcType=INTEGER}
+    where batch_id =  #{batchId,jdbcType=INTEGER}
+
+  </update>
+
+  <update id="updateState">
+    update tb_o_batchrecharge
+    <set>
+
+      <if test="payState != null" >
+        pay_state = #{payState},
+      </if>
+      <if test="payState != null" >
+        pay_time = CURTIME(),
+      </if>
+      <if test="checkState != null" >
+        check_state = #{checkState},
+      </if>
+      <if test="checkState != null" >
+        check_time = CURTIME(),
+      </if>
+      <if test="rechargeState != null" >
+        recharge_state = #{rechargeState},
+      </if>
+      <if test="mark != null" >
+        check_mark= #{mark},
+      </if>
+      <if test="alterBoss != null" >
+        alter_boss= #{alterBoss},
+      </if>
+    </set>
+
+    where batch_id = #{batchId}
+
+  </update>
+
+
+</mapper>

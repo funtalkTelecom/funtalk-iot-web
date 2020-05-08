@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css">
+    <script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+    <script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+
+    <script type="text/javascript" src="../sysjs/signin.js"></script>
+    <script type="text/javascript" src=./acctpay.js></script>
+
+</head>
+<body>
+<form action=""  method="post" class="definewidth m20">
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">客户名称</td>
+            <td><select id="custname" style="width:400px"></select>&nbsp;&nbsp;*必选</td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">账本类型</td>
+            <td><select id="accttype"  style="width:400px"></select>&nbsp;&nbsp;*必选</td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">充值金额</td>
+            <td><input  class="form-control" id="fee" required="required"  maxlength="12"  style="height:50px;width:400px;text-align:right;font-size:50px;font-weight:800;"
+                        onkeyup="this.value=/^[0-9]*\.?[0-9]{0,2}$/.test(this.value) ? this.value : this.value.substring(0,this.value.length-1)"/>
+                <h2 style="display: inline;">元</h2></td>
+        </tr>
+
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="button" class="btn btn-primary"  onClick="acctCharge()">确认充值</button> &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-success"  onClick="javascript:history.back(-1);">返回列表</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>
+    <!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script>
+	<script type="text/javascript"  src="./pagescripts.js"></script>
+	
+	<!-- 登录工号 session 过滤 -->
+	<script type="text/javascript" src="../sysjs/signin.js"></script> 
+     
+</head>
+<body>
+	
+	<form id="form_phonenumber"  class="form-inline definewidth m20"  action=""  > 
+		<table>  
+			<tr>  
+        		<td >使用范围: </td><td><select id="use_type"  >
+					     								<option value="X"  selected="selected" >请选择范围</option>
+										  				<option value="0"   >企业客户</option>
+										  				<option value="1" >个人客户</option></select></td> 
+        	</tr>  
+			<tr>  
+        		<td>号码类型: </td><td><select id="phone_type"  onchange="select_phonetype()">
+						     								<option value="0" selected="selected">请选择类型</option>
+											  				<option value="AX" >AX</option>
+											  				<option value="AXB" >AXB</option></select></td>  
+				<td><a href="../files/phone_in.xls"  download="号码入库模板下载.xls" >号码入库模板下载</a></td>
+				<td>上传文件：<input type="file"  id="filename"  name="filename"></td>  
+        		<td><button type="button" class="btn btn-primary"  onClick="upload_number()">上传号码</button></td>	
+			</tr>    
+		</table>
+	</form> 
+	
+</body>
+
+<!-- 页面主处理js -->	
+<script type="text/javascript" src=./phonein.js></script>
+</html> 

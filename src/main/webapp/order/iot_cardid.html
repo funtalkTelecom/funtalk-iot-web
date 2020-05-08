@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" /> 
+    <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script> 
+    <script type="text/javascript" src="../sysjs/signin.js"></script> 
+    <script type="text/javascript" src="../assets/js/DatePicker.js"></script>
+    <link type="text/css"  rel="stylesheet"  href="../css3_dialog/mdialog.css"> 
+	<script type="text/javascript" src="../css3_dialog/zepto.min.js"></script>
+	<script type="text/javascript" src="../css3_dialog/mdialog.js"></script>  
+	<!-- 分页相关 -->
+	<link rel="stylesheet"  type="text/css"  href="../assets/css/jqpagination.css" />
+	<script type="text/javascript"  src="../assets/js/jquery.jqpagination.js"></script>
+    <!-- 页面主处理js -->	 
+	<script type="text/javascript"  src="iot_cardid.js"></script>
+	 
+	  
+</head>
+<body>
+	<form class="form-inline definewidth m20"  action=""  >  
+		<font size="4">卡分配</font><br/>
+		客户编号：
+		<input id="cust_id_bak"  placeholder="输入客户编号" /> 
+		购买卡数量：
+		<input id="card_number"  placeholder="输入卡数量" /> 
+		<button type="button" class="btn btn-primary" onclick="addCardId()">购买</button>
+	</form>
+	
+	<form class="form-inline definewidth m20"  action=""  >  
+		<font size="4">卡ID信息查询</font><br/>
+		入库日期：
+		<input id="indb_date"  onclick="setday(this,'yyyy-MM')" /> 
+		客户编号：
+		<input id="cust_id"  placeholder="输入客户编号" /> 
+		状态：
+		<select id="state">
+		<option value="请选择状态">请选择状态</option>
+		<option value="0">0</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		</select>
+		<button type="button" class="btn btn-primary" onclick="getCardIdInfo()">查 询</button>
+	</form>
+
+	<table id="reportTable" class="table table-bordered table-hover definewidth m10">
+    	<thead>
+    	<tr>
+	        <th>cardID</th>
+	        <th>入库时间</th>
+	        <th>所属客户编号</th>
+	        <th>生效时间</th>
+	        <th>失效时间</th>
+	        <th>状态</th>
+	        <th>备注</th>
+    	</tr>
+    	</thead>
+    	<tbody></tbody> 	
+	</table>
+	  <div id="wrapper" > 
+		<div class="gigantic pagination">
+		    <a href="#" class="first" data-action="first"  >&laquo;</a>
+		    <a href="#" class="previous" data-action="previous"  >&lsaquo;</a>
+		    <input id="pageinfo"  type="text"  readonly="readonly"  />
+		    <a href="#" class="next" data-action="next"  >&rsaquo;</a>
+		    <a href="#" class="last" data-action="last"  >&raquo;</a>
+		</div>
+	</div>
+	
+</body>
+
+</html> 
