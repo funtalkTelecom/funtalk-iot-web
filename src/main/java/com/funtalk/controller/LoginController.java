@@ -44,6 +44,7 @@ public class LoginController {
 		String captcha        =request.getParameter("captcha");
 		String sessionCaptcha =(String) request.getSession().getAttribute("code");
 
+		request.getSession().removeAttribute("code");
 		request.getSession().setAttribute("username",username);
 
 		if (sessionCaptcha==null||!sessionCaptcha.equals(captcha))

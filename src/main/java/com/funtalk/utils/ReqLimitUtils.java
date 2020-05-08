@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ReqLimitUtils {
     public final static Logger log = LoggerFactory.getLogger(ReqLimitUtils.class);
-    private static Map<String,Object> redisUtil=new HashMap<String,Object>();
+    private static Map<String,Object> frequencyMap=new HashMap<String,Object>();
     private static Lock lock=new ReentrantLock();
 
     /**
@@ -30,6 +30,7 @@ public class ReqLimitUtils {
      * return 大于0可继续访问 小于等于0限制访问
      */
     public static int residualReqNum(String methodName,ReqLimit slog) {
+
         if(slog==null)return 1;
         String iplimit=slog.getIpLimit();
         String scope=slog.getScope();
@@ -38,29 +39,41 @@ public class ReqLimitUtils {
         String key="req_limit";
         if("yes".equals(iplimit))key+=SessionUtil.getUserIp();
         if(!"plat".equals(scope))key+=methodName;
+
         try{
+
             lock.lock();
-            Object object=redisUtil.get(key);
+            Object object=frequencyMap.get(key);
             LimitBean bean=null;
             long expire= System.currentTimeMillis()+secRange*1000;
+
             if(object==null){
+
                 bean=new ReqLimitUtils.LimitBean(expire,expire+slog.getLimitReqTime()*1000,(reqNum+1)-1);
+
             }else{
+
                 bean=(LimitBean)object;
                 //if(bean.isExpire()&&bean.getNum()<=0)res_int=0;//尚未过期而次数已用完，则说明超限
-                if(!bean.isExpire()){//若已过期，则恢复访问次数
+
+                if(bean.isExpired()){//若已过期，则恢复访问次数
                     if(bean.getNum()>0||bean.isCanReqTime()){
                         bean=new ReqLimitUtils.LimitBean(expire,expire+slog.getLimitReqTime()*1000,reqNum);
                     }
                 }else{
                     bean.setNum(bean.getNum()-1);
                 }
+
             }
-            redisUtil.put(key,bean);
+
+            frequencyMap.put(key,bean);
             log.info(String.format("总时间[%s]秒,总请求[%s]次,剩余[%s]次数 key[%s]",secRange,reqNum,bean.getNum(),key));
             return bean.getNum();
+
         }finally{
+
             lock.unlock();
+
         }
     }
 
@@ -148,11 +161,11 @@ public class ReqLimitUtils {
             this.canReqTime=canReqTime;
         }
         /**
-         * 是否还有效
-         * @return true 有效，false 无效(过期)
+         * 是否过期
+         * @return true 过期 已失效，false 没有过期 有效
          */
-        public boolean isExpire() {
-            return this.expire>= System.currentTimeMillis();
+        public boolean isExpired() {
+            return this.expire<= System.currentTimeMillis();
         }
         /**
          * 是否可访问
