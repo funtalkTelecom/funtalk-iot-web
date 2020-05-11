@@ -1,5 +1,8 @@
 package com.funtalk.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
@@ -56,10 +61,28 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
     
     @Bean
-    public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory cf) {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+    public RedisTemplate<Object,Object> redisTemplate(RedisConnectionFactory cf) {
+
+        RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(cf);
+
+        // 使用Jackson2JsonRedisSerialize 替换默认序列化
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+
+        // 设置value的序列化规则和 key的序列化规则
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(redisTemplate.getKeySerializer());
+        redisTemplate.afterPropertiesSet();
+
         return redisTemplate;
+
     }
     @Bean
     public CacheManager cacheManager(RedisTemplate<?,?> redisTemplate) {
@@ -70,5 +93,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         Map<String,Long> expires = new ConcurrentHashMap<String,Long>();
         cacheManager.setExpires(expires);
         return cacheManager;
+
+
     }
 }

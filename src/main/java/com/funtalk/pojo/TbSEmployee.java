@@ -3,7 +3,7 @@ package com.funtalk.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
-public class TbSEmployee {
+public class TbSEmployee  implements java.io.Serializable{
     private Integer employeeId;
 
     private String employeeName;

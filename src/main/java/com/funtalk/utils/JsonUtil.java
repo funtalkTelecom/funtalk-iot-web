@@ -1,26 +1,46 @@
 package com.funtalk.utils;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-import net.sf.json.util.CycleDetectionStrategy;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 
 
 public class JsonUtil {
 
-	public static String objectToJson(Object obj)
-	{
-		JSONObject json = JSONObject.fromObject(obj);	 
-	    String str = json.toString(); 
-		return str;
+	private static ObjectMapper objectMapper = new ObjectMapper();
+
+
+
+	public static String obj2String(Object object) {
+
+		String s = null;
+
+		try {
+
+			s = objectMapper.writeValueAsString(object);
+
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return s;
+
 	}
-	
-	public static String arrayToJson(Object obj)
-	{
-		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		JSONArray json = JSONArray.fromObject( obj , jsonConfig);
-		return json.toString();
+
+	public static <T> T string2Obj(String s, Class<T> clazz) {
+
+		T t = null;
+
+		try {
+
+			t = objectMapper.readValue(s, clazz);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return t;
 	}
 	
 }
