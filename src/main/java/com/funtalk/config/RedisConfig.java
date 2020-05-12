@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Configuration
-@EnableRedisHttpSession
 public class RedisConfig extends CachingConfigurerSupport {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -53,17 +52,17 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
     
     private JedisPoolConfig jedisPoolConfig() {
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        jedisPoolConfig.setMaxTotal(maxTotal);
-//      jedisPoolConfig.setMaxIdle(maxIdle);
-//      jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
+          JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+             jedisPoolConfig.setMaxTotal(maxTotal);
+             jedisPoolConfig.setMaxIdle(maxIdle);
+             jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
         return jedisPoolConfig;
     }
     
     @Bean
-    public RedisTemplate<Object,Object> redisTemplate(RedisConnectionFactory cf) {
+    public RedisTemplate<String,String> redisTemplate(RedisConnectionFactory cf) {
 
-        RedisTemplate redisTemplate = new RedisTemplate();
+        StringRedisTemplate redisTemplate = new StringRedisTemplate();
         redisTemplate.setConnectionFactory(cf);
 
         // 使用Jackson2JsonRedisSerialize 替换默认序列化
@@ -75,10 +74,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
         // 设置value的序列化规则和 key的序列化规则
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+
         redisTemplate.setHashKeySerializer(redisTemplate.getKeySerializer());
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.afterPropertiesSet();
 
         return redisTemplate;

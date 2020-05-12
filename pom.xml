@@ -54,9 +54,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-            <version>1.0.1.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>1.5.10.RELEASE</version>
         </dependency>
 
 
@@ -181,7 +181,6 @@
         <finalName>iotweb</finalName>
         <pluginManagement>
             <plugins>
-
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
