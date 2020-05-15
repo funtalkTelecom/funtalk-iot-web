@@ -40,7 +40,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- 引入第三方数据源 -->
+        <!-- 引入第三方数据源 2020-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -85,6 +85,7 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
+
          <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

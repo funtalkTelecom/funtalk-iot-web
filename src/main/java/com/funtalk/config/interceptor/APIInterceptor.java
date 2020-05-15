@@ -27,11 +27,11 @@ public class APIInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object handler)throws Exception {
 
     	request.setAttribute("_t_start_time",System.currentTimeMillis());
-		int limitResult= ReqLimitUtils.residualReqNum("interceptor",new ReqLimitUtils.ReqLimit("yes","plat",1L,20,30*60L));//每秒请求超过100次后限制访问30分钟
+		int limitResult= ReqLimitUtils.residualReqNum("interceptor",new ReqLimitUtils.ReqLimit("yes","plat",1L,100,30*60L));//每秒请求超过100次后限制访问30分钟
 
 		if(limitResult<=0){
-			Utils.returnResult(new Result(Result.ERROR,"抱歉，您的请求过于频繁，请稍候再试!"));
-			System.out.println("访问频率太高，限制访问!");
+			Utils.returnResult(new Result(Result.ERROR,"抱歉，您调用接口(API)的请求过于频繁，请稍候再试!"));
+			System.out.println("访问接口(API)频率太高，限制访问!");
 			return false;
 		}
 
