@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSChangeiccidMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSChangeiccid" >
+    <id column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="day_dur" property="dayDur" jdbcType="DOUBLE" />
+    <result column="day_max" property="dayMax" jdbcType="DOUBLE" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="statu" property="statu" jdbcType="INTEGER" />
+    <result column="mon_dur" property="monDur" jdbcType="DOUBLE" />
+    <result column="mon_max" property="monMax" jdbcType="DOUBLE" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="IPMap" type="com.funtalk.pojo.TbPIpMap" >
+    <id column="public_" property="public_" jdbcType="VARCHAR" />
+    <result column="local" property="local" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSChangeiccid" >
+    update tb_s_changeiccid
+    <set >
+      <if test="port != null" >
+        port = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="dayDur != null" >
+        day_dur = #{dayDur,jdbcType=DOUBLE},
+      </if>
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="statu != null" >
+        statu = #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="monDur != null" >
+        mon_dur = #{monDur,jdbcType=DOUBLE},
+      </if>
+      <if test="maxDur != null" >
+        max_dur = #{maxDur,jdbcType=DOUBLE},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where iccid = #{iccid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSChangeiccid" >
+    update tb_s_changeiccid
+    set port = #{port,jdbcType=VARCHAR},
+      day_dur = #{dayDur,jdbcType=DOUBLE},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      statu = #{statu,jdbcType=INTEGER},
+      mon_dur = #{monDur,jdbcType=DOUBLE},
+      max_dur = #{maxDur,jdbcType=DOUBLE},
+      cust_id = #{custId,jdbcType=VARCHAR}
+    where iccid = #{iccid,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="detail" type="com.funtalk.pojo.TbSChangeiccid">
+    <id column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="day_dur" property="dayDur" jdbcType="DOUBLE" />
+    <result column="day_max" property="dayMax" jdbcType="DOUBLE" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="statu" property="statu" jdbcType="INTEGER" />
+    <result column="mon_dur" property="monDur" jdbcType="DOUBLE" />
+    <result column="mon_max" property="monMax" jdbcType="DOUBLE" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <association property="tbSPhone" javaType="com.funtalk.pojo.TbSPhone">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="service_kind" property="serviceKind" jdbcType="VARCHAR" />
+      <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+      <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+      <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+      <result column="iccid_2" property="iccid2" jdbcType="VARCHAR" />
+      <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+      <result column="if_seed" property="ifSeed" jdbcType="INTEGER" />
+      <result column="seed_iccid" property="seedIccid" jdbcType="VARCHAR" />
+      <result column="seedCardData" property="seedcarddata" jdbcType="VARCHAR" />
+      <result column="data1" property="data1" jdbcType="VARCHAR" />
+      <result column="data2" property="data2" jdbcType="VARCHAR" />
+      <result column="data3" property="data3" jdbcType="VARCHAR" />
+      <result column="data4" property="data4" jdbcType="VARCHAR" />
+      <result column="data5" property="data5" jdbcType="VARCHAR" />
+      <result column="data6" property="data6" jdbcType="VARCHAR" />
+      <result column="data7" property="data7" jdbcType="VARCHAR" />
+      <result column="data8" property="data8" jdbcType="VARCHAR" />
+      <result column="data9" property="data9" jdbcType="VARCHAR" />
+      <result column="data10" property="data10" jdbcType="VARCHAR" />
+      <result column="changeData" property="changedata" jdbcType="VARCHAR" />
+      <result column="delData" property="deldata" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="state_time" property="stateTime" jdbcType="TIMESTAMP" />
+      <result column="phone_channel" property="phoneChannel" jdbcType="VARCHAR" />
+      <result column="if_use" property="ifUse" jdbcType="VARCHAR" />
+      <result column="now_use" property="nowUse" jdbcType="VARCHAR" />
+      <result column="rssilevel" property="rssilevel" jdbcType="VARCHAR" />
+      <result column="delay" property="delay" jdbcType="VARCHAR" />
+      <result column="now_iccid" property="nowIccid" jdbcType="VARCHAR" />
+      <result column="maochi_id" property="maochiId" jdbcType="VARCHAR" />
+      <result column="online" property="online" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+
+  <select id="getDetail" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.cust_id=#{cust_id}
+    and a.statu=#{statu} and mon_max>mon_dur and day_max>day_dur order by rand() limit #{cardsNum}
+  </select>
+
+  <update id="fetchCard">
+    update tb_s_changeiccid set ip=#{ip} and statu=0 where iccid in
+
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <foreach collection="cardList" item="card" separator=",">
+        #{card.iccid}
+      </foreach>
+    </trim>
+    ;
+  </update>
+  <update id="statusUp">
+    update tb_s_changeiccid set statu=#{statu} where iccid in
+
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <foreach collection="cardList" item="card" separator=",">
+        #{card.iccid}
+      </foreach>
+    </trim>
+    ;
+  </update>
+  <update id="upByIccid">
+    update tb_s_changeiccid set
+    <trim suffixOverrides=",">
+      <if test="statu!=-9">statu=#{statu},</if>
+      <if test="ip!=null and ip!=''">ip=#{ip},</if>
+      <if test="port!=null and port!=''">port=#{port},</if>
+    </trim>
+    where iccid=#{iccid}
+  </update>
+  <update id="reportUp">
+      update tb_s_changeiccid set day_dur=#{day_dur}+day_dur,mon_dur=#{mon_dur}+mon_dur where iccid=#{iccid}
+  </update>
+
+  <select id="getReady" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.mon_dur&lt;a.mon_max
+      and a.port=#{port} and a.ip=#{ip} and a.statu=0 and a.day_dur&lt;a.day_max  limit 1
+  </select>
+
+  <select id="queryAll1" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.cust_id=#{cust_id} order by a.ip,a.port*1
+  </select>
+
+  <select id="queryAll2" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.statu=#{statu} and a.cust_id=#{cust_id}
+  </select>
+
+  <select id="queryAll3" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.statu=#{statu} and a.cust_id=#{cust_id} and ip=#{ip}
+  </select>
+
+  <select id="getIp" resultType="java.lang.String">
+    select ip from tb_s_changeiccid where cust_id=#{cust_id}
+  </select>
+  <select id="portCards1" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.port=#{port} and a.ip=#{ip}
+  </select>
+
+  <select id="portcards2" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.port=#{port} and a.ip#{ip} and statu=#{statu}
+  </select>
+
+  <update id="name1" >
+    update tb_s_changeiccid set cust_id=#{cust_id} where port=#{port} and ip=#{ip}
+  </update>
+  <update id="name2">
+    update tb_s_changeiccid set cust_id=#{cust_id} where iccid=#{iccid}
+  </update>
+  <update id="recover">
+    update tb_s_changeiccid set cust_id='void' where cust_id=#{cust_id}
+  </update>
+  <!--ip\port展示-->
+  <select id="cards" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.ip&lt;&gt;'0' and a.ip&lt;&gt;'' and a.statu=1 and a.port&lt;&gt;'0' order by a.ip asc,a.port*1
+  </select>
+  <update id="dlimit">
+    update tb_s_changeiccid set day_max=#{day_max} where cust_id=#{cust_id}
+  </update>
+  <select id="findByIccid" resultMap="detail">
+    select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.iccid=#{iccid}
+  </select>
+  <select id="localMap" resultMap="IPMap">
+    select * from tb_p_ipmap where local=#{local}
+  </select>
+  <select id="public_Map" resultMap="IPMap">
+    select * from tb_p_ipmap where public_=#{public_}
+  </select>
+
+</mapper>

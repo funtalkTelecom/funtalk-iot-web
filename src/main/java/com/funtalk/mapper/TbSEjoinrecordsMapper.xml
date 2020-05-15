@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSEjoinrecordsMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSEjoinrecords" >
+    <result column="caller" property="caller" jdbcType="VARCHAR" />
+    <result column="callee" property="callee" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="begin" property="begin" jdbcType="VARCHAR" />
+    <result column="alert" property="alert" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="end" property="end" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    caller, callee, port, ip, begin, alert, answer, end, reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSEjoinrecordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_ejoinrecords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSEjoinrecordsExample" >
+    delete from tb_s_ejoinrecords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSEjoinrecords" >
+    insert into tb_s_ejoinrecords (caller, callee, port, 
+      ip, begin, alert, answer, 
+      end, reason)
+    values (#{caller,jdbcType=VARCHAR}, #{callee,jdbcType=VARCHAR}, #{port,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{begin,jdbcType=VARCHAR}, #{alert,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{end,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSEjoinrecords" >
+    insert into tb_s_ejoinrecords
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caller != null" >
+        caller,
+      </if>
+      <if test="callee != null" >
+        callee,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="begin != null" >
+        begin,
+      </if>
+      <if test="alert != null" >
+        alert,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="end != null" >
+        end,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caller != null" >
+        #{caller,jdbcType=VARCHAR},
+      </if>
+      <if test="callee != null" >
+        #{callee,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="begin != null" >
+        #{begin,jdbcType=VARCHAR},
+      </if>
+      <if test="alert != null" >
+        #{alert,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null" >
+        #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSEjoinrecordsExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_ejoinrecords
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_ejoinrecords
+    <set >
+      <if test="record.caller != null" >
+        caller = #{record.caller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callee != null" >
+        callee = #{record.callee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null" >
+        port = #{record.port,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.begin != null" >
+        begin = #{record.begin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alert != null" >
+        alert = #{record.alert,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.end != null" >
+        end = #{record.end,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_ejoinrecords
+    set caller = #{record.caller,jdbcType=VARCHAR},
+      callee = #{record.callee,jdbcType=VARCHAR},
+      port = #{record.port,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      begin = #{record.begin,jdbcType=VARCHAR},
+      alert = #{record.alert,jdbcType=VARCHAR},
+      answer = #{record.answer,jdbcType=VARCHAR},
+      end = #{record.end,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
