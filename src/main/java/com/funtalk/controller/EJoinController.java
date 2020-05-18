@@ -241,7 +241,7 @@ public class EJoinController {
                     //超限
                     if ( thisCard.getDayDur()>=thisCard.getDayMax()  || thisCard.getMonDur() >= thisCard.getMonMax()) {
                         TbSEjoinrecords tbSEjoinrecords1=new TbSEjoinrecords();
-                        tbSEjoinrecords1.setCaller("start switch");
+                        tbSEjoinrecords1.setCaller(thisCard.getPhoneNum());
                         tbSEjoinrecords1.setCallee("switch finished");
                         tbSEjoinrecords1.setBegin(sdf.format(System.currentTimeMillis()));
                         System.out.println("-------------------start switch-------------------");
