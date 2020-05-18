@@ -242,9 +242,11 @@ public class EJoinController {
                     if ( thisCard.getDayDur()>=thisCard.getDayMax()  || thisCard.getMonDur() >= thisCard.getMonMax()) {
                         TbSEjoinrecords tbSEjoinrecords1=new TbSEjoinrecords();
                         tbSEjoinrecords1.setCaller(thisCard.getPhoneNum());
-                        tbSEjoinrecords1.setCallee("switch finished");
-                        tbSEjoinrecords1.setBegin(sdf.format(System.currentTimeMillis()));
+                        tbSEjoinrecords1.setCallee("switch task");
+                        tbSEjoinrecords1.setIp(ip);
+                        tbSEjoinrecords1.setPort(port);
                         System.out.println("-------------------start switch-------------------");
+                        tbSEjoinrecords1.setBegin(sdf.format(System.currentTimeMillis()));
                         //锁定端口
                         OPMethod(port, ip, userName, password, "lock");
                         CCHCMethod(thisCard.getPort(),"1",thisCard.getIp(),userName,password);
