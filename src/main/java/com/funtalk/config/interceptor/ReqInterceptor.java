@@ -25,7 +25,7 @@ public class ReqInterceptor implements HandlerInterceptor {
         request.setAttribute("t_start_time",System.currentTimeMillis());
         String path=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 
-        int limitResult= ReqLimitUtils.residualReqNum("interceptor",new ReqLimitUtils.ReqLimit("yes","plat",1L,20,30*60L));//每秒请求超过20次后限制访问30分钟
+        int limitResult= ReqLimitUtils.residualReqNum("interceptor",new ReqLimitUtils.ReqLimit("yes","plat",1L,10,30*60L));//每秒请求超过20次后限制访问30分钟
 
         if(limitResult<=0){
             Utils.returnResult(new Result(Result.ERROR,"抱歉，您的请求过于频繁，请稍候再试!"));
