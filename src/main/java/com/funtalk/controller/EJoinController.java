@@ -176,11 +176,9 @@ public class EJoinController {
                 iccid=(String)map.get("iccid");
 
 
-                if(answer==0&&end==0){
+                if(end==0){
                     callflag.put(iccid,1);
-                }else if(answer!=0&&end==0){
-                    callflag.put(iccid,2);
-                }else if(answer!=0&&end!=0){
+                }else{
                     callflag.put(iccid,3);
 
                     int begin;
@@ -256,7 +254,7 @@ public class EJoinController {
                             cluster = CCHOMethod(port, ip, userName, password);
                             if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
 
-                                synchronized (this) {
+                                synchronized (TbSChangeiccid.class) {
                                     //同端口用完找客户名下空闲卡
                                     try {
                                         otherCard = eJoinService.getDetail(thisCard.getCustId(), -1, 1).get(0);
