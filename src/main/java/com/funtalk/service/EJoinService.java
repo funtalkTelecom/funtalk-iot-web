@@ -17,7 +17,12 @@ public class EJoinService {
 
 
     public List<TbSChangeiccid> getDetail(String cust_id,int statu,int cardsNum){
-        return tbSChangeiccidMapper.getDetail(cust_id,statu,cardsNum);
+        try {
+            return tbSChangeiccidMapper.getDetail(cust_id,statu,cardsNum);
+        }catch (NullPointerException e) {
+            System.out.println("all resource has been consumed");
+            return null;
+        }
     }
 
     public boolean fetchCard(String ip,List<TbSChangeiccid> cardList){
