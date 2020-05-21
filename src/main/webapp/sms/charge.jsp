@@ -115,17 +115,19 @@
 				</button>--%>
 
 				<!-- 模态框(Modal)-->
-				<div class="modal fade" id="chargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="chargeModal" tabindex="-1" role="dialog"
+					 aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-									&times;
-								</button>
+								<%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">--%>
+									<%--&times;--%>
+								<%--</button>--%>
 								<h3 class="modal-title" id="title3"></h3>
 								<h5 class="modal-title" style="line-height:50px;" id="title5"></h5>
+								<input type="hidden" name="modalChargeId" id="modalChargeId" value="" />
 
-							<%--		<div class="alert alert-info" role="alert">
+								<%--		<div class="alert alert-info" role="alert">
 								</div>--%>
 
 							</div>
@@ -135,9 +137,9 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-						<%--		<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-								</button>--%>
-								<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="paid()">已付款</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" onclick="paystatecheck('0')">取消付款
+								</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="paystatecheck('1')">已付款</button>
 							</div>
 						</div>
 					</div>
@@ -164,7 +166,40 @@
 
 <script>
 
-	function paid() {
+
+    function paystatecheck(state) {
+
+        var modalChargeId =$("#modalChargeId").val();
+
+        $.ajax({
+            type : "POST",
+            url : "${cpath}/accnbr/queryrecharge",
+            data: {"chargeId":modalChargeId,"state":state},
+            dataType : "json",
+            success : function(json) {
+
+                if (json.code=="200") {
+                    // swal({title:json.msg,icon: "success",closeOnClickOutside: false});
+                    tableInit();
+                }
+
+                if (json.code=="310"){
+
+                    swal({title:"登录超时,3秒后返回登录页面...", icon: "warning", timer: 3000, closeOnClickOutside: false
+                    }).then(() => {window.open(res.msg,'_parent');});
+
+                }
+            },
+            error : function(json) {
+
+                swal({title:"系统错误",icon: "error",closeOnClickOutside: false});
+            }
+        });
+
+
+    }
+
+/*	function paid() {
 
         tableInit();  //表格初始化
 
@@ -182,7 +217,7 @@
         });
 
 
-    }
+    }*/
 
     var intervalId;
     var count=0;
@@ -210,6 +245,8 @@
                     $("#qrcontent").empty();
                     $("#title3").empty();
                     $("#title5").empty();
+
+                    $("#modalChargeId").val(json.msg.chargeId);
 
                     $("#title3").append("充值工号:"+json.msg.workNo+",支付金额【"+json.msg.amount+"元】");
                     $("#title5").append("充值流水号:"+json.msg.chargeId+",请使用<font size='5' color='red'>微信</font>扫码支付！");
@@ -276,6 +313,14 @@
         });
 
 	}
+
+
+    $('#chargeModal').on('hidden.bs.modal', function (event) {
+
+        $("#modalChargeId").val("");
+        //tableInit();
+
+    });
 
     //run before show
   /*  $('#myModal').on('show.bs.modal', function () {

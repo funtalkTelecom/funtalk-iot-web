@@ -1,8 +1,8 @@
 package com.funtalk.scheduler;
 
-import com.funtalk.mapper.SubTaskMapper;
+import com.funtalk.mapper.TbSTaskAMapper;
 import com.funtalk.pojo.SmsNotice;
-import com.funtalk.pojo.SubTask;
+import com.funtalk.pojo.TbSTaskA;
 import com.funtalk.utils.DateUtil;
 import com.funtalk.utils.HttpClient4;
 import net.sf.json.JSONObject;
@@ -21,8 +21,8 @@ public class SmsResultNoticeJob {
 
     Logger logger = Logger.getLogger(SmsResultNoticeJob.class);
 
-    @Autowired
-    private SubTaskMapper subTaskMapper;
+
+    @Autowired   TbSTaskAMapper  tbSTaskAMapper;
 
 
     /**
@@ -37,14 +37,14 @@ public class SmsResultNoticeJob {
         String smsNoticeSeq="",smsNoticeBack="",state="2",stateMsg="";
 
         UUIDGenerator generator=UUIDGenerator.getInstance();
-        List<SubTask>  subTasks =new ArrayList<SubTask>();
+        List<TbSTaskA>  subTasks =new ArrayList<TbSTaskA>();
 
         Map<String,Object> paramMap= new HashMap<>();
         paramMap.put("json","");
 
         logger.info("The time is:"+ DateUtil.formatFullDate(new Date())+"," + "IOT is performing notice for sms result.");
 
-            subTasks=subTaskMapper.getNeedNoticeSms();
+            subTasks=tbSTaskAMapper.getNeedNoticeSms();
 
 
             if (subTasks.size()==0) {
@@ -52,7 +52,7 @@ public class SmsResultNoticeJob {
                 Thread.sleep(30000);
             }
 
-            for (SubTask subTask :subTasks){
+            for (TbSTaskA subTask :subTasks){
 
                 UUID  uuid   = generator.generateTimeBasedUUID();         //基于时间版本
                 smsNoticeSeq = uuid.toString().replaceAll("-", ""); //36位的流水
@@ -63,13 +63,12 @@ public class SmsResultNoticeJob {
                 smsNotice.setMobile(subTask.getPhoneB());
                 smsNotice.setReqseq(subTask.getReqSeq());
 
-                if (subTask.getState() == 1) {
+                if ("4".equals(subTask.getState())) {
                     state = "1";
                     stateMsg = "发送成功!";
-                }else if (subTask.getState() == 5)
+                }else
                     stateMsg="发送失败，用户未收到!";
-                else
-                    stateMsg="发送失败，系统异常!";
+
 
                 smsNotice.setState(state);
                 smsNotice.setStatemsg(stateMsg);
@@ -86,7 +85,7 @@ public class SmsResultNoticeJob {
                     subTask.setNoticeSeq(smsNoticeSeq);
                     subTask.setNoticeTime(new Date());
                     subTask.setNoticeBack(smsNoticeBack.substring(0,smsNoticeBack.length()>180? 180 : smsNoticeBack.length()));
-                    subTaskMapper.updateNoticeStatus(subTask);
+                    tbSTaskAMapper.updateNoticeStatus(subTask);
 
                 } catch (Exception e) {
 
@@ -96,7 +95,7 @@ public class SmsResultNoticeJob {
                     subTask.setNoticeSeq(smsNoticeSeq);
                     subTask.setNoticeTime(new Date());
                     subTask.setNoticeBack(smsNoticeBack.substring(0,smsNoticeBack.length()>180? 180 : smsNoticeBack.length()));
-                    subTaskMapper.updateNoticeStatus(subTask);
+                    tbSTaskAMapper.updateNoticeStatus(subTask);
 
                 }
             }

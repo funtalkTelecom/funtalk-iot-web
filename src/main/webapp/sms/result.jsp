@@ -139,8 +139,8 @@
                     align:  'left',
                     width: '60%'
                 }, {
-                    field: 'workNo',
-                    title: '提交工号',
+                    field: 'auditor',
+                    title: '审核人',
                     align:  'center',
                     width: '10%'
                 },{
@@ -156,7 +156,7 @@
                     align:  'left',
                     width: '10%'
                 },{
-                    field: 'sendTime',
+                    field: 'sendEndTime',
                     title: '发送时间',
                     align:  'center',
                     width: '10%'

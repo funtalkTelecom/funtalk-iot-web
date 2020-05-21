@@ -28,9 +28,10 @@ public class SmsController {
 
     @RequestMapping("/sms/txtupload")
     @ResponseBody
-    public Result txtFileUpload(@RequestParam("txtfile") MultipartFile file){
+    public Result txtFileUpload(HttpServletRequest request,@RequestParam("txtfile") MultipartFile file){
 
-        Result result= smsService.savaTxtTask(file);
+        TbSEmployee user =(TbSEmployee)request.getSession().getAttribute("user");
+        Result result= smsService.savaTxtTask(user,file);
 
         return  result;
 
@@ -38,9 +39,10 @@ public class SmsController {
 
     @RequestMapping("/sms/xlsupload")
     @ResponseBody
-    public Result exeFileUpload(@RequestParam("xlsfile") MultipartFile file){
+    public Result exeFileUpload(HttpServletRequest request,@RequestParam("xlsfile") MultipartFile file){
 
-        Result result=smsService.savaExcelTask(file);
+        TbSEmployee user =(TbSEmployee)request.getSession().getAttribute("user");
+        Result result=smsService.savaExcelTask(user,file);
 
          return  result;
 
@@ -57,33 +59,6 @@ public class SmsController {
         return  "/sms/send";
 
     }*/
-
-
-    @RequestMapping("/sms/smslist")
-    public Result smsList(@RequestParam(required = false, defaultValue = "1") int pageNo,
-                         @RequestParam(required = false, defaultValue = "10") int pageSize){
-
-        Result result = new Result(Result.OK,"");
-
-        try {
-
-            Map<String, Object> smsParamMap = new HashMap<String, Object>();
-            smsParamMap.put("pageno", pageNo);
-            smsParamMap.put("pagesize", pageNo);
-
-            Page<TbSSubtaskResult> page = smsService.pageQuery(smsParamMap);
-            result.setCode(Result.OK);
-            result.setMsg(page);
-
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            result.setCode(Result.ERROR);
-            result.setMsg("查询失败!");
-        }
-
-        return result;
-
-    }
 
 
     @RequestMapping("/sms/save")
@@ -163,8 +138,9 @@ public class SmsController {
 
         logger.info("----tempcontent-------->"+tempcontent);
         logger.info("----submitter-------->"+submitter);
-        logger.info("----offset-------->"+offset);
-        logger.info("----limit-------->"+limit);
+
+        TbSEmployee user =(TbSEmployee)request.getSession().getAttribute("user");
+
 
         Result result = new Result();
         Map<String,Object> paramMap = new HashMap<String,Object>();
@@ -172,8 +148,9 @@ public class SmsController {
         paramMap.put("submitter",submitter);
         paramMap.put("offset",offset);
         paramMap.put("limit",limit);
+        paramMap.put("custId",user.getCustId());
 
-        Page<SubTask> page = smsService.getAuditSms(paramMap);
+        Page<TbSTaskA> page = smsService.getAuditSms(paramMap);
 
         result.setCode(Result.OK);
         result.setMsg(page);
@@ -236,7 +213,7 @@ public class SmsController {
         paramMap.put("taskstatus",taskstatus);
         paramMap.put("workno",user.getWorkNo());
 
-        Page<SubTask> page = smsService.getSmsByWorkNo(paramMap);
+        Page<TbSTaskA> page = smsService.getSmsByWorkNo(paramMap);
         result.setCode(Result.OK);
         result.setMsg(page);
 

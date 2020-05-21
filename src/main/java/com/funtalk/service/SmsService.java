@@ -10,6 +10,7 @@ import com.sprite.ystpay.config.YSTConfig;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -27,10 +28,8 @@ import java.util.*;
 @Component
 public class SmsService {
 
-    @Autowired private TaskMapper taskMapper;
-    @Autowired private SubTaskMapper subTaskMapper;
+    @Autowired private TbSTaskAMapper tbSTaskAMapper;
     @Autowired private TbSSmstemplateMapper tbSSmstemplateMapper;
-    @Autowired private TbSSubtaskResultMapper tbSSubtaskResultMapper;
     @Autowired private TbLChargeMapper tbLChargeMapper;
     @Autowired private TbSAcctMapper tbSAcctMapper;
     @Autowired private TbSDepositMapper tbSDepositMapper;
@@ -46,7 +45,7 @@ public class SmsService {
         String clientId = "", phoneNumbers = "", content = "", reqSeq = "", noticeUrl = "", smsType = "";
 
         String[] mobileArray;
-        List<SubTask> subtaskList = new ArrayList<SubTask>();
+        List<TbSTaskA> subtaskList = new ArrayList<TbSTaskA>();
 
 
         try {
@@ -62,9 +61,8 @@ public class SmsService {
 
             for (int i = 0; i < mobileArray.length; i++) {
 
-                SubTask subtask = new SubTask();   // tb_s_substask 的state字段默认0(未发送), task_id 自增
-                subtask.setTaskType("31");
-                subtask.setSubId(Long.valueOf(10000010));  // subid=10000010  只要有号就发送
+                TbSTaskA subtask = new TbSTaskA();   // tb_s_substask 的state字段默认0(未发送), task_id 自增
+                subtask.setTaskSource("31");
                 subtask.setCustId(clientId);
                 subtask.setPhoneB(mobileArray[i]);
                 subtask.setMsg(content);
@@ -76,7 +74,7 @@ public class SmsService {
                 subtaskList.add(subtask);
             }
 
-            return subTaskMapper.addTaskBatch(subtaskList);
+            return tbSTaskAMapper.addTaskBatch(subtaskList);
 
         } catch (Exception e) {
 
@@ -89,12 +87,12 @@ public class SmsService {
 
     // web网页txt文件
     @Transactional
-    public Result savaTxtTask(MultipartFile file) {
+    public Result savaTxtTask(TbSEmployee employee, MultipartFile file) {
 
         BufferedReader br;
         String s = null;
         int taskCount = 0;
-        List<SubTask> subtaskList = new ArrayList<SubTask>();
+        List<TbSTaskA> subtaskList = new ArrayList<TbSTaskA>();
 
         if (!file.isEmpty()) {
 
@@ -112,15 +110,14 @@ public class SmsService {
                     logger.info("-------s-utf8----->" + new String(s.getBytes(), "utf-8"));
                     String[] lineData = s.split("\t");
 
-                    SubTask subtask = new SubTask();
+                    TbSTaskA subtask = new TbSTaskA();
 
-                    subtask.setTaskType("32");
-                    subtask.setSubId(Long.valueOf(10000010));
+                    subtask.setTaskSource("32");
                     subtask.setCustId("LY01A00001");
                     subtask.setPhoneB(lineData[0].trim());
                     subtask.setMsg(lineData[1].trim());
-                    subtask.setReqSeq("");
-                    subtask.setNoticeUrl("");
+                    subtask.setEmployeeId(employee.getEmployeeId());
+                    subtask.setWorkNo(employee.getWorkNo());
                     subtaskList.add(subtask);
 
                     logger.info("----------->" + lineData[0] + "--------" + lineData[1]);
@@ -142,7 +139,7 @@ public class SmsService {
             return new Result(Result.ERROR, "文件内容为空!");
         }
 
-        int nums = subTaskMapper.addTaskBatch(subtaskList);
+        int nums = tbSTaskAMapper.addTaskBatch(subtaskList);
 
         return new Result(Result.OK, "操作成功,导入" + nums + "条数据.");
 
@@ -150,13 +147,13 @@ public class SmsService {
 
     // web网页xls文件
     @Transactional
-    public Result savaExcelTask(MultipartFile file) {
+    public Result savaExcelTask(TbSEmployee employee,MultipartFile file) {
 
         String state = "";
         POIFSFileSystem fs = null;
-        List<SubTask> subtaskList = new ArrayList<SubTask>();
+        List<TbSTaskA> subtaskList = new ArrayList<TbSTaskA>();
 
-        Task task = new Task();
+        TbSTaskA task = new TbSTaskA();
 
         try {
 
@@ -171,20 +168,23 @@ public class SmsService {
                 for (int rowNum = 0; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
 
                     HSSFRow hssfRow = hssfSheet.getRow(rowNum);
-                    String phone = Utils.formatXlsCell(hssfRow.getCell(0)).trim();
+
+                    HSSFCell phoneCell = hssfRow.getCell(0);
+                    phoneCell.setCellType(phoneCell.CELL_TYPE_STRING);
+                    String phone = phoneCell.getStringCellValue().trim();
+
                     String msg = Utils.formatXlsCell(hssfRow.getCell(1)).trim();
+
 
                     if ((phone != null && phone.length() != 0) && (msg != null && msg.length() != 0)) {
 
-                        SubTask subtask = new SubTask();
-                        subtask.setTaskType("33");
-                        subtask.setTaskId(task.getTaskId());
-                        subtask.setSubId(Long.valueOf(10000010));
+                        TbSTaskA subtask = new TbSTaskA();
+                        subtask.setTaskSource("33");
                         subtask.setCustId("LY01A00001");
                         subtask.setPhoneB(phone);
                         subtask.setMsg(msg);
-                        subtask.setReqSeq("");
-                        subtask.setNoticeUrl("");
+                        subtask.setEmployeeId(employee.getEmployeeId());
+                        subtask.setWorkNo(employee.getWorkNo());
                         subtaskList.add(subtask);
 
                     }
@@ -199,7 +199,7 @@ public class SmsService {
         }
 
 
-        int nums = subTaskMapper.addTaskBatch(subtaskList);
+        int nums = tbSTaskAMapper.addTaskBatch(subtaskList);
 
         return new Result(Result.OK, "操作成功,导入" + nums + "条数据.");
 
@@ -208,17 +208,17 @@ public class SmsService {
     //web网页单条短信任务
     public Result saveOneSmsTask(TbSEmployee user, String receiver, String content) {
 
-        SubTask subtask = new SubTask();
+        TbSTaskA subtask = new TbSTaskA();
 
-        subtask.setTaskType("34");
-        subtask.setSubId(Long.valueOf(10000010));
+        subtask.setTaskSource("34");
         subtask.setCustId(user.getCustId());
         subtask.setPhoneB(receiver);
         subtask.setMsg(content);
-        subtask.setState(-1);      // -1:待审核  0:审核通过   -2:审核不通过
-        subtask.setReqSeq("");
+        subtask.setState("-1");      // -1:待审核  0:审核通过   -2:审核不通过
+        subtask.setEmployeeId(user.getEmployeeId());
         subtask.setWorkNo(user.getWorkNo());
-        subTaskMapper.insertFromPC(subtask);
+        subtask.setCustId(user.getCustId());
+        tbSTaskAMapper.insertFromPC(subtask);
 
         return new Result(Result.OK, "任务添加成功!");
 
@@ -244,48 +244,11 @@ public class SmsService {
         if (tbSSubtaskResultMapper.selectByExample(example).size()>0)
             return  new Result(Result.WARM_ERROR,"今天已经发送!");  */
 
-        if (subTaskMapper.queryrecordcount(receiver) > 0)
+        if (tbSTaskAMapper.queryrecordcount(receiver) > 0)
             return new Result(Result.WARM_ERROR, "今天已经发送!");
 
         return new Result(Result.OK, "可以发送!");
 
-    }
-
-
-    public List<TbSSubtaskResult> getSmsListByWorkId(String workId) {
-
-/*      TbSSmstemplateExample example = new TbSSmstemplateExample();
-        TbSSmstemplateExample.Criteria criteria = example.createCriteria();
-        criteria.andCustIdEqualTo(custId);
-        return tbSSmstemplateMapper.selectByExample(example);*/
-
-/*        Example example = new Example(Number.class);
-        example.createCriteria().andEqualTo("status",2)
-                .andEqualTo("isFreeze",0)
-                .andEqualTo("skuId", sku.getSkuId());
-        List<Number> number_list=this.numberMapper.selectByExample(example);
-        if(number_list.size()<order_amount)return new Result(Result.ERROR, "抱歉，号码库存不足，无法订购");
-
-        List<TbSSubtaskResult>  list =tbSSubtaskResultMapper.getTemplateByCust(workId);*/
-
-        return null;
-    }
-
-    public Page<TbSSubtaskResult> pageQuery(Map<String, Object> paramMap) {
-
-        int pageNo = (Integer) paramMap.get("pageno");
-        int pageSize = (Integer) paramMap.get("pagesize");
-        Page<TbSSubtaskResult> advertPage = new Page<TbSSubtaskResult>(null, pageNo, pageSize);
-
-        paramMap.put("startindex", advertPage.getStartno());
-        List<TbSSubtaskResult> advertList = tbSSubtaskResultMapper.pageQuery(paramMap);
-        // 获取数据的总条数
-        int count = tbSSubtaskResultMapper.queryCount(paramMap);
-
-        advertPage.setData(advertList);
-        advertPage.setTotalsize(count);
-
-        return advertPage;
     }
 
 
@@ -311,15 +274,16 @@ public class SmsService {
 
     }
 
-    public Page<SubTask> getAuditSms(Map<String, Object> paramMap) {
+    public Page<TbSTaskA> getAuditSms(Map<String, Object> paramMap) {
 
         int offset = (Integer) paramMap.get("offset");
         int limit = (Integer) paramMap.get("limit");
 
-        Page<SubTask> subTaskPage = new Page<SubTask>(offset, null, limit);
-        List<SubTask> subTaskList = subTaskMapper.getNeedAuditSms(paramMap);
+
+        Page<TbSTaskA> subTaskPage = new Page<TbSTaskA>(offset, null, limit);
+        List<TbSTaskA> subTaskList = tbSTaskAMapper.getNeedAuditSms(paramMap);
         // 获取数据的总条数
-        int subTaskCount = subTaskMapper.getNeedAuditSmsCount(paramMap);
+        int subTaskCount = tbSTaskAMapper.getNeedAuditSmsCount(paramMap);
 
         subTaskPage.setData(subTaskList);
         subTaskPage.setTotalsize(subTaskCount);
@@ -331,7 +295,7 @@ public class SmsService {
 
     public Result saveCheckStatus(Map<String, Object> paramMap) {
 
-        int i = subTaskMapper.updateCheckStatus(paramMap);
+        int i = tbSTaskAMapper.updateCheckStatus(paramMap);
 
         logger.info("---------update status--- result---" + i);
 
@@ -343,15 +307,15 @@ public class SmsService {
     }
 
 
-    public Page<SubTask> getSmsByWorkNo(Map<String, Object> paramMap) {
+    public Page<TbSTaskA> getSmsByWorkNo(Map<String, Object> paramMap) {
 
         int offset = (Integer) paramMap.get("offset");
         int limit = (Integer) paramMap.get("limit");
 
-        Page<SubTask> subTaskPage = new Page<SubTask>(offset, null, limit);
-        List<SubTask> subTaskList = subTaskMapper.getSmsByWorkNo(paramMap);
+        Page<TbSTaskA> subTaskPage = new Page<TbSTaskA>(offset, null, limit);
+        List<TbSTaskA> subTaskList = tbSTaskAMapper.getSmsByWorkNo(paramMap);
         // 获取数据的总条数
-        int subTaskCount = subTaskMapper.getSmsByWorkNoCount(paramMap);
+        int subTaskCount = tbSTaskAMapper.getSmsByWorkNoCount(paramMap);
 
         subTaskPage.setData(subTaskList);
         subTaskPage.setTotalsize(subTaskCount);
@@ -505,7 +469,6 @@ public class SmsService {
 
             tbLChargeMapper.updateState(chargeParamMap);
 
-
             if (chargeFor==3){
                 batchParamMap.put("payState","-1");
                 tbOBatchrechargeMapper.updateState(batchParamMap);
@@ -646,7 +609,7 @@ public class SmsService {
 
     public String getSmsAndDeposit(Map<String, Object> paramMap) {
 
-        return subTaskMapper.getSmsAndDeposit(paramMap);
+        return tbSTaskAMapper.getSmsAndDeposit(paramMap);
 
     }
 
