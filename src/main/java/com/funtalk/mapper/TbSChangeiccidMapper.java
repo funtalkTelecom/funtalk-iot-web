@@ -5,6 +5,7 @@ import com.funtalk.pojo.TbSChangeiccid;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TbSChangeiccidMapper {
 
@@ -55,4 +56,6 @@ public interface TbSChangeiccidMapper {
     TbPIpMap public_Map(@Param("public_")String public_);
 
     boolean upByIccid(@Param("statu")int statu,@Param("port")String port,@Param("ip")String ip,@Param("iccid")String iccid);
+
+    List<Map> checkRest();
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Component
@@ -17,12 +18,7 @@ public class EJoinService {
 
 
     public List<TbSChangeiccid> getDetail(String cust_id,int statu,int cardsNum){
-        try {
             return tbSChangeiccidMapper.getDetail(cust_id,statu,cardsNum);
-        }catch (NullPointerException e) {
-            System.out.println("all resource has been consumed");
-            return null;
-        }
     }
 
     public boolean fetchCard(String ip,List<TbSChangeiccid> cardList){
@@ -100,4 +96,6 @@ public class EJoinService {
     public TbPIpMap public_Map(String public_){return tbSChangeiccidMapper.public_Map(public_);}
 
     public boolean upByIccid(String ip,String port,int statu,String iccid){return tbSChangeiccidMapper.upByIccid(statu,port,ip,iccid);}
+
+    public List<Map> checkRest(){return tbSChangeiccidMapper.checkRest();}
 }

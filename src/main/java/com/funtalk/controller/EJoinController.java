@@ -12,6 +12,7 @@ import com.funtalk.service.EjoinRecordsService;
 import com.funtalk.utils.HttpClient4;
 import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,27 +36,13 @@ public class EJoinController {
     //  1--拨出未接通 2--接通未挂断 3--挂断
     static Map<String,Integer>  callflag= new HashMap();
 
+    static Map<String,Boolean> hasCard=new HashMap<>();
+
     @RequestMapping("/api/ejoin/ejtest1")
     @ResponseBody
     public void test(@RequestBody Map<String, Object> map) {
         String type=(String)map.get("type");
 
-//        if(type.equals("dev-status")) {
-//
-//        ArrayList<LinkedHashMap> status = (ArrayList<LinkedHashMap>) map.get("status");
-//        String ip=(String)map.get("ip");
-//            String fmt="yyyy-MM-dd hh:mm:ss";
-//            SimpleDateFormat sdf=new SimpleDateFormat(fmt);
-//
-//        System.out.println(eJoinService.localMap(ip).getPublic_()+"\r\n"+
-//                "recieve "+type+" report!!------------------------------"+sdf.format(new Date()));
-//
-//            for(int i=0;i<status.size();i++) {
-//
-//                System.out.println(status.get(i));
-//            }
-//
-//        }
 
         if(type.equals("cdr")) {
             Set<Entry<String, Object>> set = map.entrySet();
@@ -158,6 +145,13 @@ public class EJoinController {
     }
 
 
+    @Scheduled(cron = " * 1 * * *")
+    @ResponseBody
+    public void checkRest(){
+
+    }
+
+
     //接收一正设备报告
     @RequestMapping("/api/ejoin/report")
     @ResponseBody
@@ -166,16 +160,18 @@ public class EJoinController {
             String type = (String) map.get("type");
             // 一正有多个Type的报告，获取cdr类的报告
             if (type.equals("cdr")) {
-                int begin=0;
-                int alert=0;
-                int answer=0;
-                int end=0;
+                int begin;
+                int alert;
+                int answer;
+                int end;
                 String iccid;
                 begin=(int)map.get("begin");
                 alert=(int)map.get("alert");
                 answer=(int)map.get("answer");
                 end=(int)map.get("end");
                 iccid=(String)map.get("iccid");
+
+                TbSChangeiccid thisCard;
                 String reason="";
                 String ip;
                 String port;
@@ -198,39 +194,38 @@ public class EJoinController {
                 tbSEjoinrecords.setIp(ip);
                 tbSEjoinrecords.setPort(port);
                 tbSEjoinrecords.setReason(reason);
-                TbSChangeiccid thisCard=new TbSChangeiccid();
-                thisCard = eJoinService.findByIccid(iccid);
-                tbSEjoinrecords.setCaller(thisCard.getPhoneNum());
-                ejoinRecordsService.insertRecord(tbSEjoinrecords);
 
                 if(begin!=0&&alert==0&&answer==0&&end==0){
-
                     callflag.put(iccid,1);
-
+                }else if(answer==0&&end!=0){
+                    callflag.put(iccid,2);
+                    thisCard = eJoinService.findByIccid(iccid);
+                    tbSEjoinrecords.setCaller(thisCard.getPhoneNum());
+                    ejoinRecordsService.insertRecord(tbSEjoinrecords);
                 }else if(answer!=0&&end!=0){
                     callflag.put(iccid,3);
-
+                    Date date=new Date();
                     String userName="";
                     String password="";
                     //空闲卡
                     TbSChangeiccid otherCard = new TbSChangeiccid();
                     String cluster = "";
-
-                    System.out.println("ip-------"+ip+"-------port:"+port+"-------dial finished");
+//                    System.out.println("ejoinLog:"+date+"ip-------"+ip+"-------port:"+port+"-------dial finished");
                     userName=tbPIpMap.getUserName();
                     password=tbPIpMap.getPassword();
 
                     String[] datas=new String[4];
                     long used=0;
                     used=(end-answer)/60;
-                    if(end-answer%60>0)
+                    if((end-answer)%60>0)
                         used++;
 
                     //更新卡的日使用量、月使用量
                     eJoinService.reportUp((double)used, (double)used, iccid);
                     //获取当前生效卡实体
                     thisCard = eJoinService.findByIccid(iccid);
-
+                    tbSEjoinrecords.setCaller(thisCard.getPhoneNum());
+                    ejoinRecordsService.insertRecord(tbSEjoinrecords);
                     //超限
                     if ( thisCard.getDayDur()>=thisCard.getDayMax()  || thisCard.getMonDur() >= thisCard.getMonMax()) {
                         TbSEjoinrecords tbSEjoinrecords1=new TbSEjoinrecords();
@@ -238,22 +233,35 @@ public class EJoinController {
                         tbSEjoinrecords1.setCallee("switch task");
                         tbSEjoinrecords1.setIp(ip);
                         tbSEjoinrecords1.setPort(port);
-                        System.out.println("-------------------start switch-------------------");
                         tbSEjoinrecords1.setBegin(sdf.format(System.currentTimeMillis()));
-                        //锁定端口
-                        OPMethod(port, ip, userName, password, "lock");
                         CCHCMethod(thisCard.getPort(),"1",thisCard.getIp(),userName,password);
                         CCHCMethod(thisCard.getPort(),"2",thisCard.getIp(),userName,password);
                         CCHCMethod(thisCard.getPort(),"3",thisCard.getIp(),userName,password);
                         if (callflag.get(iccid) == 3) {
+                            //锁定端口
+                            OPMethod(port, ip, userName, password, "lock");
                             cluster = CCHOMethod(port, ip, userName, password);
                             if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
 
                                 synchronized (EJoinService.class) {
                                     //同端口用完找客户名下空闲卡
-                                    otherCard = eJoinService.getDetail(thisCard.getCustId(), -1, 1).get(0);
-                                    if(otherCard==null){
+                                    if(!hasCard.containsKey(thisCard.getCustId())){
+                                        hasCard.put(thisCard.getCustId(),true);
+                                    }
+                                    try {
+                                        otherCard = eJoinService.getDetail(thisCard.getCustId(), -1, 1).get(0);
+                                    }catch (IndexOutOfBoundsException e){
+                                        System.out.println("ejoinLog:"+date+"-----"+thisCard.getCustId()+"-------no card avaliable-------------");
+                                        hasCard.put(thisCard.getCustId(),false);
                                         return;
+                                    }
+                                    if(hasCard.get(thisCard.getCustId())==false){
+                                        List<TbSChangeiccid> mycards=eJoinService.queryAll(1,thisCard.getCustId());
+                                        for(TbSChangeiccid card:mycards){
+                                            OPMethod(card.getPort(),card.getIp(),userName,password,"unlock");
+
+                                        }
+
                                     }
                                     eJoinService.upByIccid(ip, port, 1, otherCard.getIccid());
 
@@ -267,7 +275,7 @@ public class EJoinController {
                                         for (int i = 0; i < 4; i++) {
                                             if (!CGLAMethod("" + port, cluster, datas[i], ip, userName, password)) {
                                                 eJoinService.upByIccid(ip, port, -1, otherCard.getIccid());
-                                                System.out.println(ip + ":" + port + "write " + otherCard.getIccid() + " error");
+                                                System.out.println("ejoinLog:"+date+"------"+ip + ":" + port + " " + otherCard.getIccid() + "write---error");
                                                 CCHCMethod(port, cluster, ip, userName, password);
                                                 return;
                                             }
@@ -275,13 +283,15 @@ public class EJoinController {
                                         CCHCMethod(port, cluster, ip, userName, password);
                                         cluster = CCHOMethod(port, ip, userName, password);
                                     }else {
-                                        System.out.println("open cluster error");
+
+                                        System.out.println("ejoinLog:"+"open cluster error");
+                                        return;
                                     }
                                     //切卡
                                     if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
                                         if (!CGLAMethod("" + port, cluster, otherCard.getTbSPhone().getChangedata(), ip, userName, password)) {
                                             eJoinService.upByIccid(ip, port, 0, otherCard.getIccid());
-                                            System.out.println(ip + ":" + port + "switch " + otherCard.getIccid() + " error");
+                                            System.out.println("ejoinLog:"+date+ip + ":" + port + " " + otherCard.getIccid() + "switch---error");
                                             CCHCMethod(port, cluster, ip, userName, password);
                                             return;
                                         }
@@ -289,32 +299,42 @@ public class EJoinController {
                                         
                                         eJoinService.upByIccid("", "", 0, iccid);
                                     }else {
-                                        System.out.println("open cluster error");
+                                        System.out.println("ejoinLog:"+"open cluster error");
+                                        return;
                                     }
 
                                     Thread.sleep(28000);
 
                                         //删卡
-//                                        do{
-//                                            cluster = CCHOMethod(port, ip, userName, password);
-//                                        }
-//                                        while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
+                                        do{
+                                            try {
+
+                                                cluster = CCHOMethod(port, ip, userName, password);
+                                            }catch (Exception e){
+                                                Thread.sleep(3000);
+                                            }
+                                        }
+                                        while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
 
                                     cluster = CCHOMethod(port, ip, userName, password);
-                                    if (!CGLAMethod("" + port, cluster, thisCard.getTbSPhone().getDeldata(), ip, userName, password)) {
-                                        System.out.println(ip + ":" + port + "delete " + iccid + " error");
+                                    if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
+                                        if (!CGLAMethod("" + port, cluster, thisCard.getTbSPhone().getDeldata(), ip, userName, password)) {
+                                            System.out.println("ejoinLog:"+date+"------"+ip + ":" + port + " " + iccid + "delete---error");
+                                            return;
+                                        }
+                                    }else {
+                                        System.out.println("ejoinLog:"+"open cluster error");
                                         return;
                                     }
                                     //把旧卡状态\ip更新为-1
                                     eJoinService.upByIccid("0", "0", -1, iccid);
                                     CCHCMethod(port, cluster, ip, userName, password);
                                     OPMethod(port, ip, userName, password, "unlock");
-                                    System.out.println("-------------------switch finished-------------------");
                                     tbSEjoinrecords1.setEnd(sdf.format(System.currentTimeMillis()));
                                     ejoinRecordsService.insertRecord(tbSEjoinrecords1);
                                 
                             }else {
-                                System.out.println("open cluster error");
+                                System.out.println("ejoinLog:"+"open cluster error");
                             }
                         }
                     }
@@ -439,15 +459,22 @@ public class EJoinController {
                         CCHCMethod(cards.get(i).getPort(), cluster, cards.get(i).getIp(),userName,password);
                         cluster = CCHOMethod(cards.get(i).getPort(), cards.get(i).getIp(),userName,password);
                         if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
-                            if(!CGLAMethod(cards.get(i).getPort(), cluster, newcards.get(i).getTbSPhone().getChangedata(), cards.get(i).getIp(),userName,password)) {
-                                eJoinService.upByIccid(cards.get(i).getIp(),cards.get(i).getPort(),0,newcards.get(i).getIccid());
+                            if (!CGLAMethod(cards.get(i).getPort(), cluster, newcards.get(i).getTbSPhone().getChangedata(), cards.get(i).getIp(), userName, password)) {
+                                eJoinService.upByIccid(cards.get(i).getIp(), cards.get(i).getPort(), 0, newcards.get(i).getIccid());
                                 System.out.println("switch error");
                                 return "切卡异常";
                             }
-                            eJoinService.upByIccid(cards.get(i).getIp(),cards.get(i).getPort(),1,newcards.get(i).getIccid());
-                            eJoinService.upByIccid("","",0,cards.get(i).getIccid());
+                            eJoinService.upByIccid(cards.get(i).getIp(), cards.get(i).getPort(), 1, newcards.get(i).getIccid());
+                            eJoinService.upByIccid("", "", 0, cards.get(i).getIccid());
                         }
-                        Thread.sleep(28000);
+                        do{
+                            try {
+                                cluster = CCHOMethod(cards.get(i).getPort(), cards.get(i).getIp(),userName,password);
+                            }catch (Exception e){
+                                cluster="-1";
+                                Thread.sleep(5000);
+                            }
+                        }while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
                         cluster = CCHOMethod(cards.get(i).getPort(), cards.get(i).getIp(),userName,password);
                         if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
                             if(!CGLAMethod(cards.get(i).getPort(),cluster,cards.get(i).getTbSPhone().getDeldata(),cards.get(i).getIp(),userName,password)){
@@ -630,7 +657,7 @@ public class EJoinController {
             }
 
         }else{
-            System.out.println("lack of datas");
+            System.out.println("ejoinLog:"+"lack of datas");
             return false;
         }
     }

@@ -110,7 +110,7 @@
 
   <select id="getDetail" resultMap="detail">
     select * from tb_s_changeiccid a left join tb_s_phone b on a.iccid=b.iccid_2 where a.cust_id=#{cust_id}
-    and a.statu=#{statu} and mon_max>mon_dur and day_max>day_dur order by rand() limit #{cardsNum}
+    and a.statu=#{statu} and mon_max>mon_dur and day_max>day_dur order by mon_dur limit #{cardsNum}
   </select>
 
   <update id="fetchCard">
@@ -198,6 +198,9 @@
   </select>
   <select id="public_Map" resultMap="IPMap">
     select * from tb_p_ipmap where public_=#{public_}
+  </select>
+  <select id="checkRest"resultType="java.util.Map">
+    select count(*) as count,cust_id as cust_id from tb_s_changeiccid where mon_max=60 and statu=-1 and mon_max&gt;mon_dur  and day_dur&lt;day_max group by cust_id;
   </select>
 
 </mapper>
