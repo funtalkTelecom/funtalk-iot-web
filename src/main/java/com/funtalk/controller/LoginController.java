@@ -57,7 +57,7 @@ public class LoginController {
 
 			user.setWorkPwd("");
 			request.getSession().setAttribute("user",user);
-			request.getSession().setMaxInactiveInterval(1800);  // session 有效时间60s
+			request.getSession().setMaxInactiveInterval(1800);  // session 有效时间半个小时
 
 			return new ModelAndView("redirect:/main");
 		}else

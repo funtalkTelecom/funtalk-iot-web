@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSTaskAMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSTaskA" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="task_source" property="taskSource" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="phone_a" property="phoneA" jdbcType="VARCHAR" />
+    <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="service_kind" property="serviceKind" jdbcType="VARCHAR" />
+    <result column="phone_b" property="phoneB" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="req_seq" property="reqSeq" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="send_begin_time" property="sendBeginTime" jdbcType="TIMESTAMP" />
+    <result column="send_end_time" property="sendEndTime" jdbcType="TIMESTAMP" />
+    <result column="send_mark" property="sendMark" jdbcType="VARCHAR" />
+    <result column="work_no" property="workNo" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="notice_url" property="noticeUrl" jdbcType="VARCHAR" />
+    <result column="notice_seq" property="noticeSeq" jdbcType="VARCHAR" />
+    <result column="notice_state" property="noticeState" jdbcType="VARCHAR" />
+    <result column="notice_time" property="noticeTime" jdbcType="TIMESTAMP" />
+    <result column="notice_back" property="noticeBack" jdbcType="VARCHAR" />
+    <result column="deal_mark" property="dealMark" jdbcType="VARCHAR" />
+    <result column="bill_id" property="billId" jdbcType="INTEGER" />
+    <result column="repeat_count" property="repeatCount" jdbcType="INTEGER" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, task_source, cust_id, order_no, card_id, phone_a, iccid, service_kind, phone_b, 
+    msg, state, req_seq, create_time, send_begin_time, send_end_time, send_mark, work_no, 
+    employee_id, notice_url, notice_seq, notice_state, notice_time, notice_back, deal_mark, 
+    bill_id, repeat_count
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSTaskAExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_task_a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_task_a
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_task_a
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSTaskAExample" >
+    delete from tb_s_task_a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSTaskA" >
+    insert into tb_s_task_a (task_id, task_source, cust_id, 
+      order_no, card_id, phone_a, 
+      iccid, service_kind, phone_b, 
+      msg, state, req_seq, 
+      create_time, send_begin_time, send_end_time, 
+      send_mark, work_no, employee_id, 
+      notice_url, notice_seq, notice_state, 
+      notice_time, notice_back, deal_mark, 
+      bill_id, repeat_count)
+    values (#{taskId,jdbcType=INTEGER}, #{taskSource,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{phoneA,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{serviceKind,jdbcType=VARCHAR}, #{phoneB,jdbcType=VARCHAR}, 
+      #{msg,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{reqSeq,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{sendBeginTime,jdbcType=TIMESTAMP}, #{sendEndTime,jdbcType=TIMESTAMP}, 
+      #{sendMark,jdbcType=VARCHAR}, #{workNo,jdbcType=VARCHAR}, #{employeeId,jdbcType=INTEGER}, 
+      #{noticeUrl,jdbcType=VARCHAR}, #{noticeSeq,jdbcType=VARCHAR}, #{noticeState,jdbcType=VARCHAR}, 
+      #{noticeTime,jdbcType=TIMESTAMP}, #{noticeBack,jdbcType=VARCHAR}, #{dealMark,jdbcType=VARCHAR}, 
+      #{billId,jdbcType=INTEGER}, #{repeatCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSTaskA" >
+    insert into tb_s_task_a
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskSource != null" >
+        task_source,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="phoneA != null" >
+        phone_a,
+      </if>
+      <if test="iccid != null" >
+        iccid,
+      </if>
+      <if test="serviceKind != null" >
+        service_kind,
+      </if>
+      <if test="phoneB != null" >
+        phone_b,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="reqSeq != null" >
+        req_seq,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="sendBeginTime != null" >
+        send_begin_time,
+      </if>
+      <if test="sendEndTime != null" >
+        send_end_time,
+      </if>
+      <if test="sendMark != null" >
+        send_mark,
+      </if>
+      <if test="workNo != null" >
+        work_no,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="noticeUrl != null" >
+        notice_url,
+      </if>
+      <if test="noticeSeq != null" >
+        notice_seq,
+      </if>
+      <if test="noticeState != null" >
+        notice_state,
+      </if>
+      <if test="noticeTime != null" >
+        notice_time,
+      </if>
+      <if test="noticeBack != null" >
+        notice_back,
+      </if>
+      <if test="dealMark != null" >
+        deal_mark,
+      </if>
+      <if test="billId != null" >
+        bill_id,
+      </if>
+      <if test="repeatCount != null" >
+        repeat_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskSource != null" >
+        #{taskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneA != null" >
+        #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneB != null" >
+        #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSeq != null" >
+        #{reqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendBeginTime != null" >
+        #{sendBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendEndTime != null" >
+        #{sendEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendMark != null" >
+        #{sendMark,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeUrl != null" >
+        #{noticeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeSeq != null" >
+        #{noticeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeState != null" >
+        #{noticeState,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeBack != null" >
+        #{noticeBack,jdbcType=VARCHAR},
+      </if>
+      <if test="dealMark != null" >
+        #{dealMark,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="repeatCount != null" >
+        #{repeatCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSTaskAExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_task_a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_task_a
+    <set >
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskSource != null" >
+        task_source = #{record.taskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneA != null" >
+        phone_a = #{record.phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid != null" >
+        iccid = #{record.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceKind != null" >
+        service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneB != null" >
+        phone_b = #{record.phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqSeq != null" >
+        req_seq = #{record.reqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendBeginTime != null" >
+        send_begin_time = #{record.sendBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendEndTime != null" >
+        send_end_time = #{record.sendEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendMark != null" >
+        send_mark = #{record.sendMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workNo != null" >
+        work_no = #{record.workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticeUrl != null" >
+        notice_url = #{record.noticeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeSeq != null" >
+        notice_seq = #{record.noticeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeState != null" >
+        notice_state = #{record.noticeState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeTime != null" >
+        notice_time = #{record.noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeBack != null" >
+        notice_back = #{record.noticeBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealMark != null" >
+        deal_mark = #{record.dealMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billId != null" >
+        bill_id = #{record.billId,jdbcType=INTEGER},
+      </if>
+      <if test="record.repeatCount != null" >
+        repeat_count = #{record.repeatCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_task_a
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      task_source = #{record.taskSource,jdbcType=VARCHAR},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      phone_a = #{record.phoneA,jdbcType=VARCHAR},
+      iccid = #{record.iccid,jdbcType=VARCHAR},
+      service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      phone_b = #{record.phoneB,jdbcType=VARCHAR},
+      msg = #{record.msg,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      req_seq = #{record.reqSeq,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      send_begin_time = #{record.sendBeginTime,jdbcType=TIMESTAMP},
+      send_end_time = #{record.sendEndTime,jdbcType=TIMESTAMP},
+      send_mark = #{record.sendMark,jdbcType=VARCHAR},
+      work_no = #{record.workNo,jdbcType=VARCHAR},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      notice_url = #{record.noticeUrl,jdbcType=VARCHAR},
+      notice_seq = #{record.noticeSeq,jdbcType=VARCHAR},
+      notice_state = #{record.noticeState,jdbcType=VARCHAR},
+      notice_time = #{record.noticeTime,jdbcType=TIMESTAMP},
+      notice_back = #{record.noticeBack,jdbcType=VARCHAR},
+      deal_mark = #{record.dealMark,jdbcType=VARCHAR},
+      bill_id = #{record.billId,jdbcType=INTEGER},
+      repeat_count = #{record.repeatCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSTaskA" >
+    update tb_s_task_a
+    <set >
+      <if test="taskSource != null" >
+        task_source = #{taskSource,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneA != null" >
+        phone_a = #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        service_kind = #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneB != null" >
+        phone_b = #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSeq != null" >
+        req_seq = #{reqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendBeginTime != null" >
+        send_begin_time = #{sendBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendEndTime != null" >
+        send_end_time = #{sendEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendMark != null" >
+        send_mark = #{sendMark,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        work_no = #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeUrl != null" >
+        notice_url = #{noticeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeSeq != null" >
+        notice_seq = #{noticeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeState != null" >
+        notice_state = #{noticeState,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeBack != null" >
+        notice_back = #{noticeBack,jdbcType=VARCHAR},
+      </if>
+      <if test="dealMark != null" >
+        deal_mark = #{dealMark,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        bill_id = #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="repeatCount != null" >
+        repeat_count = #{repeatCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSTaskA" >
+    update tb_s_task_a
+    set task_source = #{taskSource,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      phone_a = #{phoneA,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      service_kind = #{serviceKind,jdbcType=VARCHAR},
+      phone_b = #{phoneB,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      req_seq = #{reqSeq,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      send_begin_time = #{sendBeginTime,jdbcType=TIMESTAMP},
+      send_end_time = #{sendEndTime,jdbcType=TIMESTAMP},
+      send_mark = #{sendMark,jdbcType=VARCHAR},
+      work_no = #{workNo,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      notice_url = #{noticeUrl,jdbcType=VARCHAR},
+      notice_seq = #{noticeSeq,jdbcType=VARCHAR},
+      notice_state = #{noticeState,jdbcType=VARCHAR},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      notice_back = #{noticeBack,jdbcType=VARCHAR},
+      deal_mark = #{dealMark,jdbcType=VARCHAR},
+      bill_id = #{billId,jdbcType=INTEGER},
+      repeat_count = #{repeatCount,jdbcType=INTEGER}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectUndealtTask"  resultMap="BaseResultMap">
+    SELECT * FROM tb_s_task_a  WHERE state="0"  ORDER BY create_time  LIMIT 1
+  </select>
+
+  <select id="selectProcessingTask"  resultMap="BaseResultMap">
+
+      SELECT * FROM tb_s_task_a
+      WHERE state = "1"
+        and card_id = #{cardId,jdbcType=VARCHAR}
+        ORDER BY create_time  LIMIT 1
+
+  </select>
+
+  <update id="updateStatus">
+
+    update tb_s_task_a
+    <set>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneA != null" >
+        phone_a = #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        service_kind = #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="sendBeginTime != null" >
+        send_begin_time = #{sendBeginTime,jdbcType=TIMESTAMP},
+      </if>
+
+    </set>
+    where task_id =#{taskId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStateByOrderAndPhone">
+
+    UPDATE  tb_s_task_a t SET
+    t.state=#{state,jdbcType=VARCHAR},
+    t.send_end_time = CURTIME()
+    WHERE t.order_no = #{orderNo,jdbcType=VARCHAR}
+    and t.phone_b in
+    <foreach collection="phoneAList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </update>
+
+  <insert id="insertFromPC" parameterType="com.funtalk.pojo.TbSTaskA" >
+    INSERT into tb_s_task_a(task_source,cust_id,phone_b,msg,state,work_no,employee_id)
+    values (#{subtask.taskSource},#{subtask.custId},#{subtask.phoneB},
+     #{subtask.msg},#{subtask.state},#{subtask.workNo},#{subtask.employeeId})
+  </insert>
+
+  <insert id="addTaskBatch">
+    INSERT INTO tb_s_task_a(task_source,cust_id,phone_b,msg,req_seq,notice_url,work_no,employee_id)
+    VALUES
+    <foreach collection="subtasks" item="subtask" separator=",">
+      (#{subtask.taskSource},#{subtask.custId},#{subtask.phoneB},
+      #{subtask.msg},#{subtask.reqSeq},#{subtask.noticeUrl},#{subtask.workNo},#{subtask.employeeId})
+    </foreach>
+  </insert>
+
+  <select id="getNeedAuditSms" resultMap="BaseResultMap">
+
+    SELECT  * from tb_s_task_a
+    where  state in('-1')
+    <if test="custId!= null and custId !=''"> AND cust_id = #{ custId } </if>
+    <if test="tempcontent!= null and tempcontent !=''"> AND msg like concat('%', #{tempcontent}, '%') </if>
+    <if test="submitter!= null and submitter !=''"> AND UPPER(work_no) like  concat('%', UPPER(#{submitter}), '%') </if>
+    limit #{offset}, #{limit}
+
+  </select>
+
+  <select id="getNeedAuditSmsCount" resultType="int">
+
+    SELECT  COUNT(*) from tb_s_task_a
+    where  state in('-1')
+    <if test="custId!= null and custId !=''"> AND cust_id = #{ custId } </if>
+    <if test="tempcontent!= null and tempcontent !=''"> AND msg like concat('%', #{tempcontent}, '%') </if>
+    <if test="submitter!= null and submitter !=''"> AND UPPER(work_no) like  concat('%', UPPER(#{submitter}), '%') </if>
+
+  </select>
+
+  <update id="updateCheckStatus">
+
+    update tb_s_task_a
+    set state=#{status,jdbcType=VARCHAR},
+        auditor=#{workno}
+    where task_id in
+    <foreach item="item" index="index" collection="tasklist" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <select id="getSmsByWorkNo" resultMap="BaseResultMap">
+
+    SELECT task_id,phone_a,phone_b,msg,work_no,state,send_end_time,auditor
+    FROM tb_s_task_a a
+    WHERE  UPPER(a.work_no) = UPPER(#{workno})
+    <if test="tempcontent!= null and tempcontent !=''"> AND a.msg like concat('%', #{tempcontent}, '%') </if>
+    <if test="taskstatus!= null and taskstatus !='all'">
+      <choose>
+        <when test="taskstatus == 0">
+          and a.state IN('-3','-2','-1')
+        </when>
+        <when test="taskstatus == 1">
+          and a.state ='0'
+        </when>
+        <when test="taskstatus == 2">
+          and a.state = '2'
+        </when>
+        <when test="taskstatus == 3">
+          and a.state = '3'
+        </when>
+        <otherwise></otherwise>
+      </choose>
+    </if>
+    order by state desc
+    limit #{offset}, #{limit}
+
+  </select>
+
+  <select id="getSmsByWorkNoCount" resultType="int">
+
+    SELECT  COUNT(*) FROM tb_s_task_a  a
+    WHERE  UPPER(a.work_no) = UPPER(#{workno})
+
+    <if test="tempcontent!= null and tempcontent !=''"> AND a.msg like concat('%', #{tempcontent}, '%') </if>
+    <if test="taskstatus!= null and taskstatus !='all'">
+      <choose>
+        <when test="taskstatus == 0">
+          and a.state IN('-3','-2','-1')
+        </when>
+        <when test="taskstatus == 1">
+          and a.state ='0'
+        </when>
+        <when test="taskstatus == 2">
+          and a.state = '2'
+        </when>
+        <when test="taskstatus == 3">
+          and a.state = '3'
+        </when>
+        <otherwise></otherwise>
+      </choose>
+
+    </if>
+  </select>
+
+  <select id="queryrecordcount"  resultType="int">
+    SELECT COUNT(*) FROM tb_s_task_a WHERE phone_b =#{receiver}
+    and  create_time > DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')
+</select>
+
+  <select id="getSmsAndDeposit" resultType="string">
+
+    SELECT  CONCAT(
+    (SELECT IFNULL(CONCAT( SUM(CASE WHEN DAY(send_end_time) = DAY(NOW()) THEN 1 ELSE 0 END),
+    '-',COUNT(*) ),'0-0')  FROM tb_s_task_a a WHERE employee_id=#{employeeid}
+        AND DATE_FORMAT(send_end_time, '%Y%m' )= DATE_FORMAT(CURDATE(), '%Y%m' ))
+    ,'-', ROUND(IFNULL((SELECT SUM(t.avail_money) FROM tb_s_deposit t WHERE t.belong_id=#{employeeid} ),0)/100,2))
+    FROM DUAL;
+
+  </select>
+
+
+  <select id="getSmsNoticeSeq" resultType="java.lang.String">
+    SELECT NEXTVAL(#{transType,jdbcType=VARCHAR});
+  </select>
+
+  <select id="getNeedNoticeSms"  resultMap="BaseResultMap" >
+    SELECT  a.task_id, a.req_seq,a.phone_b,a.notice_url,state
+    FROM tb_s_task_a a
+    WHERE  notice_state='0' and notice_url !=''
+    AND state IN('4','5','6','7','11')  order by a.create_time desc limit 0,100
+  </select>
+
+  <update id="updateNoticeStatus"   parameterType="com.funtalk.pojo.TbSTaskA">
+
+    update tb_s_task_a
+    set notice_state=#{subtask.noticeState},notice_seq=#{subtask.noticeSeq},
+        notice_time=#{subtask.noticeTime},notice_back=#{subtask.noticeBack}
+    where task_id =#{subtask.taskId}
+  </update>
+
+
+</mapper>
