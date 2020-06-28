@@ -145,7 +145,7 @@ public class EJoinController {
     }
 
 
-    @Scheduled(cron = " * 1 * * *")
+    @Scheduled(cron = " * 1 * * * *")
     @ResponseBody
     public void checkRest(){
 
@@ -303,29 +303,30 @@ public class EJoinController {
                                         return;
                                     }
 
-                                    Thread.sleep(28000);
+                                //删卡
 
-                                        //删卡
-                                        do{
-                                            try {
+                                    Thread.sleep(32000);
 
-                                                cluster = CCHOMethod(port, ip, userName, password);
-                                            }catch (Exception e){
-                                                Thread.sleep(3000);
-                                            }
-                                        }
-                                        while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
-
-                                    cluster = CCHOMethod(port, ip, userName, password);
-                                    if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
-                                        if (!CGLAMethod("" + port, cluster, thisCard.getTbSPhone().getDeldata(), ip, userName, password)) {
-                                            System.out.println("ejoinLog:"+date+"------"+ip + ":" + port + " " + iccid + "delete---error");
-                                            return;
-                                        }
-                                    }else {
-                                        System.out.println("ejoinLog:"+"open cluster error");
+//                                        do{
+//                                            try {
+//
+//                                                cluster = CCHOMethod(port, ip, userName, password);
+//                                            }catch (Exception e){
+//                                                Thread.sleep(5000);
+//                                            }
+//                                        }
+//                                        while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
+                                cluster = CCHOMethod(port, ip, userName, password);
+                                if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
+                                    if (!CGLAMethod("" + port, cluster, thisCard.getTbSPhone().getDeldata(), ip, userName, password)) {
+                                        System.out.println("ejoinLog:" + date + "------" + ip + ":" + port + " " + iccid + "delete---error");
                                         return;
                                     }
+                                }else {
+                                    System.out.println("ejoinLog:"+"open cluster error");
+                                    return;
+                                }
+
                                     //把旧卡状态\ip更新为-1
                                     eJoinService.upByIccid("0", "0", -1, iccid);
                                     CCHCMethod(port, cluster, ip, userName, password);
@@ -438,7 +439,6 @@ public class EJoinController {
                 userName=tbPIpMap.getUserName();
                 password=tbPIpMap.getPassword();
                 if(cards.get(i).getPort()!=null&&cards.get(i).getPort().length()!=0) {
-                    OPMethod(cards.get(i).getPort(),cards.get(i).getIp(),userName,password,"lock");
                     CCHCMethod(cards.get(i).getPort(),"1",cards.get(i).getIp(),userName,password);
                     CCHCMethod(cards.get(i).getPort(),"2",cards.get(i).getIp(),userName,password);
                     CCHCMethod(cards.get(i).getPort(),"3",cards.get(i).getIp(),userName,password);
@@ -467,14 +467,15 @@ public class EJoinController {
                             eJoinService.upByIccid(cards.get(i).getIp(), cards.get(i).getPort(), 1, newcards.get(i).getIccid());
                             eJoinService.upByIccid("", "", 0, cards.get(i).getIccid());
                         }
-                        do{
-                            try {
-                                cluster = CCHOMethod(cards.get(i).getPort(), cards.get(i).getIp(),userName,password);
-                            }catch (Exception e){
-                                cluster="-1";
-                                Thread.sleep(5000);
-                            }
-                        }while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
+                        Thread.sleep(32000);
+//                        do{
+//                            try {
+//                                cluster = CCHOMethod(cards.get(i).getPort(), cards.get(i).getIp(),userName,password);
+//                            }catch (Exception e){
+//                                cluster="-1";
+//                                Thread.sleep(5000);
+//                            }
+//                        }while(!cluster.equals("1") && !cluster.equals("2") && !cluster.equals("3"));
                         cluster = CCHOMethod(cards.get(i).getPort(), cards.get(i).getIp(),userName,password);
                         if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
                             if(!CGLAMethod(cards.get(i).getPort(),cluster,cards.get(i).getTbSPhone().getDeldata(),cards.get(i).getIp(),userName,password)){
