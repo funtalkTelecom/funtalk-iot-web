@@ -5,82 +5,7 @@
     <title>Title</title>
     <%@include file="/includes/cssfile.jsp"%>
     <%@include file="/includes/jsfile.jsp"%>
-    <script>
-        function selectPort(){
-            var IPPorts=document.getElementsByName("IPPorts");
-            for(var i in IPPorts){
-                var s=IPPorts[i];
-                if(s.value.substring(0,s.value.indexOf("-"))==$(this).attr("id")){
-                    alert("aa");
-                }
-            }
-        };
-        function showDist(){
-            document.getElementById("distribute").style.display="block";
-            document.getElementById("aDist").style.backgroundColor="lightgrey";
-            document.getElementById("recover").style.display="none";
-            document.getElementById("aRec").style.backgroundColor="white";
-            document.getElementById("initialize").style.display="none";
-            document.getElementById("aNew").style.backgroundColor="white";
-            document.getElementById("forceChange").style.display="none";
-            document.getElementById("aForce").style.backgroundColor="white";
-        };
-        function showRec(){
-            document.getElementById("distribute").style.display="none";
-            document.getElementById("recover").style.display="block";
-            document.getElementById("initialize").style.display="none";
-            document.getElementById("aDist").style.backgroundColor="white";
-            document.getElementById("aRec").style.backgroundColor="lightgrey";
-            document.getElementById("aNew").style.backgroundColor="white";
-            document.getElementById("forceChange").style.display="none";
-            document.getElementById("aForce").style.backgroundColor="white";
-        };
-        function showNew(){
-            document.getElementById("distribute").style.display="none";
-            document.getElementById("recover").style.display="none";
-            document.getElementById("initialize").style.display="block";
-            document.getElementById("aDist").style.backgroundColor="white";
-            document.getElementById("aRec").style.backgroundColor="white";
-            document.getElementById("aNew").style.backgroundColor="lightgrey";
-            document.getElementById("forceChange").style.display="none";
-            document.getElementById("aForce").style.backgroundColor="white";
-        };
-        function showForce(){
-            document.getElementById("distribute").style.display="none";
-            document.getElementById("recover").style.display="none";
-            document.getElementById("initialize").style.display="none";
-            document.getElementById("aDist").style.backgroundColor="white";
-            document.getElementById("aRec").style.backgroundColor="white";
-            document.getElementById("aNew").style.backgroundColor="white";
-            document.getElementById("forceChange").style.display="block";
-            document.getElementById("aForce").style.backgroundColor="lightgrey";
-        };
 
-        function distribute(){
-            var IPPorts=document.getElementsByName("IPPorts");
-            var IPPort=[];
-            for(var i in IPPorts){
-                if(IPPorts[i].checked){
-                    IPPort.push(IPPorts[i].value);
-                }
-            }
-            $.ajax({
-                url:'<%=request.getContextPath()%>/ejoin/distribute',
-                dataType:'json',
-                type:'POST',
-                data:{IPPorts:IPPort.join(),cust_id:$("#cust_id").val(),num:$("#num").val()},
-                error:function(){
-                    alert("error")
-                },
-                success:function () {
-                    alert("分配成功！")
-                }
-            })
-
-
-        };
-
-    </script>
 </head>
 <body>
 
@@ -155,7 +80,84 @@
             </div>
         </c:forEach>
     </div>
-    <input type="button" onclick="select()" class="btn btn-default" value="aaaaa">
 </div>
 </body>
+
+<script>
+
+    function selectPort(){
+        var IPPorts=document.getElementsByName("IPPorts");
+        for(var i in IPPorts){
+            var s=IPPorts[i];
+            if(s.value.substring(0,s.value.indexOf("-"))==$(this).attr("id")){
+                alert("aa");
+            }
+        }
+    };
+    function showDist(){
+        document.getElementById("distribute").style.display="block";
+        document.getElementById("aDist").style.backgroundColor="lightgrey";
+        document.getElementById("recover").style.display="none";
+        document.getElementById("aRec").style.backgroundColor="white";
+        document.getElementById("initialize").style.display="none";
+        document.getElementById("aNew").style.backgroundColor="white";
+        document.getElementById("forceChange").style.display="none";
+        document.getElementById("aForce").style.backgroundColor="white";
+    };
+    function showRec(){
+        document.getElementById("distribute").style.display="none";
+        document.getElementById("recover").style.display="block";
+        document.getElementById("initialize").style.display="none";
+        document.getElementById("aDist").style.backgroundColor="white";
+        document.getElementById("aRec").style.backgroundColor="lightgrey";
+        document.getElementById("aNew").style.backgroundColor="white";
+        document.getElementById("forceChange").style.display="none";
+        document.getElementById("aForce").style.backgroundColor="white";
+    };
+    function showNew(){
+        document.getElementById("distribute").style.display="none";
+        document.getElementById("recover").style.display="none";
+        document.getElementById("initialize").style.display="block";
+        document.getElementById("aDist").style.backgroundColor="white";
+        document.getElementById("aRec").style.backgroundColor="white";
+        document.getElementById("aNew").style.backgroundColor="lightgrey";
+        document.getElementById("forceChange").style.display="none";
+        document.getElementById("aForce").style.backgroundColor="white";
+    };
+    function showForce(){
+        document.getElementById("distribute").style.display="none";
+        document.getElementById("recover").style.display="none";
+        document.getElementById("initialize").style.display="none";
+        document.getElementById("forceChange").style.display="block";
+        document.getElementById("aDist").style.backgroundColor="white";
+        document.getElementById("aRec").style.backgroundColor="white";
+        document.getElementById("aNew").style.backgroundColor="white";
+        document.getElementById("aForce").style.backgroundColor="lightgrey";
+    };
+
+    function distribute(){
+        var IPPorts=document.getElementsByName("IPPorts");
+        var IPPort=[];
+        for(var i in IPPorts){
+            if(IPPorts[i].checked){
+                IPPort.push(IPPorts[i].value);
+            }
+        }
+        $.ajax({
+            url:'<%=request.getContextPath()%>/ejoin/distribute',
+            dataType:'json',
+            type:'POST',
+            data:{IPPorts:IPPort.join(),cust_id:$("#cust_id").val(),num:$("#num").val()},
+            error:function(){
+                alert("error")
+            },
+            success:function () {
+                alert("分配成功！")
+            }
+        })
+
+
+    };
+
+</script>
 </html>

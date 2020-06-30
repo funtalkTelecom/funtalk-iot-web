@@ -256,6 +256,7 @@ public class EJoinController {
                                         return;
                                     }
                                     if(hasCard.get(thisCard.getCustId())==false){
+                                        hasCard.put(thisCard.getCustId(),true);
                                         List<TbSChangeiccid> mycards=eJoinService.queryAll(1,thisCard.getCustId());
                                         for(TbSChangeiccid card:mycards){
                                             OPMethod(card.getPort(),card.getIp(),userName,password,"unlock");
@@ -693,10 +694,10 @@ public class EJoinController {
 
     private static boolean OPMethod(String port, String ip,String userName,String password,String op){
         String url = "http://"+ip+"/goip_send_cmd.html?username="+userName+"&password="+password+"&port=" + port + "&op=" + op;
-        HttpClient4 client4 = new HttpClient4();
-        String result = client4.doGet(url);
-        JSONObject object = JSON.parseObject(result);
         try {
+            HttpClient4 client4 = new HttpClient4();
+            String result = client4.doGet(url);
+            JSONObject object = JSON.parseObject(result);
             String str=object.get("reason").toString();
             return str.contains("OK");
         }catch (Exception e){
