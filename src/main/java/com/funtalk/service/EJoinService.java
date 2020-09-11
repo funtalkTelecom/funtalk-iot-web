@@ -98,4 +98,6 @@ public class EJoinService {
     public boolean upByIccid(String ip,String port,int statu,String iccid){return tbSChangeiccidMapper.upByIccid(statu,port,ip,iccid);}
 
     public List<Map> checkRest(){return tbSChangeiccidMapper.checkRest();}
+
+    public String queryLessRes(String cust_id){return tbSChangeiccidMapper.queryLessRes(cust_id);};
 }

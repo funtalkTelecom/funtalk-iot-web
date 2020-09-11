@@ -202,5 +202,7 @@
   <select id="checkRest" resultType="java.util.Map">
     select count(*) as count,cust_id as cust_id from tb_s_changeiccid where mon_max=60 and statu=-1 and mon_max&gt;mon_dur  and day_dur&lt;day_max group by cust_id;
   </select>
-
+  <select id="queryLessRes" resultType="java.lang.String">
+    SELECT (sum(mon_max)-sum(mon_dur)) as less_res from tb_s_changeiccid where cust_id=#{cust_id} and mon_max&gt;mon_dur and statu in(1,-1) and day_dur&lt;day_max;
+  </select>
 </mapper>

@@ -24,6 +24,9 @@
             <div style="margin-top:10px">
                 <span style="font-size:18px">卡量：${total}</span>
             </div>
+            <div style="margin-top:10px">
+                <span style="font-size:18px">剩余分钟：${less_res}</span>
+            </div>
 
         </div>
         <div>

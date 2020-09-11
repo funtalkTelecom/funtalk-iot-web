@@ -408,8 +408,11 @@ public class EJoinController {
             map.put(ip,ports);
         }
 
+        String less_res = eJoinService.queryLessRes(cust_id);
+
         model.addAttribute("total",total);
         model.addAttribute("IPPort",map);
+        model.addAttribute("less_res",less_res);
         model.addAttribute("cust_id",cust_id);
         return "/ejoin/watcher";
     }
