@@ -29,7 +29,7 @@ public class SmsResultNoticeJob {
      * developed by simple.
      */
 
-    @Scheduled(fixedDelay=10000)
+//    @Scheduled(fixedDelay=10000)
     //fixedRate 任务两次执行时间间隔是任务的开始点.  fixedDelay的间隔是前次任务的结束与下次任务的开始. 毫秒
     public void smsResultNoticeJob() throws Exception {
 

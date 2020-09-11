@@ -145,13 +145,6 @@ public class EJoinController {
     }
 
 
-    @Scheduled(cron = " * 1 * * * *")
-    @ResponseBody
-    public void checkRest(){
-
-    }
-
-
     //接收一正设备报告
     @RequestMapping("/api/ejoin/report")
     @ResponseBody
