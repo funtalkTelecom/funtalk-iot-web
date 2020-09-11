@@ -21,7 +21,6 @@ public class SmsResultNoticeJob {
 
     Logger logger = Logger.getLogger(SmsResultNoticeJob.class);
 
-
     @Autowired   TbSTaskAMapper  tbSTaskAMapper;
 
 

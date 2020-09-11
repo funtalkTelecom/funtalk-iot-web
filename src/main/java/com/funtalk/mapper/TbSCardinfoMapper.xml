@@ -702,4 +702,11 @@
       </foreach>
     </update>
 
+  <update id="initializeDayuse">
+    UPDATE tb_s_cardinfo
+       SET day_use=0
+     WHERE if_seed='0' AND state='2HA'
+            AND month_use &lt; month_total
+  </update>
+
 </mapper>

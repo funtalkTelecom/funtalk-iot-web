@@ -21,7 +21,7 @@ public class SmsBossStatusJob {
     Logger logger =Logger.getLogger(SmsBossStatusJob.class);
 
     @Autowired private  BfCdmaSmCallTMapper bfCdmaSmCallTMapper;
-    @Autowired private TbSTaskAMapper  tbSTaskAMapper;
+    @Autowired private  TbSTaskAMapper  tbSTaskAMapper;
 
 
     /**
@@ -29,7 +29,7 @@ public class SmsBossStatusJob {
      * 查询1天内模组发送成功的订单在boss系统中的记录  查到,更新为4
      * developed by simple.
      */
-    @Scheduled(fixedDelay=30000)
+//    @Scheduled(fixedDelay=30000)
     public void smsBossStatusCheckByDay(){
 
         this.smsBossStatusCheck("0",-2);  // 过去两个小时内
@@ -106,7 +106,7 @@ public class SmsBossStatusJob {
                     calendar.add(Calendar.DAY_OF_MONTH,-1);
 
                     SimpleDateFormat df= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    logger.info("--------------"+df.format(calendar.getTime()));
+                    logger.info("-----------------------------"+df.format(calendar.getTime()));
 
                     // 模组发送成功   and 过去xx小时内有话单  更新为4
                     // 模组发送成功   and 过去xx小时内无话单  更新为5

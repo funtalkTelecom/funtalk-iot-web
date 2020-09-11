@@ -5,10 +5,7 @@ import com.funtalk.mapper.TbOBatchsubMapper;
 import com.funtalk.outerface.neusoft.paymentBank.PaymentBankClient;
 import com.funtalk.outerface.neusoft.paymentBank.PaymentBankRequest;
 import com.funtalk.outerface.neusoft.paymentBank.PaymentBankResponse;
-import com.funtalk.pojo.TbOBatchrecharge;
-import com.funtalk.pojo.TbOBatchrechargeExample;
-import com.funtalk.pojo.TbOBatchsub;
-import com.funtalk.pojo.TbOBatchsubExample;
+import com.funtalk.pojo.*;
 import com.funtalk.utils.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +33,7 @@ public class RechargeToBossJob {
      * 每隔10s查询一次
      * developed by simple.
      */
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     public void batchRecharge(){
 
 
@@ -44,6 +41,7 @@ public class RechargeToBossJob {
         List<TbOBatchsub>  tbOBatchsubList;
 
         int  falseNum=0;
+        String payStr="";
         Map paramMap = new HashMap();
 
         TbOBatchrechargeExample  tbOBatchrechargeExample = new TbOBatchrechargeExample();
@@ -84,9 +82,24 @@ public class RechargeToBossJob {
 
                  logger.info("开始充值·················");
 
-                 PaymentBankRequest bossRequest = null;
+                 //新boss充值 未完成
+            /*   try{
 
-                 try {
+                   payStr="{amount:"+tbOBatchsub.getRechargeAmount().multiply(new BigDecimal(100)).longValue()+",serviceNum:"+tbOBatchsub.getAccNbr()+"}";
+
+                   NbRechargeData nbRechargeData= new NbRechargeData("appKey", payStr,
+                                                           "RECHARGE","timeStamp",
+                                                           "transactionId");
+
+                 }catch (Exception e){
+
+                 }*/
+
+
+            //东软boss充值  已完成
+        /*   PaymentBankRequest bossRequest = null;
+
+               try {
 
                      if (!StringUtil.isEmpty(tbOBatchsub.getAccNbr()) &&
                              tbOBatchsub.getRechargeAmount().multiply(new BigDecimal(100)).longValue() >0)
@@ -159,13 +172,13 @@ public class RechargeToBossJob {
                      tbOBatchsub.setRechargeMark("充值失败:连接BOSS或电信系统失败,请尝试重新补充!");
                      tbOBatchsubMapper.updateByPrimaryKeySelective(tbOBatchsub);
 
-                 }
+                 }*/
              }
 
-            paramMap.put("batchId",tbOBatchrecharge.getBatchId());
-             //  1:全部成功 -1 全部失败 -2 部分失败
-            paramMap.put("rechargeState",falseNum == 0 ? "1" :( falseNum == tbOBatchsubList.size() ?"-1":"-2") );
-            tbOBatchrechargeMapper.updateState(paramMap);
+//            paramMap.put("batchId",tbOBatchrecharge.getBatchId());
+//             //  1:全部成功 -1 全部失败 -2 部分失败
+//            paramMap.put("rechargeState",falseNum == 0 ? "1" :( falseNum == tbOBatchsubList.size() ?"-1":"-2") );
+//            tbOBatchrechargeMapper.updateState(paramMap);
 
         }
     }

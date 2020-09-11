@@ -7,6 +7,8 @@ package com.funtalk;
 @Configuration
 @MapperScan(basePackages = "com.funtalk.mapper")*/
 
+// 说明
+
 /*项目启动类 这是启动的方式之一*/
 public class App {
 

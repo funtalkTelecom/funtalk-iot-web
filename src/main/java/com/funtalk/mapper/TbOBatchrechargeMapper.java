@@ -1,6 +1,5 @@
 package com.funtalk.mapper;
 
-import com.funtalk.pojo.SubTask;
 import com.funtalk.pojo.TbOBatchrecharge;
 import com.funtalk.pojo.TbOBatchrechargeExample;
 import com.funtalk.pojo.TbOBatchsub;

@@ -32,6 +32,8 @@ public interface TbSCardinfoMapper {
 
     int updateByPrimaryKey(TbSCardinfo record);
 
+    int initializeDayuse();
+
     List<TbSCardinfo> selectByIccidList(@Param("iccidList") List<String> iccidList);
 
     int updateByIccid(@Param("tbSCardinfo") TbSCardinfo tbSCardinfo);
